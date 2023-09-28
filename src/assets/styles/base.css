@@ -1,0 +1,105 @@
+/* global styles here */
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  src: url("../fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 100 200 300 400 500 600 700 800;
+  src: url("../fonts/RobotoMono-VariableFont_wght.ttf") format("truetype");
+}
+
+:root {
+  --gray-50: #f6f6f6;
+  --gray-100: #e7e7e7;
+  --gray-200: #d1d1d1;
+  --gray-300: #b0b0b0;
+  --gray-400: #888888;
+  --gray-500: #6d6d6d;
+  --gray-600: #5d5d5d;
+  --gray-700: #4f4f4f;
+  --gray-800: #454545;
+  --gray-900: #3d3d3d;
+  --gray-950: #222222;
+
+  --green-50: #eefbf4;
+  --green-100: #d6f5e2;
+  --green-200: #b1e9ca;
+  --green-300: #7ed7ac;
+  --green-400: #42b883;
+  --green-500: #27a26f;
+  --green-600: #188359;
+  --green-700: #136949;
+  --green-800: #12533c;
+  --green-900: #104432;
+  --green-950: #08261c;
+
+  --cumulus-50: #fbffdb;
+  --cumulus-100: #f7fec9;
+  --cumulus-200: #edfd99;
+  --cumulus-300: #def85e;
+  --cumulus-400: #caee2d;
+  --cumulus-500: #acd40e;
+  --cumulus-600: #86aa06;
+  --cumulus-700: #65810a;
+  --cumulus-800: #50650f;
+  --cumulus-900: #435611;
+  --cumulus-950: #233003;
+
+  --nav-bar-height: 61px;
+}
+
+html, body, input, button {
+  font-family: "Inter";
+  font-weight: 500;
+}
+
+body {
+  background-color: var(--gray-950);
+  color: var(--gray-200);
+  margin: 0;
+}
+
+a {
+  color: var(--gray-400);
+  text-decoration: none;
+  transition: color 100ms ease-in-out;
+
+  &:hover {
+      color: var(--gray-300);
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+hr {
+  border: 1px solid var(--gray-900);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 0.625rem;
+  background-color: var(--gray-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--gray-600);
+}
