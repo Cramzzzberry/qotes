@@ -28,10 +28,11 @@ const props = defineProps({
   display: flex;
   flex-direction: row;
   height: fit-content;
-  transition: background-color 100ms ease-in-out;
+  transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 
   &:hover {
     background-color: var(--gray-800);
+    color: var(--gray-200);
   }
 
   & > .key {

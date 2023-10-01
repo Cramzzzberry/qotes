@@ -34,7 +34,7 @@ defineEmits(['update:label'])
 <style scoped>
 .dropdown {
   position: relative;
-
+  user-select: none;
   & > .dropdown-btn {
     display: flex;
     flex-direction: row;
@@ -63,8 +63,10 @@ defineEmits(['update:label'])
     flex-direction: column;
     gap: 0.5rem;
 
+    --padding-x: 1rem;
+
     position: absolute;
-    top: calc(100% + 0.5rem);
+    top: calc(100% + 8px);
     padding: 0.5rem;
     width: calc(100% - var(--padding-x));
 
@@ -73,15 +75,14 @@ defineEmits(['update:label'])
 
     opacity: 0;
     visibility: hidden;
-    width: 100%;
     z-index: 10;
+    overflow-y: auto;
 
     transition: opacity 65ms ease-in-out, visibility 65ms ease-in-out;
 
-    
-    --padding-x: 1rem;
-
     & > li {
+      width: 100%;
+      
       & > input[type="radio"] {
         & + label {
           display: block;

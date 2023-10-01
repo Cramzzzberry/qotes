@@ -1,20 +1,22 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import sanitizeHtml from 'sanitize-html';
-import htmlParse from '../../assets/scripts/chordsheet';
+import sanitizeHtml from 'sanitize-html'
+import htmlParse from '@/assets/scripts/chordsheet'
 
 const route = useRoute()
 
-const csInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n`);
-const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAttributes: false })
-);
+const csInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n[Intro]\nC    G  Am  F\nThis is a lyrics`)
+const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAttributes: false }))
 </script>
 
 <template>
   <div class="navbar">
     <div> <!-- logo -->
-      <router-link to="/dashboard" class="main-brand">Achord</router-link>
+      <router-link to="/dashboard" class="back-btn">
+        <span class="material-icons">arrow_back</span>
+        <span>Go back</span>
+      </router-link>
     </div>
     <div class="profile-wrapper"> <!-- profile-cluster -->
       <div class="editor-toggle">
@@ -32,7 +34,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
 
   <div class="body">
     <div class="textarea-wrapper">
-      <textarea v-model="csInput"></textarea>
+      <textarea v-model="csInput" spellcheck="false"></textarea>
     </div>
     <div class="markdown-preview" v-html="csHtml">
     </div>
@@ -55,17 +57,14 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
   background-color: var(--gray-950);
   border-bottom: 1px solid var(--gray-900);
 
-  & > div > .main-brand {
-    color: var(--green-400);
-    font-size: 1.5rem;
-    font-weight: 600;
+  & > div > .back-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 
-    opacity: 1;
-    transition: opacity 100ms ease-in-out;
-
-    &:hover {
-      opacity: 0.75;
-    }
+    width: fit-content;
+    padding: 6px 0;
   }
 
   & > .tabs {
@@ -161,8 +160,8 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
       & > .profile-picture {
         flex-shrink: 0;
 
-        width: 2rem;
-        height: 2rem;
+        width: 32px;
+        height: 32px;
 
         background-color: var(--green-400);
         border-radius: 100%;
@@ -189,7 +188,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
       outline: none;
 
       background-color: var(--gray-950);
-      color: var(--gray-300);
+      color: var(--gray-200);
       font-size: 1rem;
       font-family: 'RobotoMono';
     }

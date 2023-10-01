@@ -1,5 +1,5 @@
 <script setup>
-import VFileItem from '../ui/VFileItem.vue';
+import VFileItem from '@/components/ui/VFileItem.vue'
 
 const props = defineProps({
   fetchUrl: String,

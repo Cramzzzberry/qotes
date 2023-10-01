@@ -1,9 +1,11 @@
 <script setup>
-import { ref } from 'vue';
-import VNavbar from '../ui/VNavBar.vue';
-import VCompactList from '../ui/VCompactList.vue';
-import VDropdownMenu from '../ui/VDropdownMenu.vue';
-import VWeekBlock from '../ui/VWeekBlock.vue';
+import { ref } from 'vue'
+import VNavbar from '@/components/ui/VNavBar.vue'
+import VCompactList from '@/components/ui/VCompactList.vue'
+import VDropdownList from '@/components/ui/VDropdownList.vue'
+import VWeekBlock from '@/components/ui/VWeekBlock.vue'
+
+let date = new Date();
 
 const months = [
   'January', 'February', 'March', 'April',
@@ -11,7 +13,19 @@ const months = [
   'September', 'October', 'November', 'December',
 ]
 
-const years = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010];
+function getRangeOfYears(currentYr) {
+  let rangeOfYears = []
+
+  for(var i = 5; i >= 0; i--) {
+    rangeOfYears.push(currentYr - i)
+  }
+
+  rangeOfYears.push(currentYr + 1)
+
+  return rangeOfYears
+}
+
+const years = getRangeOfYears(date.getFullYear())
 
 const recentFiles = ref([
   {
@@ -26,10 +40,10 @@ const recentFiles = ref([
   {
     'label': 'File name 4',
   },
-]);
+])
 
-const monthPicked = ref('April');
-const yearPicked = ref('2010');
+const monthPicked = ref(months[date.getMonth()])
+const yearPicked = ref(date.getFullYear().toString())
 </script>
 
 <template>
@@ -41,17 +55,17 @@ const yearPicked = ref('2010');
         <!-- calendar filter -->
         <span class="menu-title">Filter</span>
         <div class="calendar-filter">
-          <VDropdownMenu 
+          <VDropdownList 
             :items="months" 
             v-model:label="monthPicked" 
             name="months" 
-            class="month-filter" />
+            class="month-filter dropdown-height-limit" />
 
-          <VDropdownMenu 
+          <VDropdownList 
             :items="years" 
             v-model:label="yearPicked" 
             name="years" 
-            class="year-filter" />
+            class="year-filter dropdown-height-limit" />
         </div>
       </div>
       <hr>
@@ -78,7 +92,7 @@ const yearPicked = ref('2010');
   padding: 0 160px;
 
   & > .side-bar {
-    height: 100%;
+    /* height: 100%; */
     flex-basis: 320px;
     padding: 0 8px 16px 16px;
     overflow-y: auto;
@@ -102,6 +116,10 @@ const yearPicked = ref('2010');
         & > .year-filter {
           flex-basis: 40%;
           position: relative;
+        }
+
+        & > .dropdown-height-limit :deep(.dropdown-content) {
+          max-height: calc(100vh - (82px + 61px + 16px + 16px));
         }
       }
     }

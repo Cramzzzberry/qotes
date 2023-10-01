@@ -22,7 +22,7 @@
   --gray-700: #4f4f4f;
   --gray-800: #454545;
   --gray-900: #3d3d3d;
-  --gray-950: #222222;
+  --gray-950: #191919;
 
   --green-50: #eefbf4;
   --green-100: #d6f5e2;
@@ -47,6 +47,8 @@
   --cumulus-800: #50650f;
   --cumulus-900: #435611;
   --cumulus-950: #233003;
+  
+  
 
   --nav-bar-height: 61px;
 }
@@ -68,7 +70,7 @@ a {
   transition: color 100ms ease-in-out;
 
   &:hover {
-      color: var(--gray-300);
+      color: var(--gray-200);
   }
 }
 
@@ -97,6 +99,7 @@ ul, ol {
 /* scrollbar */
 ::-webkit-scrollbar {
   width: 0.625rem;
+  height: 0.625rem;
   background-color: var(--gray-900);
 }
 
