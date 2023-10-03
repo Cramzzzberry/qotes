@@ -22,24 +22,24 @@ const props = defineProps({
 <style scoped>
 .box {
   align-items: center;
-  background-color: var(--gray-900);
+  background-color: var(--gray-100);
   border-radius: 4px;
-  color: var(--gray-300);
+  color: var(--gray-700);
   display: flex;
   flex-direction: row;
   height: fit-content;
   transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
 
   &:hover {
-    background-color: var(--gray-800);
-    color: var(--gray-200);
+    background-color: var(--gray-200);
+    color: var(--gray-800);
   }
 
   & > .key {
     align-items: center;
     background-color: var(--green-400);
     border-radius: 4px;
-    color: var(--green-900);
+    color: var(--green-50);
     display: flex;
     font-size: 40px;
     height: 75px;
@@ -56,7 +56,7 @@ const props = defineProps({
       width: 100%;
 
       & > .info {
-        color: var(--gray-400);
+        color: var(--gray-600);
         font-size: 0.875rem;
         font-style: italic;
       }

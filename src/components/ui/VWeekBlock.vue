@@ -31,7 +31,7 @@ const props = defineProps({
   margin-bottom: 12px;
 
   & > .week-name {
-    background-color: var(--gray-950);
+    background-color: var(--gray-50);
     padding-top: 16px;
     position: sticky;
     top: 0;

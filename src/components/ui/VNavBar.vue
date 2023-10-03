@@ -26,8 +26,8 @@
   height: 61px;
   padding: 0.5rem 10rem;
 
-  background-color: var(--gray-950);
-  border-bottom: 1px solid var(--gray-900);
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
 
   & > div > .main-brand {
     color: var(--green-400);
@@ -35,10 +35,10 @@
     font-weight: 600;
 
     opacity: 1;
-    transition: opacity 100ms ease-in-out;
+    transition: color 100ms ease-in-out;
 
     &:hover {
-      opacity: 0.75;
+      color: var(--green-300);
     }
   }
 
@@ -46,12 +46,12 @@
     --padding-x: 1rem;
     padding: 0.75rem var(--padding-x);
 
-    background-color: var(--gray-900);
+    background-color: var(--gray-100);
     border: none;
     border-radius: 4px;
     outline: none;
 
-    color: var(--gray-300);
+    color: var(--gray-700);
     font-size: 1rem;
   }
 

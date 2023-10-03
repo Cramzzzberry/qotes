@@ -44,9 +44,9 @@ defineEmits(['update:label'])
     padding: 0.5rem 0.625rem 0.5rem 1rem;
     width: 100%;
 
-    background-color: var(--gray-950);
-    color: var(--gray-400);
-    border: 1px solid var(--gray-900);
+    background-color: var(--gray-50);
+    color: var(--gray-600);
+    border: 1px solid var(--gray-100);
     border-radius: 4px;
     font-size: 1rem;
 
@@ -54,7 +54,7 @@ defineEmits(['update:label'])
     transition: border 100ms ease-in-out;
 
     &:hover {
-      border: 1px solid var(--green-400);
+      border: 1px solid var(--green-600);
     }
   }
 
@@ -70,7 +70,7 @@ defineEmits(['update:label'])
     padding: 0.5rem;
     width: calc(100% - var(--padding-x));
 
-    background-color: var(--gray-900);
+    background-color: var(--gray-100);
     border-radius: 4px;
 
     opacity: 0;
@@ -90,25 +90,25 @@ defineEmits(['update:label'])
           padding: 0.5rem var(--padding-x);
 
           background-color: transparent;
-          color: var(--gray-300);
+          color: var(--gray-700);
           border-radius: 4px;
 
           cursor: pointer;
           transition: background-color 25ms ease-in-out, color 25ms ease-in-out;
 
           &:hover {
-            color: var(--gray-200);
-            background-color: var(--gray-700);
+            color: var(--gray-800);
+            background-color: var(--gray-200);
           }
         }
 
         &:checked + label {
           background-color: var(--green-400);
-          color: var(--green-950);
+          color: var(--green-50);
 
           &:hover {
             background-color: var(--green-400);
-            color: var(--green-950);
+            color: var(--green-50);
           }
         }
       }

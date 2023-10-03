@@ -36,8 +36,8 @@ ul {
     transition: background-color 25ms ease-in-out, color 25ms ease-in-out;
 
     &:hover {
-      color: var(--gray-200);
-      background-color: var(--gray-900);
+      color: var(--gray-800);
+      background-color: var(--gray-100);
     }
   }
 }

@@ -6,8 +6,10 @@ import htmlParse from '@/assets/scripts/chordsheet'
 
 const route = useRoute()
 
-const csInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n[Intro]\nC    G  Am  F\nThis is a lyrics`)
+const csInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nC    G  Am  F\nThis is a lyrics`)
 const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAttributes: false }))
+
+const pdf = ref(null)
 </script>
 
 <template>
@@ -36,7 +38,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
     <div class="textarea-wrapper">
       <textarea v-model="csInput" spellcheck="false"></textarea>
     </div>
-    <div class="markdown-preview" v-html="csHtml">
+    <div class="markdown-preview" v-html="csHtml" ref="pdf">
     </div>
   </div>
 </template>
@@ -54,8 +56,8 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
   height: 61px;
   padding: 0 16px;
 
-  background-color: var(--gray-950);
-  border-bottom: 1px solid var(--gray-900);
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
 
   & > div > .back-btn {
     display: flex;
@@ -100,7 +102,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
       gap: 8px;
 
       & > span.material-icons {
-        color: var(--gray-600);
+        color: var(--gray-400);
         font-size: 1.5rem;
         user-select: none;
       }
@@ -114,7 +116,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
         
         padding: 0 2px;
 
-        background-color: var(--gray-900);
+        background-color: var(--gray-100);
 
         width: 40px;
         height: 20px;
@@ -128,7 +130,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
 
         &::after {
           content: "";
-          background-color: var(--gray-400);
+          background-color: var(--gray-600);
 
           width: 18px;
           height: 18px;
@@ -145,7 +147,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
 
           &::after {
             transform: translateX(100%);
-            background-color: var(--green-900);
+            background-color: var(--green-100);
           }
         }
       }
@@ -176,7 +178,7 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
   height: calc(100vh - 61px);
 
   & > .textarea-wrapper {
-    border-right: 1px solid var(--gray-900);
+    border-right: 1px solid var(--gray-100);
     padding: 16px;
 
     & > textarea {
@@ -187,21 +189,19 @@ const csHtml = computed(() => sanitizeHtml(htmlParse(csInput.value), { allowedAt
       border: none;
       outline: none;
 
-      background-color: var(--gray-950);
-      color: var(--gray-200);
+      background-color: var(--gray-50);
+      color: var(--gray-950);
       font-size: 1rem;
       font-family: 'RobotoMono';
     }
   }
 
   & > .markdown-preview {
-    border-left: 1px solid var(--gray-900);
+    border-left: 1px solid var(--gray-100);
     width: 100%;
     height: 100%;
     padding: 0.5in 0.5in;
     overflow-y: auto;
-
-    background-color: var(--gray-950);
   }
 }
 </style>

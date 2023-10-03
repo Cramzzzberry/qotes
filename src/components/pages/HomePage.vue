@@ -98,7 +98,7 @@ const yearPicked = ref(date.getFullYear().toString())
     overflow-y: auto;
 
     & > .upper-side-bar {
-      background-color: var(--gray-950);
+      background-color: var(--gray-50);
       padding-top: 1rem;
       position: sticky;
       top: 0;
