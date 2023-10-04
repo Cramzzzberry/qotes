@@ -1,72 +1,47 @@
-const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
+const setKeys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
+const allKeys = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B']
 
-export default function changeKey(str, newKey, prevKey) {
+export default function changeKey(sheetStr, newKey, prevKey) {
   let newStr = ''
 
-  let newKeyIndex = keys.indexOf(newKey) + 1
-  let prevKeyIndex = keys.indexOf(prevKey) + 1
+  let newKeyIndex = setKeys.indexOf(newKey) + 1
+  let prevKeyIndex = setKeys.indexOf(prevKey) + 1
 
   let goHigher = newKeyIndex > prevKeyIndex
   let keyDiff = goHigher ? newKeyIndex - prevKeyIndex : prevKeyIndex - newKeyIndex
 
-  newStr = replacingKeys(str, keyDiff, newKey, prevKey)
+  newStr = replacingKeys(sheetStr, keyDiff, newKey, prevKey)
 
   return newStr
 }
 
 function replacingKeys(str, keyDiff, newKey, prevKey) {
-  let changedStr = ''
-  const keysObj = {
-    'C': tranposeKey('C', keyDiff, newKey, prevKey),
-    'C#': tranposeKey('C#', keyDiff, newKey, prevKey),
-    'Db': tranposeKey('Db', keyDiff, newKey, prevKey),
-    'D': tranposeKey('D', keyDiff, newKey, prevKey),
-    'D#': tranposeKey('D#', keyDiff, newKey, prevKey),
-    'Eb': tranposeKey('Eb', keyDiff, newKey, prevKey),
-    'E': tranposeKey('E', keyDiff, newKey, prevKey),
-    'F': tranposeKey('F', keyDiff, newKey, prevKey),
-    'F#': tranposeKey('F#', keyDiff, newKey, prevKey),
-    'Gb': tranposeKey('Gb', keyDiff, newKey, prevKey),
-    'G': tranposeKey('G', keyDiff, newKey, prevKey),
-    'G#': tranposeKey('G#', keyDiff, newKey, prevKey),
-    'Ab': tranposeKey('Ab', keyDiff, newKey, prevKey),
-    'A': tranposeKey('A', keyDiff, newKey, prevKey),
-    'A#': tranposeKey('A#', keyDiff, newKey, prevKey),
-    'Bb': tranposeKey('Bb', keyDiff, newKey, prevKey),
-    'B': tranposeKey('B', keyDiff, newKey, prevKey),
+  let transposedKeyObj = {}
+  let regex = ''
+
+  for (let index in allKeys) {
+    //put all keys in an object so the replace method can use it for matching.
+    transposedKeyObj[allKeys[index]] = tranposeKey(allKeys[index], keyDiff, newKey, prevKey)
+
+    //combine the regex strings
+    if (parseInt(index) + 1 == allKeys.length) {
+      regex = regex + checkKey(allKeys[index])
+    } else {
+      regex = regex + checkKey(allKeys[index]) + "|"
+    }
   }
 
-  changedStr = str.replace(new RegExp(
-    checkKey('C') + "|" +
-    checkKey('C#') + "|" +
-    checkKey('Db') + "|" +
-    checkKey('D') + "|" +
-    checkKey('D#') + "|" +
-    checkKey('Eb') + "|" +
-    checkKey('E') + "|" +
-    checkKey('F') + "|" +
-    checkKey('F#') + "|" +
-    checkKey('Gb') + "|" +
-    checkKey('G') + "|" +
-    checkKey('G#') + "|" +
-    checkKey('Ab') + "|" +
-    checkKey('A') + "|" +
-    checkKey('A#') + "|" +
-    checkKey('Bb') + "|" +
-    checkKey('B')
-    , 'g'), function(match) { return keysObj[match] }
-  )
-
-  return changedStr
+  return str.replace(new RegExp(regex, 'g'), function(match) { return transposedKeyObj[match] })
 }
 
 function tranposeKey(key, keyDiff, newKey, prevKey) {
   let changedKeyIndex = 0;
 
-  let newKeyIndex = keys.indexOf(newKey) + 1
-  let prevKeyIndex = keys.indexOf(prevKey) + 1
+  let newKeyIndex = setKeys.indexOf(newKey) + 1
+  let prevKeyIndex = setKeys.indexOf(prevKey) + 1
   let goHigher = newKeyIndex > prevKeyIndex
 
+  // this is for correction, to make the 'counting' work
   if (key === 'Db') {
     key = 'C#'
   } else if (key === 'D#') {
@@ -79,27 +54,23 @@ function tranposeKey(key, keyDiff, newKey, prevKey) {
     key = 'Bb'
   }
 
-  if (goHigher) {
-    if ((keys.indexOf(key) + 1) + keyDiff > keys.length) {
-      changedKeyIndex = (keys.indexOf(key) + keyDiff) - keys.length
+  if (goHigher) {// if the new key is higher than the previous
+    if ((setKeys.indexOf(key) + 1) + keyDiff > setKeys.length) { //if the transposition overflows the array length
+      changedKeyIndex = (setKeys.indexOf(key) + keyDiff) - setKeys.length
     } else {
-      changedKeyIndex = keys.indexOf(key) + keyDiff
+      changedKeyIndex = setKeys.indexOf(key) + keyDiff
     }
   } else {
-    if ((keys.indexOf(key) + 1) - keyDiff <= 0) {
-      changedKeyIndex = (keys.indexOf(key) - keyDiff) + keys.length
+    if ((setKeys.indexOf(key) + 1) - keyDiff <= 0) { //if the transposition overflows the array length, backwards
+      changedKeyIndex = (setKeys.indexOf(key) - keyDiff) + setKeys.length
     } else {
-      changedKeyIndex = keys.indexOf(key) - keyDiff
+      changedKeyIndex = setKeys.indexOf(key) - keyDiff
     }
   }
 
-  // console.log(key + " -> " + keys[changedKeyIndex])
-
-  return keys[changedKeyIndex]
+  return setKeys[changedKeyIndex]
 }
 
 function checkKey(chord) {
-  let regexStr = `(?<=^| |\n)${ chord }(?!#|b)(?=(maj|m|dim|sus|aug|add)?(Md)?d?(?!w))`
-
-  return regexStr
+  return `(?<=^| |\n)${ chord }(?!#|b)(?=(maj|m|dim|sus|aug|add)?(Md)?d?(?!w))`
 }
