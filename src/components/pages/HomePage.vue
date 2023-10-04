@@ -59,13 +59,15 @@ const yearPicked = ref(date.getFullYear().toString())
             :items="months" 
             v-model:label="monthPicked" 
             name="months" 
-            class="dropdown-height-limit relative basis-3/5" />
+            class="dropdown-height-limit relative basis-3/5" 
+          />
 
           <VDropdownList 
             :items="years" 
             v-model:label="yearPicked" 
             name="years" 
-            class="dropdown-height-limit relative basis-2/5" />
+            class="dropdown-height-limit relative basis-2/5"
+          />
         </div>
       </div>
       <hr>

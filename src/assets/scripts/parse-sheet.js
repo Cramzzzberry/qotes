@@ -1,19 +1,19 @@
-export default function htmlParse(input) {
+export default function parseSheet(input) {
   let lineOfStrings = input.split('\n')
   let parsedStrings = []
 
   lineOfStrings.forEach(str => {
     let substr = ''
 
-    if(str.match(/(?<!\w)#{3} /g)) {
+    if (str.match(/(?<!\w)#{3} /g)) {
       //h3
       substr = str.replace('### ', '')
       parsedStrings.push(`<h3>${ substr }</h3>`)
-    } else if(str.match(/(?<!\w)#{2} /g)) {
+    } else if (str.match(/(?<!\w)#{2} /g)) {
       //h2
       substr = str.replace('## ', '')
       parsedStrings.push(`<h2>${ substr }</h2>`)
-    } else if(str.match(/(?<!\w)# /g)) {
+    } else if (str.match(/(?<!\w)# /g)) {
       //h1
       substr = str.replace('# ', '')
       parsedStrings.push(`<h1>${ substr }</h1>`)
