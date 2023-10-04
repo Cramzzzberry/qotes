@@ -6,39 +6,16 @@ const props = defineProps({
 </script>
 
 <template>
-  <ul>
+  <ul class="flex flex-col gap-1 py-1">
     <li v-for="(item, index) in props.lists" :key="index">
-      <a href="#"> <!-- TODO: I will change this if there are links now -->
+      <a 
+        href="#"
+        class="flex flex-row items-center gap-2 px-3 py-2 rounded-sm text-cod-gray-600 transition-colors 
+        duration-[25ms] ease-in-out hover:text-cod-gray-800 hover:bg-cod-gray-100"
+      > <!-- TODO: I will change this if there are links now -->
         <span v-if="props.icon != null" class="material-icons">{{ props.icon }}</span>
         <span>{{ item.label }}</span>
       </a>
     </li>
   </ul>
 </template>
-
-<style scoped>
-ul {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  
-  padding: 0.25rem 0;
-
-  & > li > a {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-
-    padding: 0.5rem 0.75rem;
-    border-radius: 4px;
-
-    transition: background-color 25ms ease-in-out, color 25ms ease-in-out;
-
-    &:hover {
-      color: var(--gray-800);
-      background-color: var(--gray-100);
-    }
-  }
-}
-</style>

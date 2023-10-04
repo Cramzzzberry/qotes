@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import LoginSignupPage from '@/components/pages/LoginSignupPage.vue'
+import LoginPage from '@/components/pages/LoginPage.vue'
 import HomePage from '@/components/pages/HomePage.vue'
 import EditChordsPage from '@/components/pages/EditChordsPage.vue'
 
@@ -9,7 +9,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: LoginSignupPage
+      component: LoginPage
     },
     {
       path: '/dashboard',

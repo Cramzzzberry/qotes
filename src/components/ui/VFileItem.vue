@@ -6,61 +6,20 @@ const props = defineProps({
 </script>
 
 <template>
-  <router-link :to="props.url" class="box">
-    <div class="key">
+  <router-link 
+    :to="props.url" 
+    class="flex flex-row items-center rounded-sm bg-transparent border border-cod-gray-200 text-cod-gray-700 h-fit 
+    transition-colors duration-100 ease-in-out hover:bg-cod-gray-100 hover:border-cod-gray-100 
+    hover:text-cod-gray-800"
+  >
+    <div class="flex justify-center items-center h-20 w-20 rounded-sm bg-ocean-green-400 text-ocean-green-700 text-5xl">
       E
     </div>
-    <div class="details-wrapper">
-      <div class="details">
+    <div class="px-2 py-0">
+      <div class="flex flex-col w-full">
         <span>{{ props.songName }}</span>
-        <span class="info">Songwriter</span>
+        <span class="text-cod-gray-600 text-sm italic">Songwriter</span>
       </div>
     </div>
   </router-link>
 </template>
-
-<style scoped>
-.box {
-  align-items: center;
-  background-color: var(--gray-100);
-  border-radius: 4px;
-  color: var(--gray-700);
-  display: flex;
-  flex-direction: row;
-  height: fit-content;
-  transition: background-color 100ms ease-in-out, color 100ms ease-in-out;
-
-  &:hover {
-    background-color: var(--gray-200);
-    color: var(--gray-800);
-  }
-
-  & > .key {
-    align-items: center;
-    background-color: var(--green-400);
-    border-radius: 4px;
-    color: var(--green-50);
-    display: flex;
-    font-size: 40px;
-    height: 75px;
-    justify-content: center;
-    width: 75px;
-  }
-
-  & > .details-wrapper {
-    padding: 0 8px;
-
-    & > .details {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-
-      & > .info {
-        color: var(--gray-600);
-        font-size: 0.875rem;
-        font-style: italic;
-      }
-    }
-  }
-}
-</style>

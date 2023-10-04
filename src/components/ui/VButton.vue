@@ -2,18 +2,7 @@
 </script>
 
 <template>
-  <button><slot /></button>
+  <button class="px-4 py-3 bg-ocean-green-400 border-none rounded-sm text-ocean-green-950 text-base">
+    <slot />
+  </button>
 </template>
-
-<style scoped>
-button {
-  padding: 0.75rem 1rem;
-
-  background-color: var(--green-400);
-  border: none;
-  border-radius: 4px;
-
-  color: var(--green-950);
-  font-size: 1rem;
-}
-</style>

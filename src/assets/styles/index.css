@@ -1,0 +1,63 @@
+@import "material-icons/iconfont/material-icons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  src: url("../fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 100 200 300 400 500 600 700 800;
+  src: url("../fonts/RobotoMono-VariableFont_wght.ttf") format("truetype");
+}
+
+@layer base {
+
+  h1 { @apply text-3xl font-bold; }
+
+  h2 { @apply text-2xl font-semibold; }
+
+  html { @apply font-['Inter'] font-medium bg-cod-gray-50 text-cod-gray-800; }
+  
+  a { @apply text-cod-gray-700 transition-colors duration-100 ease-in-out hover:text-cod-gray-400; }
+
+  button { @apply cursor-pointer; }
+
+  hr { @apply my-2 border border-cod-gray-100; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { @apply w-2 h-2 bg-cod-gray-100; }
+
+  ::-webkit-scrollbar-thumb { @apply rounded-sm bg-cod-gray-400; }
+}
+
+@layer utilities {
+  .material-icons { @apply text-xl; }
+
+  .menu-title { @apply text-cod-gray-800 text-base; }
+
+  .markdown-preview {
+    & > h1 { @apply text-ocean-green-400; }
+
+    & > h1, h2, h3 { @apply leading-[1.125]; }
+
+    & > hr { @apply border border-cod-gray-200; }
+
+    & > .chord {
+      @apply relative z-0 font-extrabold text-cod-gray-800;
+
+      &::before {
+        @apply content-[''] absolute top-0 bottom-0 left-[-0.24rem] right-[-0.24rem] z-[-1] rounded-sm 
+        bg-cod-gray-200;
+      }
+    }
+
+    & > .lyrics { @apply font-medium; }
+
+    & > .song-section { @apply text-ocean-green-400; }
+  }
+}

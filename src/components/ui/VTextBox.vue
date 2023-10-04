@@ -2,28 +2,10 @@
 </script>
 
 <template>
-  <input >
+  <input class="px-4 py-3 bg-transparent border rounded-sm outline-none border-cod-gray-200 text-cod-gray-700 text-base transition-colors duration-100 ease-in-out focus:border-ocean-green-400">
 </template>
 
 <style scoped>
-input {
-  padding: 0.75rem 1rem;
-
-  background-color: transparent;
-  border: 1px solid var(--gray-600);
-  border-radius: 4px;
-  outline: none;
-
-  color: var(--gray-700);
-  font-size: 1rem;
-
-  transition: border 100ms ease-in-out;
-
-  &:focus {
-    border: 1px solid var(--green-400);
-  }
-}
-
 ::-ms-reveal {
   filter: invert(30%);
 }
