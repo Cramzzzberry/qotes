@@ -8,11 +8,12 @@ import VDropdownList from '@/components/ui/VDropdownList.vue';
 
 const route = useRoute()
 const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
-const sheetInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nC    G  Am  F\nThis is a lyrics`)
 
+const sheetInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nC    G  Am  F\nThis is a lyrics\nDm   F  C   G\nAnother lyrics`)
 const keyPicked = ref('C')
 
 watch(keyPicked, (newValue, oldValue) => {
+  //replace the user input into transposed input
   sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
 })
 
@@ -24,7 +25,7 @@ const sheetHtml = computed(() => {
 <template>
   <div class="sticky top-0 z-10 grid grid-cols-2 items-center w-full h-[61px] px-4 bg-cod-gray-50 border-b
   border-b-cod-gray-100">
-    <div> <!-- logo -->
+    <div> <!-- back button -->
       <router-link
         to="/dashboard"
         class="flex flex-row items-center gap-2 w-fit py-[6px]"
@@ -34,12 +35,15 @@ const sheetHtml = computed(() => {
       </router-link>
     </div>
     <div class="flex flex-row justify-end items-center gap-8"> <!-- profile-cluster -->
-      <VDropdownList 
-        :items="keys" 
-        v-model:label="keyPicked" 
-        name="months"
-        class="w-[80px]"
-      />
+      <div class="flex flex-row gap-4 items-center"> <!-- transpose key -->
+        <div>Key</div>
+        <VDropdownList 
+          :items="keys" 
+          v-model:label="keyPicked" 
+          name="months"
+          class="dropdown-height-limit w-[80px]"
+        />
+      </div>
       <a 
         href="#"
         class="flex flex-row items-center gap-2"
@@ -50,13 +54,14 @@ const sheetHtml = computed(() => {
     </div>
   </div>
 
-  <div class="grid grid-cols-2 h-[calc(100vh-61px)]">
-    <div class="border-r border-r-cod-gray-100 p-4">
+  <!-- the body -->
+  <div class="grid grid-cols-2 h-[calc(100vh-61px)] overflow-y-hidden">
+    <div class="border-r border-r-cod-gray-100">
       <textarea
         v-model="sheetInput"
         spellcheck="false"
-        class="resize-none w-full h-full border-none outline-none bg-cod-gray-50 text-cod-gray-950 text-base
-        font-['RobotoMono']"
+        class="resize-none w-full h-full pl-4 py-4 border-none outline-none bg-cod-gray-50 text-cod-gray-950 
+        text-base font-['RobotoMono']"
       ></textarea>
     </div>
     <div
@@ -66,3 +71,9 @@ const sheetHtml = computed(() => {
     ></div>
   </div>
 </template>
+
+<style scoped>
+.dropdown-height-limit :deep(.dropdown-content) {
+  max-height: calc(100vh - 68px);
+}
+</style>

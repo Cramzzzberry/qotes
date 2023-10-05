@@ -48,9 +48,9 @@ const yearPicked = ref(date.getFullYear().toString())
 
 <template>
   <VNavbar />
-  <div class="flex flex-row h-[calc(100vh-61px)] px-[160px]">
+  <div class="flex flex-row h-[calc(100vh-61px)]">
       <!-- side bar -->
-    <div class="basis-[320px] pt-0 pr-2 pb-4 pl-4 overflow-y-auto">
+    <div class="basis-[320px] pr-2 pb-4 pl-4 overflow-y-auto">
       <div class="sticky top-0 pt-4 bg-cod-gray-50">
         <!-- calendar filter -->
         <span class="menu-title">Filter</span>
@@ -77,7 +77,7 @@ const yearPicked = ref(date.getFullYear().toString())
       <VCompactList :icon="'insert_drive_file'" :lists="recentFiles"/>
     </div>
 
-    <div class="pt-0 pr-4 pb-4 pl-2 grow overflow-y-auto">
+    <div class="pr-4 pb-4 pl-2 grow overflow-y-auto">
       <VWeekBlock :week-number="1" />
       <VWeekBlock :week-number="2" />
       <VWeekBlock :week-number="3" />

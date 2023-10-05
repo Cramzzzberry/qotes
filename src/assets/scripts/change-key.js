@@ -1,5 +1,5 @@
 const setKeys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
-const allKeys = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B']
+const allKeys = ['C#', 'D#', 'F#', 'G#', 'A#', 'Db', 'Eb', 'Gb', 'Ab', 'Bb', 'C', 'D', 'E', 'F', 'G', 'A', 'B']
 
 export default function changeKey(sheetStr, newKey, prevKey) {
   let newStr = ''
@@ -42,16 +42,22 @@ function tranposeKey(key, keyDiff, newKey, prevKey) {
   let goHigher = newKeyIndex > prevKeyIndex
 
   // this is for correction, to make the 'counting' work
-  if (key === 'Db') {
-    key = 'C#'
-  } else if (key === 'D#') {
-    key = 'Eb'
-  } else if (key === 'Gb') {
-    key = 'F#'
-  } else if (key === 'Ab') {
-    key = 'G#'
-  } else if (key === 'A#') {
-    key = 'Bb'
+  switch (key) {
+    case 'Db':
+      key = 'C#'
+      break
+    case 'D#':
+      key = 'Eb'
+      break
+    case 'Gb':
+      key = 'F#'
+      break
+    case 'Ab':
+      key = 'G#'
+      break
+    case 'A#':
+      key = 'Bb'
+      break
   }
 
   if (goHigher) {// if the new key is higher than the previous
@@ -72,5 +78,5 @@ function tranposeKey(key, keyDiff, newKey, prevKey) {
 }
 
 function checkKey(chord) {
-  return `(?<=^| |\n)${ chord }(?!#|b)(?=(maj|m|dim|sus|aug|add)?(Md)?d?(?!w))`
+  return `${ chord }(?=(m|maj|aug|dim|sus|add)?(M)?([0-9])?(?!(\\w|#)))`
 }

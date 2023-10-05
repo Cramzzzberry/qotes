@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 grid grid-cols-3 items-center px-40 py-2 bg-cod-gray-50 border-b border-b-cod-gray-100
+  <div class="sticky top-0 grid grid-cols-3 items-center px-4 py-1 bg-cod-gray-50 border-b border-b-cod-gray-100
   w-full h-[61px]">
     <div>
       <router-link
