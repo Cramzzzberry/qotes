@@ -14,7 +14,7 @@ const months = [
   'September', 'October', 'November', 'December',
 ]
 
-const recentFiles = ref([
+const recentFiles = [
   {
     'label': 'File name 1',
   },
@@ -27,7 +27,7 @@ const recentFiles = ref([
   {
     'label': 'File name 4',
   },
-])
+]
 
 const monthPicked = ref(months[date.getMonth()])
 const yearPicked = ref(date.getFullYear().toString())
@@ -52,7 +52,7 @@ const yearPicked = ref(date.getFullYear().toString())
       class="h-full"
     />
     <div class="flex flex-row justify-end">
-      <div class="flex flex-row items-center gap-2">
+      <div class="flex flex-row items-center gap-2 select-none">
         <span>Jan Roe Bantuan</span>
         <div class="shrink-0 w-10 h-10 rounded-full bg-ocean-green-400 overflow-clip">
           <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover">

@@ -43,13 +43,12 @@ const sheetHtml = computed(() => {
           class="dropdown-height-limit w-[80px]"
         />
       </div>
-      <a 
-        href="#"
-        class="flex flex-row items-center gap-2"
-      >
+      <div class="flex flex-row items-center gap-2 select-none">
         <span>Jan Roe Bantuan</span>
-        <div class="shrink-0 rounded-full w-8 h-8 bg-ocean-green-400"></div>
-      </a>
+        <div class="shrink-0 w-10 h-10 rounded-full bg-ocean-green-400 overflow-clip">
+          <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover">
+        </div>
+      </div>
     </div>
   </div>
 

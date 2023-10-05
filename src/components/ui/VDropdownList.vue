@@ -41,7 +41,7 @@ defineEmits(['update:label'])
           tabindex="0"
           class="block w-full px-4 py-2 rounded-sm bg-transparent text-cod-gray-600 cursor-pointer transition-colors
           duration-100 ease-in-out hover:bg-cod-gray-100 hover:text-cod-gray-800 peer-checked:bg-ocean-green-400
-          peer-checked:text-ocean-green-50"
+          peer-checked:text-ocean-green-900"
         >
           {{ item }}
         </label>
