@@ -9,8 +9,8 @@ import VDropdownList from '@/components/ui/VDropdownList.vue';
 const route = useRoute()
 const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
 
-const sheetInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nC    G  Am  F\nThis is a lyrics\nDm   F  C   G\nAnother lyrics`)
-const keyPicked = ref('C')
+const sheetInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nG A C G (2x)\n>> Verse\n                   A    C\nKamukha mo si Paraluman\n                   G    G\nNung tayo ay bata pa`)
+const keyPicked = ref('G')
 
 watch(keyPicked, (newValue, oldValue) => {
   //replace the user input into transposed input
