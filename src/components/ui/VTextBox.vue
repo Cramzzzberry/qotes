@@ -16,7 +16,7 @@ defineEmits(['update:modelValue'])
 </template>
 
 <style scoped>
-/* ::-ms-reveal {
+::-ms-reveal {
   filter: invert(30%);
-} */
+}
 </style>

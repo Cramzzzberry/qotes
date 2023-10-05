@@ -26,13 +26,12 @@ const sheetHtml = computed(() => {
   <div class="sticky top-0 z-10 grid grid-cols-2 items-center w-full h-[61px] px-4 bg-cod-gray-50 border-b
   border-b-cod-gray-100">
     <div> <!-- back button -->
-      <router-link
-        to="/dashboard"
-        class="flex flex-row items-center gap-2 w-fit py-[6px]"
+      <a @click="$router.go(-1)"
+        class="flex flex-row items-center gap-2 w-fit py-[6px] cursor-pointer"
       >
         <span class="material-icons">arrow_back</span>
         <span>Go back</span>
-      </router-link>
+      </a>
     </div>
     <div class="flex flex-row justify-end items-center gap-8"> <!-- profile-cluster -->
       <div class="flex flex-row gap-4 items-center"> <!-- transpose key -->

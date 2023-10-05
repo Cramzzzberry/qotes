@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import VNavbar from '@/components/ui/VNavBar.vue'
 import VCompactList from '@/components/ui/VCompactList.vue'
 import VDropdownList from '@/components/ui/VDropdownList.vue'
 import VWeekBlock from '@/components/ui/VWeekBlock.vue'
@@ -35,7 +34,34 @@ const yearPicked = ref(date.getFullYear().toString())
 </script>
 
 <template>
-  <VNavbar />
+  <!-- navbar -->
+  <div class="sticky top-0 grid grid-cols-3 items-center px-4 py-2 bg-cod-gray-50 border-b border-b-cod-gray-100
+  w-full h-[61px]">
+    <div>
+      <router-link
+        to="/dashboard"
+        class="text-ocean-green-400 text-2xl font-semibold transition-colors duration-100
+        hover:text-ocean-green-300"
+      >
+        Achord
+      </router-link>
+    </div>
+    <VTextBox 
+      inputType="text"
+      placeholder="Search here..."
+      class="h-full"
+    />
+    <div class="flex flex-row justify-end">
+      <div class="flex flex-row items-center gap-2">
+        <span>Jan Roe Bantuan</span>
+        <div class="shrink-0 w-10 h-10 rounded-full bg-ocean-green-400 overflow-clip">
+          <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- body -->
   <div class="flex flex-row h-[calc(100vh-61px)]">
       <!-- side bar -->
     <div class="basis-[320px] pr-2 pb-4 pl-4 overflow-y-auto">
@@ -53,7 +79,8 @@ const yearPicked = ref(date.getFullYear().toString())
           <div class="basis-2/5">
             <VTextBox
               v-model="yearPicked"
-              type="number" 
+              type="number"
+              placeholder="Year"
               class="w-full"
             />
           </div>
