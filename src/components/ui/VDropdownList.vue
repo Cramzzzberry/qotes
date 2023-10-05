@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps({
+defineProps({
   label: String,
   items: Array,
   name: String,
@@ -13,7 +13,7 @@ defineEmits(['update:label'])
     <button class="flex flex-row justify-between items-center rounded-sm py-2 pr-[0.625rem] pl-4 w-full bg-cod-gray-50 
     border border-cod-gray-200 text-cod-gray-600 text-base cursor-pointer transition-colors duration-100 ease-in-out
     hover:border-ocean-green-400">
-      <span>{{ props.label }}</span>
+      <span>{{ label }}</span>
       <span class="material-icons">
         expand_more
       </span>
@@ -24,16 +24,16 @@ defineEmits(['update:label'])
       drop-shadow-lg opacity-0 invisible z-10 overflow-y-auto transition-all duration-75 ease-in-out"
     > <!-- dropdown content -->
       <li 
-        v-for="item in props.items" 
+        v-for="item in items" 
         :key="item"
         class="w-full"
       >
         <input 
           type="radio" 
-          :name="props.name" 
+          :name="name" 
           :id="item" 
           :value="item"
-          :checked ="props.label == item"
+          :checked ="label === item"
           @input="$emit('update:label', $event.target.value)"
           class="hidden -top-10 absolute peer">
         <label 

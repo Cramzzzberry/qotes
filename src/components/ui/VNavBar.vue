@@ -1,5 +1,9 @@
+<script setup>
+import VTextBox from '@/components/ui/VTextBox.vue'
+</script>
+
 <template>
-  <div class="sticky top-0 grid grid-cols-3 items-center px-4 py-1 bg-cod-gray-50 border-b border-b-cod-gray-100
+  <div class="sticky top-0 grid grid-cols-3 items-center px-4 py-2 bg-cod-gray-50 border-b border-b-cod-gray-100
   w-full h-[61px]">
     <div>
       <router-link
@@ -10,11 +14,11 @@
         Achord
       </router-link>
     </div>
-    <input 
-      type="text"
+    <VTextBox 
+      inputType="text"
       placeholder="Search here..."
-      class="px-4 py-3 bg-cod-gray-100 rounded-sm outline-none text-cod-gray-700 text-base"
-    >
+      class="h-full"
+    />
     <div class="flex flex-row justify-end">
       <a href="#" class="flex flex-row items-center gap-2">
         <span>Jan Roe Bantuan</span>

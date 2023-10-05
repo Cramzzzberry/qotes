@@ -4,6 +4,8 @@ import VNavbar from '@/components/ui/VNavBar.vue'
 import VCompactList from '@/components/ui/VCompactList.vue'
 import VDropdownList from '@/components/ui/VDropdownList.vue'
 import VWeekBlock from '@/components/ui/VWeekBlock.vue'
+import VFileItem from '@/components/ui/VFileItem.vue'
+import VTextBox from '@/components/ui/VTextBox.vue'
 
 let date = new Date();
 
@@ -12,20 +14,6 @@ const months = [
   'May', 'June', 'July', 'August',
   'September', 'October', 'November', 'December',
 ]
-
-function getRangeOfYears(currentYr) {
-  let rangeOfYears = []
-
-  for(var i = 5; i >= 0; i--) {
-    rangeOfYears.push(currentYr - i)
-  }
-
-  rangeOfYears.push(currentYr + 1)
-
-  return rangeOfYears
-}
-
-const years = getRangeOfYears(date.getFullYear())
 
 const recentFiles = ref([
   {
@@ -62,12 +50,13 @@ const yearPicked = ref(date.getFullYear().toString())
             class="dropdown-height-limit relative basis-3/5" 
           />
 
-          <VDropdownList 
-            :items="years" 
-            v-model:label="yearPicked" 
-            name="years" 
-            class="dropdown-height-limit relative basis-2/5"
-          />
+          <div class="basis-2/5">
+            <VTextBox
+              v-model="yearPicked"
+              type="number" 
+              class="w-full"
+            />
+          </div>
         </div>
       </div>
       <hr>
@@ -78,10 +67,15 @@ const yearPicked = ref(date.getFullYear().toString())
     </div>
 
     <div class="pr-4 pb-4 pl-2 grow overflow-y-auto">
-      <VWeekBlock :week-number="1" />
-      <VWeekBlock :week-number="2" />
-      <VWeekBlock :week-number="3" />
-      <VWeekBlock :week-number="4" />
+      <VWeekBlock v-for="n in 6" :week-number="n" :key="n">
+        <VFileItem :url="'/edit/1'" :song-name="'Song name'" musicKey="C"/>
+        <VFileItem :url="'/edit/2'" :song-name="'Song name'" musicKey="G"/>
+        <VFileItem :url="'/edit/3'" :song-name="'Song name'" musicKey="A"/>
+        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb"/>
+        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb"/>
+        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb"/>
+        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb"/>
+      </VWeekBlock>
     </div>
   </div>
 </template>

@@ -10,11 +10,11 @@ import VButton from '@/components/ui/VButton.vue';
       <div class="flex flex-col items-center gap-4">
         <label>
           Email
-          <VTextBox type="email"/>
+          <VTextBox inputType="email"/>
         </label>
         <label>
           Password
-          <VTextBox type="password"/>
+          <VTextBox inputType="password"/>
         </label>
       </div>
       <VButton type="submit">

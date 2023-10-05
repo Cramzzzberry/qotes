@@ -21,6 +21,8 @@
 
   h2 { @apply text-2xl font-semibold; }
 
+  h3 { @apply text-xl font-medium; }
+
   html { @apply font-['Inter'] font-medium bg-cod-gray-50 text-cod-gray-800; }
   
   a { @apply text-cod-gray-700 transition-colors duration-100 ease-in-out hover:text-cod-gray-400; }
@@ -36,8 +38,6 @@
 }
 
 @layer utilities {
-  .material-icons { @apply text-xl; }
-
   .menu-title { @apply text-cod-gray-800 text-base; }
 
   .markdown-preview {
