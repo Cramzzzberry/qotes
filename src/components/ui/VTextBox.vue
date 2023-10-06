@@ -1,17 +1,17 @@
 <script setup>
-defineProps(['modelValue', 'inputType']);
-defineEmits(['update:modelValue']);
+defineProps(['modelValue', 'inputType'])
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
   <!-- I used a v-bind:type to have a ternary operator on v-bind:class -->
-  <input 
+  <input
     :type="inputType"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
-    class="text-base transition-colors duration-100 ease-in-out bg-transparent border rounded-sm outline-none  border-cod-gray-200 text-cod-gray-700 focus:border-ocean-green-400"
-    :class="[inputType === 'number' ? 'py-2 pr-[0.625rem] pl-4' : 'py-2 px-4']"
-  >
+    class="rounded-sm border border-cod-gray-200 bg-transparent text-base text-cod-gray-700 outline-none transition-colors duration-100 ease-in-out focus:border-ocean-green-400"
+    :class="[inputType === 'number' ? 'py-2 pl-4 pr-[0.625rem]' : 'px-4 py-2']"
+  />
 </template>
 
 <style scoped>

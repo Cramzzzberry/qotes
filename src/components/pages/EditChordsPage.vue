@@ -1,71 +1,76 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import sanitizeHtml from 'sanitize-html';
-import parseSheet from '@/assets/scripts/parse-sheet';
-import changeKey from '@/assets/scripts/change-key';
-import VDropdownList from '@/components/ui/VDropdownList.vue';
+import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import sanitizeHtml from 'sanitize-html'
+import parseSheet from '@/assets/scripts/parse-sheet'
+import changeKey from '@/assets/scripts/change-key'
+import VDropdownList from '@/components/ui/VDropdownList.vue'
 
-const route = useRoute();
-const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
+const route = useRoute()
+const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
 
-const sheetInput = ref(`# Song Title ${ route.params.id }\n## Songwriter - Key of X\n---\n>> Intro\nC E Am F\nC E Am Fm\nOoh...\n\n>> Chorus\nC\nIba na ang 'yong ngiti\nE\nIba na ang 'yong tingin.\nAm                     F\nNagbago nang lahat sa'yo\nC\nSana'y hindi magkita\nE\nSana'y walang problema\nAm                      F        Fm\nPagkat kulang ang dala kong pera`);
-const keyPicked = ref('C');
+const sheetInput = ref(
+  `# Song Title ${route.params.id}\n## Songwriter - Key of X\n---\n>> Intro\nC E Am F\nC E Am Fm\nOoh...\n\n>> Chorus\nC\nIba na ang 'yong ngiti\nE\nIba na ang 'yong tingin.\nAm                     F\nNagbago nang lahat sa'yo\nC\nSana'y hindi magkita\nE\nSana'y walang problema\nAm                      F        Fm\nPagkat kulang ang dala kong pera`
+)
+const keyPicked = ref('C')
 
 watch(keyPicked, (newValue, oldValue) => {
   //replace the user input into transposed input
-  sheetInput.value = changeKey(sheetInput.value, newValue, oldValue);
-});
+  sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
+})
 
 const sheetHtml = computed(() => {
-  return sanitizeHtml(parseSheet(sheetInput.value), { allowedAttributes: false });
-});
+  return sanitizeHtml(parseSheet(sheetInput.value), { allowedAttributes: false })
+})
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 grid grid-cols-2 items-center w-full h-[61px] px-4 bg-cod-gray-50 border-b
-  border-b-cod-gray-100">
-    <div> <!-- back button -->
-      <a @click="$router.go(-1)"
-        class="flex flex-row items-center gap-2 w-fit py-[6px] cursor-pointer"
+  <div
+    class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center border-b border-b-cod-gray-100 bg-cod-gray-50 px-4"
+  >
+    <div>
+      <a
+        @click="$router.go(-1)"
+        class="flex w-fit cursor-pointer flex-row items-center gap-2 py-[6px]"
       >
+        <!-- back button -->
         <span class="material-icons">arrow_back</span>
         <span>Go back</span>
       </a>
     </div>
-    <div class="flex flex-row items-center justify-end gap-8"> <!-- profile-cluster -->
-      <div class="flex flex-row items-center gap-4"> <!-- transpose key -->
+    <div class="flex flex-row items-center justify-end gap-8">
+      <!-- profile-cluster -->
+      <div class="flex flex-row items-center gap-4">
+        <!-- transpose key -->
         <div>Key</div>
-        <VDropdownList 
-          :items="keys" 
-          v-model:label="keyPicked" 
+        <VDropdownList
+          :items="keys"
+          v-model:label="keyPicked"
           name="months"
           class="dropdown-height-limit w-[80px]"
         />
       </div>
-      <div class="flex flex-row items-center gap-2 select-none">
+      <div class="flex select-none flex-row items-center gap-2">
         <span>Jan Roe Bantuan</span>
-        <div class="w-10 h-10 rounded-full shrink-0 bg-ocean-green-400 overflow-clip">
-          <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover">
+        <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
+          <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
         </div>
       </div>
     </div>
   </div>
 
   <!-- the body -->
-  <div class="grid grid-cols-2 h-[calc(100vh-61px)] overflow-y-hidden">
+  <div class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
     <div class="border-r border-r-cod-gray-100">
       <textarea
         v-model="sheetInput"
         spellcheck="false"
-        class="resize-none w-full h-full pl-4 py-4 border-none outline-none bg-cod-gray-50 text-cod-gray-950 
-        text-base font-['RobotoMono']"
+        class="h-full w-full resize-none border-none bg-cod-gray-50 py-4 pl-4 font-['RobotoMono'] text-base text-cod-gray-950 outline-none"
       ></textarea>
     </div>
     <div
       v-html="sheetHtml"
-      class="markdown-preview border-l border-l-cod-gray-100 w-full h-full p-[0.5in] overflow-y-auto 
-      font-['RobotoMono'] leading-6 text-cod-gray-800"
+      class="markdown-preview h-full w-full overflow-y-auto border-l border-l-cod-gray-100 p-[0.5in] font-['RobotoMono'] leading-6 text-cod-gray-800"
     ></div>
   </div>
 </template>
