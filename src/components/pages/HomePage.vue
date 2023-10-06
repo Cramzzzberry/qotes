@@ -1,12 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import VCompactList from '@/components/ui/VCompactList.vue'
-import VDropdownList from '@/components/ui/VDropdownList.vue'
 import VWeekBlock from '@/components/ui/VWeekBlock.vue'
 import VFileItem from '@/components/ui/VFileItem.vue'
-import VTextBox from '@/components/ui/VTextBox.vue'
-
-let date = new Date()
 
 const months = [
   'January',
@@ -38,6 +33,8 @@ const recentFiles = [
   }
 ]
 
+let date = new Date()
+
 const monthPicked = ref(months[date.getMonth()])
 const yearPicked = ref(date.getFullYear().toString())
 </script>
@@ -47,6 +44,7 @@ const yearPicked = ref(date.getFullYear().toString())
   <div
     class="sticky top-0 grid h-[61px] w-full grid-cols-3 items-center border-b border-b-cod-gray-100 bg-cod-gray-50 px-4 py-2"
   >
+    <!-- home button/logo -->
     <div>
       <router-link
         to="/dashboard"
@@ -55,14 +53,18 @@ const yearPicked = ref(date.getFullYear().toString())
         Achord
       </router-link>
     </div>
+
+    <!-- search bar -->
     <VTextBox inputType="text" placeholder="Search here..." class="h-full" />
+
+    <!-- right side content -->
     <div class="flex flex-row justify-end">
-      <div class="flex select-none flex-row items-center gap-2">
+      <button class="flex select-none flex-row items-center gap-2">
         <span>Jan Roe Bantuan</span>
         <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
           <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
         </div>
-      </div>
+      </button>
     </div>
   </div>
 

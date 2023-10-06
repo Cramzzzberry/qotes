@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router'
 import sanitizeHtml from 'sanitize-html'
 import parseSheet from '@/assets/scripts/parse-sheet'
 import changeKey from '@/assets/scripts/change-key'
-import VDropdownList from '@/components/ui/VDropdownList.vue'
 
 const route = useRoute()
 const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']

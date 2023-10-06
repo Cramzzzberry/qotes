@@ -1,7 +1,4 @@
-<script setup>
-import VTextBox from '@/components/ui/VTextBox.vue'
-import VButton from '@/components/ui/VButton.vue'
-</script>
+<script setup></script>
 
 <template>
   <div class="flex h-screen w-screen items-center justify-center">
