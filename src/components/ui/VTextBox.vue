@@ -1,6 +1,6 @@
 <script setup>
-defineProps(['modelValue', 'inputType'])
-defineEmits(['update:modelValue'])
+defineProps(['modelValue', 'inputType']);
+defineEmits(['update:modelValue']);
 </script>
 
 <template>
@@ -9,8 +9,7 @@ defineEmits(['update:modelValue'])
     :type="inputType"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
-    class=" bg-transparent border rounded-sm outline-none border-cod-gray-200 text-cod-gray-700 
-    text-base transition-colors duration-100 ease-in-out focus:border-ocean-green-400"
+    class="text-base transition-colors duration-100 ease-in-out bg-transparent border rounded-sm outline-none  border-cod-gray-200 text-cod-gray-700 focus:border-ocean-green-400"
     :class="[inputType === 'number' ? 'py-2 pr-[0.625rem] pl-4' : 'py-2 px-4']"
   >
 </template>

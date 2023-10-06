@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 
-import LoginPage from '@/components/pages/LoginPage.vue'
-import HomePage from '@/components/pages/HomePage.vue'
-import EditChordsPage from '@/components/pages/EditChordsPage.vue'
+import LoginPage from '@/components/pages/LoginPage.vue';
+import HomePage from '@/components/pages/HomePage.vue';
+import EditChordsPage from '@/components/pages/EditChordsPage.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +20,6 @@ const router = createRouter({
       component: EditChordsPage
     }
   ]
-})
+});
 
-export default router
+export default router;

@@ -3,7 +3,7 @@ defineProps({
   songName: String,
   url: String,
   musicKey: String,
-})
+});
 </script>
 
 <template>
