@@ -4,9 +4,9 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'AlbertSans';
   font-weight: 100 200 300 400 500 600 700 800 900;
-  src: url('../fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  src: url('../fonts/AlbertSans-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   }
 
   html {
-    @apply bg-cod-gray-50 font-['Inter'] font-medium text-cod-gray-700;
+    @apply bg-cod-gray-50 font-['AlbertSans'] text-cod-gray-700;
   }
 
   button {

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import TheNavbar from '@/components/ui/TheNavbar.vue'
+import VNavbar from '@/components/ui/VNavbar.vue'
 import AllSheetsTab from '@/components/tabs/AllSheetsTab.vue'
 import ImportantSheetsTab from '@/components/tabs/ImportantSheetsTab.vue'
 import PinnedSheetsTab from '@/components/tabs/PinnedSheetsTab.vue'
@@ -36,7 +36,7 @@ function getImportant() {
 
 <template>
   <!-- navbar -->
-  <TheNavbar>
+  <VNavbar>
     <!-- tabs -->
     <div class="flex h-full flex-row items-center justify-center">
       <button @click="getAll()" class="tab-btn" :class="[isAll ? 'active' : '']">All</button>
@@ -47,7 +47,7 @@ function getImportant() {
         Important
       </button>
     </div>
-  </TheNavbar>
+  </VNavbar>
 
   <!-- body -->
   <div class="h-[calc(100vh-61px)] w-screen">
@@ -69,7 +69,7 @@ function getImportant() {
 }
 
 .tab-btn.active {
-  @apply font-semibold before:bg-ocean-green-400;
+  @apply font-medium before:bg-ocean-green-400;
 }
 
 .tab-btn::before {

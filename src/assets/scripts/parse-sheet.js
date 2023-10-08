@@ -1,3 +1,10 @@
+/* 
+This functions by getting the whole input of a user, dissect each line checking if there are
+one liner prefixes, else proceed to parse chords and lyrics by checking each words one by one
+TODO: I wanted to make it more maintainable, customizable, and parse the whole text instead of
+parsing each line
+*/
+
 export default function parseSheet(input) {
   let lineOfStrings = input.split('\n');
   let parsedStrings = [];
