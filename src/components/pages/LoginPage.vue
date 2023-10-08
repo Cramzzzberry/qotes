@@ -3,7 +3,7 @@
 <template>
   <div class="flex h-screen w-screen items-center justify-center">
     <form class="flex w-1/4 flex-col gap-4">
-      <h1 class="text-ocean-green-400">Login your account</h1>
+      <h1>Login your account</h1>
       <div class="flex flex-col items-center gap-4">
         <label>
           Email

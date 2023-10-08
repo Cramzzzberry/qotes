@@ -29,11 +29,7 @@
   }
 
   html {
-    @apply font-['Inter'] font-medium bg-cod-gray-50 text-cod-gray-700;
-  }
-
-  a {
-    @apply text-cod-gray-700 transition-colors duration-100 ease-in-out hover:text-cod-gray-400;
+    @apply bg-cod-gray-50 font-['Inter'] font-medium text-cod-gray-700;
   }
 
   button {
@@ -46,7 +42,7 @@
 
   /* scrollbar */
   ::-webkit-scrollbar {
-    @apply w-2 h-2 bg-cod-gray-100;
+    @apply h-2 w-2 bg-cod-gray-100;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -56,38 +52,36 @@
 
 @layer utilities {
   .menu-title {
-    @apply text-cod-gray-800 text-base;
+    @apply text-base text-cod-gray-800;
   }
 
-  .markdown-preview {
-    & > h1 {
-      @apply text-ocean-green-400;
-    }
+  .markdown-preview > h1,
+  h2,
+  h3 {
+    @apply leading-[1.125];
+  }
 
-    & > h1,
-    h2,
-    h3 {
-      @apply leading-[1.125];
-    }
+  .markdown-preview > h1 {
+    @apply text-ocean-green-400;
+  }
 
-    & > hr {
-      @apply border border-cod-gray-200;
-    }
+  .markdown-preview > hr {
+    @apply border border-cod-gray-200;
+  }
 
-    & > .chord {
-      @apply relative z-0 font-extrabold text-cod-gray-800;
+  .markdown-preview > .chord {
+    @apply relative z-0 font-extrabold text-cod-gray-800;
+  }
 
-      &::before {
-        @apply content-[''] absolute top-0 bottom-0 left-[-0.24rem] right-[-0.24rem] z-[-1] rounded-sm bg-cod-gray-200;
-      }
-    }
+  .markdown-preview > .chord::before {
+    @apply absolute bottom-0 left-[-0.24rem] right-[-0.24rem] top-0 z-[-1] rounded-sm bg-cod-gray-200 content-[''];
+  }
 
-    & > .lyrics {
-      @apply font-medium;
-    }
+  .markdown-preview > .lyrics {
+    @apply font-medium;
+  }
 
-    & > .song-section {
-      @apply text-ocean-green-400;
-    }
+  .markdown-preview > .song-section {
+    @apply text-ocean-green-400;
   }
 }

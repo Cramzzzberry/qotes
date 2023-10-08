@@ -12,8 +12,8 @@ const router = createRouter({
       component: LoginPage
     },
     {
-      path: '/dashboard',
-      component: HomePage
+      path: '/home',
+      component: HomePage,
     },
     {
       path: '/edit/:id',

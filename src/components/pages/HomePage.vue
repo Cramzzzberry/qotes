@@ -1,116 +1,78 @@
 <script setup>
 import { ref } from 'vue'
-import VWeekBlock from '@/components/ui/VWeekBlock.vue'
-import VFileItem from '@/components/ui/VFileItem.vue'
+import TheNavbar from '@/components/ui/TheNavbar.vue'
+import AllSheetsTab from '@/components/tabs/AllSheetsTab.vue'
+import ImportantSheetsTab from '@/components/tabs/ImportantSheetsTab.vue'
+import PinnedSheetsTab from '@/components/tabs/PinnedSheetsTab.vue'
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
+const isAll = ref(true)
+const isPinned = ref(false)
+const isImportant = ref(false)
 
-const recentFiles = [
-  {
-    label: 'File name 1'
-  },
-  {
-    label: 'File name 2'
-  },
-  {
-    label: 'File name 3'
-  },
-  {
-    label: 'File name 4'
-  }
-]
+const tabs = [AllSheetsTab, PinnedSheetsTab, ImportantSheetsTab]
+const index = ref(0)
 
-let date = new Date()
+function getAll() {
+  index.value = 0
+  isAll.value = true
+  isPinned.value = false
+  isImportant.value = false
+}
 
-const monthPicked = ref(months[date.getMonth()])
-const yearPicked = ref(date.getFullYear().toString())
+function getPinned() {
+  index.value = 1
+  isAll.value = false
+  isPinned.value = true
+  isImportant.value = false
+}
+
+function getImportant() {
+  index.value = 2
+  isAll.value = false
+  isPinned.value = false
+  isImportant.value = true
+}
 </script>
 
 <template>
   <!-- navbar -->
-  <div
-    class="sticky top-0 grid h-[61px] w-full grid-cols-3 items-center border-b border-b-cod-gray-100 bg-cod-gray-50 px-4 py-2"
-  >
-    <!-- home button/logo -->
-    <div>
-      <router-link
-        to="/dashboard"
-        class="text-2xl font-semibold text-ocean-green-400 transition-colors duration-100 hover:text-ocean-green-300"
-      >
-        Achord
-      </router-link>
-    </div>
-
-    <!-- search bar -->
-    <VTextBox inputType="text" placeholder="Search here..." class="h-full" />
-
-    <!-- right side content -->
-    <div class="flex flex-row justify-end">
-      <button class="flex select-none flex-row items-center gap-2">
-        <span>Jan Roe Bantuan</span>
-        <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
-          <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
-        </div>
+  <TheNavbar>
+    <!-- tabs -->
+    <div class="flex h-full flex-row items-center justify-center">
+      <button @click="getAll()" class="tab-btn" :class="[isAll ? 'active' : '']">All</button>
+      <button @click="getPinned()" class="tab-btn" :class="[isPinned ? 'active' : '']">
+        Pinned
+      </button>
+      <button @click="getImportant()" class="tab-btn" :class="[isImportant ? 'active' : '']">
+        Important
       </button>
     </div>
-  </div>
+  </TheNavbar>
 
   <!-- body -->
-  <div class="flex h-[calc(100vh-61px)] flex-row">
-    <!-- side bar -->
-    <div class="basis-[320px] overflow-y-auto pb-4 pl-4 pr-2">
-      <div class="sticky top-0 bg-cod-gray-50 pt-4">
-        <!-- calendar filter -->
-        <span class="menu-title">Filter</span>
-        <div class="flex flex-row gap-2 py-1">
-          <VDropdownList
-            :items="months"
-            v-model:label="monthPicked"
-            name="months"
-            class="dropdown-height-limit relative basis-3/5"
-          />
-
-          <div class="basis-2/5">
-            <VTextBox v-model="yearPicked" type="number" placeholder="Year" class="w-full" />
-          </div>
-        </div>
-      </div>
-      <hr />
-
-      <!-- Recent files -->
-      <span class="menu-title">Recent Files</span>
-      <VCompactList :icon="'insert_drive_file'" :lists="recentFiles" />
-    </div>
-
-    <div class="grow overflow-y-auto pb-4 pl-2 pr-4">
-      <VWeekBlock v-for="n in 6" :week-number="n" :key="n">
-        <VFileItem :url="'/edit/1'" :song-name="'Song name'" musicKey="C" />
-        <VFileItem :url="'/edit/2'" :song-name="'Song name'" musicKey="G" />
-        <VFileItem :url="'/edit/3'" :song-name="'Song name'" musicKey="A" />
-        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb" />
-        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb" />
-        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb" />
-        <VFileItem :url="'/edit/4'" :song-name="'Song name'" musicKey="Bb" />
-      </VWeekBlock>
-    </div>
+  <div class="h-[calc(100vh-61px)] w-screen">
+    <component :is="tabs[index]" />
   </div>
 </template>
 
 <style scoped>
 .dropdown-height-limit :deep(.dropdown-content) {
   max-height: calc(100vh - (82px + 61px + 16px + 16px));
+}
+
+.tab-btn {
+  @apply relative flex h-full w-36 items-center justify-center transition-colors duration-100 ease-in-out;
+}
+
+.tab-btn:hover {
+  @apply bg-cod-gray-100;
+}
+
+.tab-btn.active {
+  @apply font-semibold before:bg-ocean-green-400;
+}
+
+.tab-btn::before {
+  @apply absolute bottom-0 left-[30px] right-[30px] top-[calc(100%-4px)] rounded-full transition-all duration-100 ease-in-out content-[''];
 }
 </style>
