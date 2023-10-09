@@ -5,13 +5,13 @@ const keyLabel = ref('All Keys')
 </script>
 
 <template>
-  <div class="h-[calc(100vh-56px)] w-screen overflow-y-auto px-48 pb-2">
+  <div class="h-screen w-full overflow-y-auto px-48 pb-2">
     <div
       class="sticky top-0 mt-12 flex flex-row items-center justify-between bg-cod-gray-50 pb-2 pt-4"
     >
       <div class="flex flex-row items-center gap-4 text-5xl font-semibold">
-        Important
-        <span class="material-icons text-5xl"> lightbulb </span>
+        Pinned
+        <span class="material-icons text-5xl"> push_pin </span>
       </div>
       <div class="flex flex-row gap-2">
         <input
@@ -24,7 +24,7 @@ const keyLabel = ref('All Keys')
     </div>
     <div class="grid grid-cols-3 gap-1">
       <VFileItem
-        v-for="n in 7"
+        v-for="n in 4"
         :key="n"
         :songTitle="`Ang Huling El Bimbo ver ${n}`"
         :songWritter="`Eraserheads ${n}`"

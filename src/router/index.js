@@ -1,23 +1,40 @@
 import { createRouter, createWebHistory } from 'vue-router';
-
-import LoginPage from '@/components/pages/LoginPage.vue';
-import HomePage from '@/components/pages/HomePage.vue';
-import EditChordsPage from '@/components/pages/EditChordsPage.vue';
+import SidebarLayout from '@/components/layouts/SidebarLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: LoginPage
+      component: () => import('@/components/pages/LoginPage.vue')
     },
     {
       path: '/home',
-      component: HomePage,
+      children: [
+        {
+          path: '',
+          redirect: '/home/all-sheets'
+        },
+        {
+          path: 'all-sheets',
+          meta: { layout: SidebarLayout },
+          component: () => import('@/components/pages/AllSheetsPage.vue')
+        },
+        {
+          path: 'pinned',
+          meta: { layout: SidebarLayout },
+          component: () => import('@/components/pages/PinnedSheetsPage.vue')
+        },
+        {
+          path: 'important',
+          meta: { layout: SidebarLayout },
+          component: () => import('@/components/pages/ImportantSheetsPage.vue')
+        }
+      ]
     },
     {
       path: '/edit/:id',
-      component: EditChordsPage
+      component: () => import('@/components/pages/EditChordsPage.vue')
     }
   ]
 });

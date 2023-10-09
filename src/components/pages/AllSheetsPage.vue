@@ -5,7 +5,7 @@ const keyLabel = ref('All Keys')
 </script>
 
 <template>
-  <div class="h-[calc(100vh-56px)] w-screen overflow-y-auto px-48 pb-2">
+  <div class="h-screen w-full overflow-y-auto px-48 pb-2">
     <div
       class="sticky top-0 mt-12 flex flex-row items-center justify-between bg-cod-gray-50 pb-2 pt-4"
     >
