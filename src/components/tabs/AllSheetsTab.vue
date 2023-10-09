@@ -5,13 +5,13 @@ const keyLabel = ref('All Keys')
 </script>
 
 <template>
-  <div class="h-screen w-full overflow-y-auto px-48 pb-2">
+  <div class="h-screen w-full overflow-y-auto px-4 pb-2">
     <div
       class="sticky top-0 mt-12 flex flex-row items-center justify-between bg-cod-gray-50 pb-2 pt-4"
     >
-      <div class="flex flex-row items-center gap-4 text-5xl font-semibold">
+      <div class="flex flex-row items-center gap-4 text-3xl font-semibold">
         All Sheets
-        <span class="material-icons text-5xl"> description </span>
+        <span class="material-icons text-3xl"> description </span>
       </div>
       <div class="flex flex-row gap-2">
         <input
