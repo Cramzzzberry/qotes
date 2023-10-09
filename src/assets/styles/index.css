@@ -48,6 +48,11 @@
   ::-webkit-scrollbar-thumb {
     @apply rounded-sm bg-cod-gray-400;
   }
+
+  /* selection  */
+  ::selection {
+    @apply bg-ocean-green-200 text-ocean-green-800
+  }
 }
 
 @layer utilities {
@@ -83,5 +88,9 @@
 
   .markdown-preview > .song-section {
     @apply text-ocean-green-400;
+  }
+
+  #app {
+    @apply overflow-clip
   }
 }

@@ -14,12 +14,12 @@
           <VTextBox inputType="password" />
         </label>
       </div>
-      <VButton type="submit"> Login </VButton>
+      <VButton @click="$router.push('/home')" class="duration-150" type="button"> Login </VButton>
       <div class="place-self-end">
         Don't have an account?
         <button
           type="button"
-          class="text-ocean-green-400 transition-colors duration-100 ease-in-out hover:text-ocean-green-300"
+          class="text-ocean-green-400 transition-colors duration-100 ease-in-out hover:text-ocean-green-500"
         >
           Create one
         </button>

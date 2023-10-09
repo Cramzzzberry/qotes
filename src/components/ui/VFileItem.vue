@@ -1,6 +1,7 @@
 <script setup>
 defineProps({
-  songName: String,
+  songTitle: String,
+  songWritter: String,
   url: String,
   musicKey: String
 })
@@ -9,17 +10,17 @@ defineProps({
 <template>
   <router-link
     :to="url"
-    class="flex h-fit flex-row items-center rounded-sm bg-transparent p-2 text-cod-gray-600 transition-colors duration-100 ease-in-out hover:bg-cod-gray-100 hover:text-cod-gray-900"
+    class="flex h-fit flex-row items-center gap-1 rounded-xl px-8 py-2 text-cod-gray-600 transition-colors duration-100 ease-in-out hover:border-cod-gray-100 hover:bg-cod-gray-100 hover:text-cod-gray-900"
   >
     <div
-      class="flex h-16 w-16 items-center justify-center rounded-sm bg-ocean-green-400 text-3xl font-bold text-ocean-green-800"
+      class="flex h-16 w-16 items-center justify-center rounded-md bg-ocean-green-400 text-3xl font-semibold text-ocean-green-800"
     >
       {{ musicKey }}
     </div>
     <div class="px-2 py-0">
       <div class="flex w-full flex-col">
-        <span class="font-semibold">{{ songName }}</span>
-        <span class="text-sm italic text-cod-gray-400">Songwriter</span>
+        <span class="text-lg font-medium leading-none">{{ songTitle }}</span>
+        <span class="text-base italic text-cod-gray-400">{{ songWritter }}</span>
       </div>
     </div>
   </router-link>

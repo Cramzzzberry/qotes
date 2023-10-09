@@ -35,23 +35,27 @@ function getImportant() {
 </script>
 
 <template>
-  <!-- navbar -->
-  <VNavbar>
-    <!-- tabs -->
-    <div class="flex h-full flex-row items-center justify-center">
-      <button @click="getAll()" class="tab-btn" :class="[isAll ? 'active' : '']">All</button>
-      <button @click="getPinned()" class="tab-btn" :class="[isPinned ? 'active' : '']">
-        Pinned
-      </button>
-      <button @click="getImportant()" class="tab-btn" :class="[isImportant ? 'active' : '']">
-        Important
-      </button>
-    </div>
-  </VNavbar>
+  <div>
+    <!-- navbar -->
+    <VNavbar>
+      <!-- tabs -->
+      <div class="flex h-full flex-row items-center justify-center">
+        <button @click="getAll()" class="tab-btn" :class="[isAll ? 'active' : '']">All</button>
+        <button @click="getPinned()" class="tab-btn" :class="[isPinned ? 'active' : '']">
+          Pinned
+        </button>
+        <button @click="getImportant()" class="tab-btn" :class="[isImportant ? 'active' : '']">
+          Important
+        </button>
+      </div>
+    </VNavbar>
 
-  <!-- body -->
-  <div class="h-[calc(100vh-61px)] w-screen">
-    <component :is="tabs[index]" />
+    <!-- body -->
+    <div class="h-[calc(100vh-56px)] w-screen overflow-clip">
+      <Transition name="fade-y" mode="out-in">
+        <component :is="tabs[index]" />
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -61,18 +65,31 @@ function getImportant() {
 }
 
 .tab-btn {
-  @apply relative flex h-full w-36 items-center justify-center transition-colors duration-100 ease-in-out;
-}
-
-.tab-btn:hover {
-  @apply bg-cod-gray-100;
+  @apply relative flex h-full w-36 items-center justify-center font-medium text-cod-gray-500 transition-colors duration-150 ease-in-out 
+  hover:text-cod-gray-800;
 }
 
 .tab-btn.active {
-  @apply font-medium before:bg-ocean-green-400;
+  @apply bg-transparent text-ocean-green-400;
 }
 
 .tab-btn::before {
-  @apply absolute bottom-0 left-[30px] right-[30px] top-[calc(100%-4px)] rounded-full transition-all duration-100 ease-in-out content-[''];
+  @apply absolute bottom-0 left-[16px] right-[16px] top-[calc(100%-2px)] rounded-full transition-all duration-150 ease-in-out content-[''];
+}
+
+.tab-btn.active::before {
+  @apply bg-ocean-green-400;
+}
+
+/* vue transitions */
+.fade-y-enter-active,
+.fade-y-leave-active {
+  transition: all 100ms ease-in-out;
+}
+
+.fade-y-enter-from,
+.fade-y-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
 }
 </style>

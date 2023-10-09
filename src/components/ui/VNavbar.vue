@@ -9,7 +9,7 @@
     <slot name="left">
       <div>
         <router-link to="/home" class="text-2xl font-semibold text-ocean-green-400">
-          Achord
+          Qotes
         </router-link>
       </div>
     </slot>
@@ -20,8 +20,7 @@
     <!-- right side content -->
     <slot name="right">
       <div class="flex flex-row justify-end">
-        <button class="flex select-none flex-row items-center gap-2">
-          <span>Jan Roe Bantuan</span>
+        <button class="flex select-none items-center">
           <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
             <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
           </div>
