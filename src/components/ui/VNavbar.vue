@@ -8,7 +8,10 @@
     <!-- left side content -->
     <slot name="left">
       <div>
-        <router-link to="/home" class="text-2xl font-semibold text-ocean-green-400">
+        <router-link
+          to="/home"
+          class="font-['AlbertSans'] text-2xl font-semibold text-ocean-green-400"
+        >
           Qotes
         </router-link>
       </div>

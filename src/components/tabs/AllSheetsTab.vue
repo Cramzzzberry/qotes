@@ -9,7 +9,10 @@ const keyLabel = ref('All Keys')
     <div
       class="sticky top-0 mt-12 flex flex-row items-center justify-between bg-cod-gray-50 pb-2 pt-4"
     >
-      <h1>All Sheets</h1>
+      <div class="flex flex-row items-center gap-4 text-5xl font-semibold">
+        All Sheets
+        <span class="material-icons text-5xl"> description </span>
+      </div>
       <div class="flex flex-row gap-2">
         <input
           type="text"
@@ -19,11 +22,11 @@ const keyLabel = ref('All Keys')
         <VDropdownList v-model:label="keyLabel" :list="keys" class="w-32" />
       </div>
     </div>
-    <div class="grid grid-cols-3 gap-1">
+    <div class="grid grid-cols-3 gap-2">
       <VFileItem
-        v-for="n in 100"
+        v-for="n in 32"
         :key="n"
-        :songTitle="`Ang Huling El Bimbo ver ${n}`"
+        :songTitle="`Magasin Chorus ${n}`"
         :songWritter="`Eraserheads ${n}`"
         musicKey="C"
         url="/edit/1"

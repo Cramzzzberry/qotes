@@ -10,6 +10,12 @@
 }
 
 @font-face {
+  font-family: 'Inter';
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  src: url('../fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+}
+
+@font-face {
   font-family: 'RobotoMono';
   font-weight: 100 200 300 400 500 600 700 800;
   src: url('../fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
@@ -29,7 +35,7 @@
   }
 
   html {
-    @apply bg-cod-gray-50 font-['AlbertSans'] text-cod-gray-700;
+    @apply bg-cod-gray-50 font-['Inter'] text-cod-gray-700;
   }
 
   button {
