@@ -19,7 +19,7 @@ defineEmits(['update:label'])
     </button>
     <ul
       tabindex="0"
-      class="dropdown-content invisible absolute top-[calc(100%+8px)] z-10 flex w-full flex-col gap-1 overflow-y-auto rounded-xl border bg-cod-gray-50 p-1 opacity-0 drop-shadow-lg transition-all duration-75 ease-in-out"
+      class="dropdown-content invisible absolute top-[calc(100%+8px)] z-10 flex w-full flex-col gap-1 overflow-y-auto rounded-xl border bg-cod-gray-50 p-2 opacity-0 drop-shadow-lg transition-all duration-75 ease-in-out"
     >
       <!-- dropdown content -->
       <li v-for="item in list" :key="item" class="w-full">

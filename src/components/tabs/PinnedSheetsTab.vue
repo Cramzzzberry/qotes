@@ -5,7 +5,7 @@ const keyLabel = ref('All Keys')
 </script>
 
 <template>
-  <div class="h-screen w-full overflow-y-auto px-48 pb-2">
+  <div class="h-screen grow overflow-y-auto px-16 pb-2">
     <div
       class="sticky top-0 mt-12 flex flex-row items-center justify-between bg-cod-gray-50 pb-2 pt-4"
     >
@@ -13,20 +13,25 @@ const keyLabel = ref('All Keys')
         Pinned
         <span class="material-icons text-3xl"> push_pin </span>
       </div>
-      <div class="flex flex-row gap-2">
+      <div class="flex basis-[880px] flex-row items-center gap-2">
+        <span class="material-icons text-2xl text-cod-gray-400"> search </span>
         <input
           type="text"
-          placeholder="Search for sheets"
-          class="w-96 border-b-2 border-b-cod-gray-200 bg-transparent px-2 outline-none transition-colors duration-100 ease-in-out focus:border-b-ocean-green-400"
+          placeholder="Search"
+          class="grow border-b-2 border-b-cod-gray-200 bg-transparent p-2 outline-none transition-colors duration-100 ease-in-out focus:border-b-ocean-green-400"
         />
         <VDropdownList v-model:label="keyLabel" :list="keys" class="w-32" />
+        <VButton class="border border-ocean-green-400">
+          <span class="material-icons text-base"> create </span>
+          <span class="pl-2">Create</span>
+        </VButton>
       </div>
     </div>
-    <div class="grid grid-cols-3 gap-1">
+    <div class="grid grid-cols-3 gap-2">
       <VFileItem
-        v-for="n in 4"
+        v-for="n in 5"
         :key="n"
-        :songTitle="`Ang Huling El Bimbo ver ${n}`"
+        :songTitle="`Magasin Chorus ${n}`"
         :songWritter="`Eraserheads ${n}`"
         musicKey="C"
         url="/edit/1"

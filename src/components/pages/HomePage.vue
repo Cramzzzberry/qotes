@@ -9,8 +9,19 @@ const tabs = [AllSheetsTab, PinnedSheetsTab, ImportantSheetsTab]
 
 <template>
   <TheSidebar v-slot="slotProps">
-    <component :is="tabs[slotProps.index]"/>
+    <Transition name="fade-y" mode="out-in">
+      <component :is="tabs[slotProps.index]"/>
+    </Transition>
   </TheSidebar>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fade-y-enter-from, .fade-y-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.fade-y-enter-active, .fade-y-leave-active {
+  transition: opacity 100ms ease-in-out, transform 150ms ease-in-out;
+}
+</style>

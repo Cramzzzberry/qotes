@@ -10,7 +10,7 @@ defineProps({
 <template>
   <router-link
     :to="url"
-    class="inline-grid h-fit items-center gap-1 rounded-xl px-8 py-2 text-cod-gray-600 transition-colors duration-100 ease-in-out hover:bg-cod-gray-100 hover:text-cod-gray-900"
+    class="inline-grid h-fit items-center gap-1 rounded-xl p-2 text-cod-gray-600 transition-colors duration-100 ease-in-out hover:bg-cod-gray-100 hover:text-cod-gray-900"
   >
     <div
       class="flex h-16 w-16 items-center justify-center rounded-md bg-ocean-green-400 text-3xl font-semibold text-ocean-green-800"

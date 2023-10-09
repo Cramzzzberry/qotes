@@ -62,7 +62,7 @@ const index = ref(0)
       <!-- profile section -->
       <div class="flex basis-1/3 items-end">
         <button
-          class="flex w-full select-none flex-row items-center px-[10px] transition-all duration-300 ease-in-out"
+          class="flex w-full select-none flex-row items-center px-[12px] transition-all duration-300 ease-in-out"
           :class="[sidebarToggle ? 'gap-4' : 'gap-10']"
         >
           <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
@@ -85,11 +85,15 @@ const index = ref(0)
 
 <style scoped>
 .nav-points {
-  @apply flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[18px] py-2 transition-[gap] duration-300 ease-in-out hover:bg-cod-gray-200;
+  @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[19px] py-2 transition-[gap] duration-300 ease-in-out hover:bg-cod-gray-100;
 }
 
 .nav-points.active {
-  @apply bg-ocean-green-400 text-ocean-green-900;
+  @apply bg-ocean-green-200;
+}
+
+.nav-points.active::before {
+  @apply absolute -left-[2px] bottom-2 right-[calc(100%-2px)] top-2 rounded-full bg-ocean-green-400 content-[''];
 }
 
 .nav-points > .material-icons {
