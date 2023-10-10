@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
+import TheSheetList from '@/components/ui/TheSheetList.vue';
 
 const musicKeys = ['All Keys', ...setKeys]
 const musicKeyLabel = ref('All Keys')
@@ -33,16 +34,15 @@ const musicKeyLabel = ref('All Keys')
         </VButton>
       </div>
     </div>
-    <div class="grid grid-cols-3 gap-2">
-      <VFileItem
-        v-for="n in 5"
-        :key="n"
-        :songTitle="`Magasin Chorus ${n}`"
-        :songWritter="`Eraserheads ${n}`"
-        musicKey="C"
-        url="/edit/1"
-      />
-    </div>
+
+    <!-- Sheet list -->
+    <Suspense>
+      <TheSheetList itemCount="5" />
+
+      <template #fallback>
+        <div class="text-center">Loading...</div>
+      </template>
+    </Suspense>
   </div>
 </template>
 

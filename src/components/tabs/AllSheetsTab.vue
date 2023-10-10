@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
+import TheSheetList from '@/components/ui/TheSheetList.vue'
 
 const musicKeys = ['All Keys', ...setKeys]
 const musicKeyLabel = ref('All Keys')
 const openModal = ref(false)
+const loading = ref(false)
 </script>
 
 <template>
@@ -17,6 +19,7 @@ const openModal = ref(false)
         <div class="flex flex-row items-center gap-4">
           <h1>All Sheets</h1>
           <span class="material-icons text-3xl"> description </span>
+          <span>{{ loading }}</span>
         </div>
         <div class="text-stone-400">A collection of sheets including pinned and important ones</div>
       </div>
@@ -45,16 +48,13 @@ const openModal = ref(false)
     </div>
 
     <!-- list of sheets -->
-    <div class="grid grid-cols-3 gap-2">
-      <VFileItem
-        v-for="n in 25"
-        :key="n"
-        :songTitle="`Magasin Chorus ${n}`"
-        :songWritter="`Eraserheads ${n}`"
-        musicKey="C"
-        url="/edit/1"
-      />
-    </div>
+    <Suspense>
+      <TheSheetList itemCount="6" />
+
+      <template #fallback>
+        <div class="text-center">Loading...</div>
+      </template>
+    </Suspense>
 
     <!-- create modal -->
     <VModal :toggler="openModal">

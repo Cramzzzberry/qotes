@@ -10,7 +10,9 @@ const tabs = [AllSheetsTab, PinnedSheetsTab, ImportantSheetsTab]
 <template>
   <TheSidebar v-slot="slotProps">
     <Transition name="fade-y" mode="out-in">
-      <component :is="tabs[slotProps.index]" />
+      <KeepAlive>
+        <component :is="tabs[slotProps.index]" />
+      </KeepAlive>
     </Transition>
   </TheSidebar>
 </template>
