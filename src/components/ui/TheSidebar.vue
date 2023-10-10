@@ -21,7 +21,7 @@ const index = ref(0)
           :class="[sidebarToggle ? 'gap-4' : 'gap-10']"
         >
           <span v-if="!sidebarToggle" class="material-icons"> menu </span>
-          <span v-else="!sidebarToggle" class="material-icons"> close </span>
+          <span v-else class="material-icons"> close </span>
           <span class="nav-name" :class="[sidebarToggle ? 'opacity-100' : 'opacity-0']">
             Close
           </span>

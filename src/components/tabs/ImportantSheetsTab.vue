@@ -8,6 +8,7 @@ const musicKeyLabel = ref('All Keys')
 
 <template>
   <div class="h-screen grow overflow-y-auto px-16 pb-2">
+    <!-- top bar -->
     <div
       class="bg-cod-gray-50 sticky top-0 mt-12 flex flex-row items-center justify-between pb-2 pt-4"
     >
@@ -21,13 +22,20 @@ const musicKeyLabel = ref('All Keys')
       <div class="flex basis-[880px] flex-row items-center gap-2">
         <span class="material-icons text-cod-gray-400 text-2xl"> search </span>
         <input type="text" placeholder="Search" class="searchbar" />
-        <VDropdownList v-model:label="musicKeyLabel" :list="musicKeys" class="w-32" />
+        <VDropdownList
+          v-model:label="musicKeyLabel"
+          :list="musicKeys"
+          position="bottom"
+          class="w-32"
+        />
         <VButton class="border border-emerald-400 hover:border-emerald-500">
           <span class="material-icons text-base"> create </span>
           <span class="pl-2">Create</span>
         </VButton>
       </div>
     </div>
+
+    <!-- content -->
     <div class="grid grid-cols-3 gap-2">
       <VFileItem
         v-for="n in 7"

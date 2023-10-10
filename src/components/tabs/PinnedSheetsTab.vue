@@ -21,7 +21,12 @@ const musicKeyLabel = ref('All Keys')
       <div class="flex basis-[880px] flex-row items-center gap-2">
         <span class="material-icons text-cod-gray-400 text-2xl"> search </span>
         <input type="text" placeholder="Search" class="searchbar" />
-        <VDropdownList v-model:label="musicKeyLabel" :list="musicKeys" class="w-32" />
+        <VDropdownList
+          v-model:label="musicKeyLabel"
+          :list="musicKeys"
+          position="bottom"
+          class="w-32"
+        />
         <VButton class="border border-emerald-400 hover:border-emerald-500">
           <span class="material-icons text-base"> create </span>
           <span class="pl-2">Create</span>

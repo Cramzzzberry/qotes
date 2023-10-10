@@ -1,16 +1,29 @@
 <script setup>
+import { ref } from 'vue'
+
 defineProps({
   songTitle: String,
   songWritter: String,
   url: String,
   musicKey: String
 })
+
+const menu = ref(null)
+const dropdownPosition = ref('top-end')
+
+function checkPosition() {
+  if (menu.value.getBoundingClientRect().bottom > window.innerHeight - 200) {
+    dropdownPosition.value = 'top-end'
+  } else {
+    dropdownPosition.value = 'bottom-end'
+  }
+}
 </script>
 
 <template>
   <router-link
     :to="url"
-    class="inline-grid h-fit items-center gap-1 rounded-xl p-2 transition-colors duration-100 ease-in-out hover:bg-stone-800"
+    class="inline-grid h-fit cursor-pointer items-center gap-1 rounded-xl p-2 transition-colors duration-100 ease-in-out hover:bg-stone-800"
   >
     <div
       class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900"
@@ -23,16 +36,45 @@ defineProps({
         <span class="text-sm text-stone-400">{{ songWritter }}</span>
       </div>
     </div>
-    <!-- <VDropdownList>
+    <VDropdownList :position="dropdownPosition">
       <template #button>
-        <button @click.stop.prevent>
-          <span class="material-icons"> more_vert </span>
+        <button
+          @click.stop.prevent="checkPosition()"
+          class="flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-700"
+          ref="menu"
+        >
+          <span class="material-icons text-stone-400"> more_vert </span>
         </button>
       </template>
       <template #dropdown-content>
-        <div class="w-96" @click.stop.prevent>Hello</div>
+        <ul @click.stop.prevent class="flex flex-col gap-1 whitespace-nowrap">
+          <li>
+            <VButton type="ghost" class="w-full">
+              <span class="material-icons"> done </span>
+              <span class="ml-2 text-left">Select</span>
+            </VButton>
+          </li>
+          <li>
+            <VButton type="ghost" class="w-full">
+              <span class="material-icons"> push_pin </span>
+              <span class="ml-2 text-left">Pin</span>
+            </VButton>
+          </li>
+          <li>
+            <VButton type="ghost" class="w-full">
+              <span class="material-icons"> lightbulb </span>
+              <span class="ml-2 text-left">Put to Important</span>
+            </VButton>
+          </li>
+          <li>
+            <VButton type="ghost" class="w-full">
+              <span class="material-icons"> delete </span>
+              <span class="ml-2 text-left">Delete</span>
+            </VButton>
+          </li>
+        </ul>
       </template>
-    </VDropdownList> -->
+    </VDropdownList>
   </router-link>
 </template>
 
