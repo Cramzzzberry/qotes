@@ -12,7 +12,7 @@ const menu = ref(null)
 const dropdownPosition = ref('top-end')
 
 function checkPosition() {
-  if (menu.value.getBoundingClientRect().bottom > window.innerHeight - 200) {
+  if (menu.value.getBoundingClientRect().top > window.innerHeight - 250) {
     dropdownPosition.value = 'top-end'
   } else {
     dropdownPosition.value = 'bottom-end'

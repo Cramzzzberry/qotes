@@ -11,7 +11,7 @@ const openModal = ref(false)
   <div class="h-screen grow overflow-y-auto px-16 pb-2">
     <!-- top bar -->
     <div
-      class="sticky top-0 z-20 mt-12 flex flex-row items-center justify-between bg-stone-900 pb-2 pt-4"
+      class="sticky top-0 z-10 mt-12 flex flex-row items-center justify-between bg-stone-900 pb-2 pt-4"
     >
       <div class="flex flex-col">
         <div class="flex flex-row items-center gap-4">
