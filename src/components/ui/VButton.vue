@@ -1,13 +1,13 @@
 <script setup>
 defineProps({
-  type: String
+  btnType: String
 })
 </script>
 
 <template>
   <button
     :class="[
-      type === 'ghost'
+      btnType === 'ghost'
         ? 'bg-transparent text-stone-300 hover:bg-stone-600'
         : 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500'
     ]"

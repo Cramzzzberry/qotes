@@ -49,25 +49,25 @@ function checkPosition() {
       <template #dropdown-content>
         <ul @click.stop.prevent class="flex flex-col gap-1 whitespace-nowrap">
           <li>
-            <VButton type="ghost" class="w-full">
+            <VButton btnType="ghost" class="w-full">
               <span class="material-icons"> done </span>
               <span class="ml-2 text-left">Select</span>
             </VButton>
           </li>
           <li>
-            <VButton type="ghost" class="w-full">
+            <VButton btnType="ghost" class="w-full">
               <span class="material-icons"> push_pin </span>
               <span class="ml-2 text-left">Pin</span>
             </VButton>
           </li>
           <li>
-            <VButton type="ghost" class="w-full">
+            <VButton btnType="ghost" class="w-full">
               <span class="material-icons"> lightbulb </span>
               <span class="ml-2 text-left">Put to Important</span>
             </VButton>
           </li>
           <li>
-            <VButton type="ghost" class="w-full">
+            <VButton btnType="ghost" class="w-full">
               <span class="material-icons"> delete </span>
               <span class="ml-2 text-left">Delete</span>
             </VButton>
