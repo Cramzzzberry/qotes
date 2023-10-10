@@ -1,12 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
-import TheSheetList from '@/components/ui/TheSheetList.vue'
 
 const musicKeys = ['All Keys', ...setKeys]
 const musicKeyLabel = ref('All Keys')
 const openModal = ref(false)
-const loading = ref(false)
 </script>
 
 <template>
@@ -19,7 +17,6 @@ const loading = ref(false)
         <div class="flex flex-row items-center gap-4">
           <h1>All Sheets</h1>
           <span class="material-icons text-3xl"> description </span>
-          <span>{{ loading }}</span>
         </div>
         <div class="text-stone-400">A collection of sheets including pinned and important ones</div>
       </div>
@@ -49,10 +46,10 @@ const loading = ref(false)
 
     <!-- list of sheets -->
     <Suspense>
-      <TheSheetList itemCount="6" />
+      <VSheetList itemCount="6" fakeTImeout="1000" />
 
       <template #fallback>
-        <div class="text-center">Loading...</div>
+        <div class="animate-pulse text-center">Loading...</div>
       </template>
     </Suspense>
 
