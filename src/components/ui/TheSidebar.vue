@@ -9,7 +9,7 @@ const index = ref(0)
   <div class="flex h-screen flex-row font-medium">
     <!-- the sidebar wrapper -->
     <div
-      class="group flex flex-col overflow-x-clip px-2 py-4 transition-all bg-stone-800 duration-300 ease-in-out"
+      class="group flex flex-col overflow-x-clip bg-stone-800 px-2 py-4 transition-all duration-300 ease-in-out"
       :class="[sidebarToggle ? 'basis-80' : 'basis-20']"
       tabindex="0"
     >
@@ -20,7 +20,8 @@ const index = ref(0)
           class="nav-points"
           :class="[sidebarToggle ? 'gap-4' : 'gap-10']"
         >
-          <span class="material-icons"> menu </span>
+          <span v-if="!sidebarToggle" class="material-icons"> menu </span>
+          <span v-else="!sidebarToggle" class="material-icons"> close </span>
           <span class="nav-name" :class="[sidebarToggle ? 'opacity-100' : 'opacity-0']">
             Close
           </span>
@@ -28,7 +29,7 @@ const index = ref(0)
       </div>
 
       <!-- nav points -->
-      <div class="flex basis-1/3 flex-col justify-center gap-1">
+      <div class="flex basis-1/3 flex-col justify-center gap-1 text-stone-400">
         <button
           @click="index = 0"
           class="nav-points"
@@ -67,7 +68,7 @@ const index = ref(0)
           class="flex w-full select-none flex-row items-center px-[12px] transition-all duration-300 ease-in-out"
           :class="[sidebarToggle ? 'gap-4' : 'gap-10']"
         >
-          <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
+          <div class="bg-ocean-green-400 h-10 w-10 shrink-0 overflow-clip rounded-full">
             <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
           </div>
           <div
@@ -87,11 +88,16 @@ const index = ref(0)
 
 <style scoped>
 .nav-points {
-  @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[19px] py-2 transition-[gap] duration-300 ease-in-out hover:bg-stone-700;
+  @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[19px] py-2
+  hover:bg-stone-700;
+
+  transition:
+    gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 100ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-points.active {
-  @apply bg-emerald-800;
+  @apply bg-emerald-800 text-stone-300;
 }
 
 .nav-points.active::before {

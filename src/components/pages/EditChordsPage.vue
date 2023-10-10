@@ -1,19 +1,19 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
+
+import { changeKey, setKeys } from '@/assets/scripts/change-key'
 import sanitizeHtml from 'sanitize-html'
 import parseSheet from '@/assets/scripts/parse-sheet'
-import changeKey from '@/assets/scripts/change-key'
 
 const route = useRoute()
-const keys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B']
 
 const sheetInput = ref(
   `# Song Title ${route.params.id}\n## Songwriter - Key of X\n---\n>> Intro\nC E Am F\nC E Am Fm\nOoh...\n\n>> Chorus\nC\nIba na ang 'yong ngiti\nE\nIba na ang 'yong tingin.\nAm                     F\nNagbago nang lahat sa'yo\nC\nSana'y hindi magkita\nE\nSana'y walang problema\nAm                      F        Fm\nPagkat kulang ang dala kong pera`
 )
-const keyPicked = ref('C')
+const musicKeyLabel = ref('C')
 
-watch(keyPicked, (newValue, oldValue) => {
+watch(musicKeyLabel, (newValue, oldValue) => {
   //replace the user input into transposed input
   sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
 })
@@ -44,8 +44,9 @@ const sheetHtml = computed(() => {
           <!-- transpose key -->
           <div>Key</div>
           <VDropdownList
-            :list="keys"
-            v-model:label="keyPicked"
+            btnType="ghost"
+            v-model:label="musicKeyLabel"
+            :list="setKeys"
             name="months"
             class="dropdown-height-limit w-[80px]"
           />

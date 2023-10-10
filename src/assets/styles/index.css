@@ -43,7 +43,7 @@
   }
 
   hr {
-    @apply my-2 border border-silver;
+    @apply my-2 border border-stone-700;
   }
 
   /* scrollbar */

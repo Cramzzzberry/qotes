@@ -20,12 +20,19 @@ defineProps({
     <div class="px-2 py-0">
       <div class="flex w-full flex-col">
         <span class="text-lg font-medium leading-none">{{ songTitle }}</span>
-        <span class="text-base text-stone-400">{{ songWritter }}</span>
+        <span class="text-sm text-stone-400">{{ songWritter }}</span>
       </div>
     </div>
-    <div>
-      <span class="material-icons"> more_vert </span>
-    </div>
+    <!-- <VDropdownList>
+      <template #button>
+        <button @click.stop.prevent>
+          <span class="material-icons"> more_vert </span>
+        </button>
+      </template>
+      <template #dropdown-content>
+        <div class="w-96" @click.stop.prevent>Hello</div>
+      </template>
+    </VDropdownList> -->
   </router-link>
 </template>
 

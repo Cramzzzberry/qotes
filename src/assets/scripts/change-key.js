@@ -1,33 +1,8 @@
 const setKeys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
 const allKeys = ['C#', 'D#', 'F#', 'G#', 'A#', 'Db', 'Eb', 'Gb', 'Ab', 'Bb', 'C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
-export default function changeKey(sheetStr, newKey, prevKey) {
-  let newKeyIndex = setKeys.indexOf(newKey) + 1;
-  let prevKeyIndex = setKeys.indexOf(prevKey) + 1;
-
-  let goHigher = newKeyIndex > prevKeyIndex;
-  let keyDiff = goHigher ? newKeyIndex - prevKeyIndex : prevKeyIndex - newKeyIndex;
-
-  return replacingKeys(sheetStr, keyDiff, newKey, prevKey);
-}
-
-function replacingKeys(str, keyDiff, newKey, prevKey) {
-  let transposedKeyObj = {};
-  let regex = '';
-
-  for (let index in allKeys) {
-    //put all keys in an object so the replace method can use it for matching.
-    transposedKeyObj[allKeys[index]] = tranposeKey(allKeys[index], keyDiff, newKey, prevKey);
-
-    //combine the regex strings
-    if (parseInt(index) + 1 == allKeys.length) {
-      regex = regex + checkKey(allKeys[index]);
-    } else {
-      regex = regex + checkKey(allKeys[index]) + "|";
-    }
-  }
-
-  return str.replace(new RegExp(regex, 'g'), function(match) { return transposedKeyObj[match] });
+function checkKey(chord) {
+  return `${ chord }(?=(m|maj|aug|dim|sus|add)?(M)?([0-9])?(?!(\\w|#)))`;
 }
 
 function tranposeKey(key, keyDiff, newKey, prevKey) {
@@ -73,6 +48,33 @@ function tranposeKey(key, keyDiff, newKey, prevKey) {
   return setKeys[changedKeyIndex];
 }
 
-function checkKey(chord) {
-  return `${ chord }(?=(m|maj|aug|dim|sus|add)?(M)?([0-9])?(?!(\\w|#)))`;
+function changeKey(sheetStr, newKey, prevKey) {
+  let newKeyIndex = setKeys.indexOf(newKey) + 1;
+  let prevKeyIndex = setKeys.indexOf(prevKey) + 1;
+
+  let goHigher = newKeyIndex > prevKeyIndex;
+  let keyDiff = goHigher ? newKeyIndex - prevKeyIndex : prevKeyIndex - newKeyIndex;
+
+  return replacingKeys(sheetStr, keyDiff, newKey, prevKey);
 }
+
+function replacingKeys(str, keyDiff, newKey, prevKey) {
+  let transposedKeyObj = {};
+  let regex = '';
+
+  for (let index in allKeys) {
+    //put all keys in an object so the replace method can use it for matching.
+    transposedKeyObj[allKeys[index]] = tranposeKey(allKeys[index], keyDiff, newKey, prevKey);
+
+    //combine the regex strings
+    if (parseInt(index) + 1 == allKeys.length) {
+      regex = regex + checkKey(allKeys[index]);
+    } else {
+      regex = regex + checkKey(allKeys[index]) + "|";
+    }
+  }
+
+  return str.replace(new RegExp(regex, 'g'), function(match) { return transposedKeyObj[match] });
+}
+
+export { changeKey, setKeys }
