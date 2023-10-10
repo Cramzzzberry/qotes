@@ -10,17 +10,17 @@ defineProps({
 <template>
   <router-link
     :to="url"
-    class="inline-grid h-fit items-center gap-1 rounded-xl p-2 text-cod-gray-600 transition-colors duration-100 ease-in-out hover:bg-cod-gray-100 hover:text-cod-gray-900"
+    class="inline-grid h-fit items-center gap-1 rounded-xl p-2 transition-colors duration-100 ease-in-out hover:bg-stone-800"
   >
     <div
-      class="flex h-16 w-16 items-center justify-center rounded-md bg-ocean-green-400 text-3xl font-semibold text-ocean-green-800"
+      class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900"
     >
       {{ musicKey }}
     </div>
     <div class="px-2 py-0">
       <div class="flex w-full flex-col">
         <span class="text-lg font-medium leading-none">{{ songTitle }}</span>
-        <span class="text-base text-cod-gray-400">{{ songWritter }}</span>
+        <span class="text-base text-stone-400">{{ songWritter }}</span>
       </div>
     </div>
     <div>

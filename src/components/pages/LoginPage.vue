@@ -14,12 +14,20 @@
           <VTextBox inputType="password" />
         </label>
       </div>
-      <VButton @click="$router.push('/home')" class="duration-150" type="button"> Login </VButton>
+
+      <!-- login button -->
+      <VButton @click="$router.push('/home')" class="duration-150" type="button">
+        <span></span>
+        Login
+        <span></span>
+      </VButton>
+
+      <!-- registration section -->
       <div class="place-self-end">
         Don't have an account?
         <button
           type="button"
-          class="text-ocean-green-400 transition-colors duration-100 ease-in-out hover:text-ocean-green-500"
+          class="text-emerald-400 transition-colors duration-100 ease-in-out hover:text-emerald-500"
         >
           Create one
         </button>
@@ -30,6 +38,6 @@
 
 <style scoped>
 label {
-  @apply flex w-full flex-col gap-1 text-cod-gray-600 transition-colors duration-100 ease-in-out focus-within:text-cod-gray-700;
+  @apply flex w-full flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200;
 }
 </style>

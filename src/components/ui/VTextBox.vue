@@ -9,13 +9,13 @@ defineEmits(['update:modelValue'])
     :type="inputType"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
-    class="rounded-sm border border-cod-gray-200 bg-transparent text-base text-cod-gray-700 outline-none transition-colors duration-100 ease-in-out focus:border-ocean-green-400"
+    class="rounded-lg border border-stone-600 bg-transparent text-base text-stone-200 outline-none transition-colors duration-100 ease-in-out focus:border-emerald-400"
     :class="[inputType === 'number' ? 'py-2 pl-4 pr-[0.625rem]' : 'px-4 py-2']"
   />
 </template>
 
 <style scoped>
 ::-ms-reveal {
-  filter: invert(30%);
+  filter: invert(90%);
 }
 </style>

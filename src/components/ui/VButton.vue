@@ -2,7 +2,7 @@
 
 <template>
   <button
-    class="inline-grid items-center rounded-lg bg-ocean-green-400 px-4 py-2 text-base text-ocean-green-950 transition-colors duration-100 hover:bg-ocean-green-500"
+    class="inline-grid items-center rounded-lg bg-emerald-400 px-4 py-2 text-base text-emerald-950 transition-colors duration-150 hover:bg-emerald-500"
   >
     <slot />
   </button>

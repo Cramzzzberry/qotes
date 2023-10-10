@@ -9,7 +9,7 @@ const index = ref(0)
   <div class="flex h-screen flex-row font-medium">
     <!-- the sidebar wrapper -->
     <div
-      class="group flex flex-col overflow-x-clip border-r border-r-cod-gray-200 px-2 py-4 transition-all duration-300 ease-in-out"
+      class="group flex flex-col overflow-x-clip px-2 py-4 transition-all bg-stone-800 duration-300 ease-in-out"
       :class="[sidebarToggle ? 'basis-80' : 'basis-20']"
       tabindex="0"
     >
@@ -21,7 +21,9 @@ const index = ref(0)
           :class="[sidebarToggle ? 'gap-4' : 'gap-10']"
         >
           <span class="material-icons"> menu </span>
-          <span class="nav-name"> Close </span>
+          <span class="nav-name" :class="[sidebarToggle ? 'opacity-100' : 'opacity-0']">
+            Close
+          </span>
         </button>
       </div>
 
@@ -85,15 +87,15 @@ const index = ref(0)
 
 <style scoped>
 .nav-points {
-  @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[19px] py-2 transition-[gap] duration-300 ease-in-out hover:bg-cod-gray-100;
+  @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[19px] py-2 transition-[gap] duration-300 ease-in-out hover:bg-stone-700;
 }
 
 .nav-points.active {
-  @apply bg-ocean-green-200;
+  @apply bg-emerald-800;
 }
 
 .nav-points.active::before {
-  @apply absolute -left-[2px] bottom-2 right-[calc(100%-2px)] top-2 rounded-full bg-ocean-green-400 content-[''];
+  @apply absolute -left-[2px] bottom-2 right-[calc(100%-2px)] top-2 rounded-full bg-emerald-400 content-[''];
 }
 
 .nav-points > .material-icons {

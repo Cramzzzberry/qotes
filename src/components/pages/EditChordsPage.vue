@@ -26,12 +26,12 @@ const sheetHtml = computed(() => {
 <template>
   <div>
     <div
-      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center border-b border-b-cod-gray-100 bg-cod-gray-50 px-4"
+      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center bg-stone-800 px-4 text-stone-400"
     >
       <div>
         <a
           @click="$router.go(-1)"
-          class="flex w-fit cursor-pointer flex-row items-center gap-2 py-[6px]"
+          class="flex w-fit cursor-pointer flex-row items-center gap-2 py-[6px] transition-colors duration-150 ease-in-out hover:text-stone-300"
         >
           <!-- back button -->
           <span class="material-icons">arrow_back</span>
@@ -52,7 +52,7 @@ const sheetHtml = computed(() => {
         </div>
         <div class="flex select-none flex-row items-center gap-2">
           <span>Jan Roe Bantuan</span>
-          <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-ocean-green-400">
+          <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-emerald-400">
             <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
           </div>
         </div>
@@ -61,16 +61,16 @@ const sheetHtml = computed(() => {
 
     <!-- the body -->
     <div class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
-      <div class="border-r border-r-cod-gray-100">
+      <div class="border-r border-r-stone-800">
         <textarea
           v-model="sheetInput"
           spellcheck="false"
-          class="h-full w-full resize-none border-none bg-cod-gray-50 py-4 pl-4 font-['RobotoMono'] text-base text-cod-gray-950 outline-none"
+          class="h-full w-full resize-none border-none bg-stone-900 py-4 pl-4 font-['RobotoMono'] text-base text-stone-300 outline-none"
         ></textarea>
       </div>
       <div
         v-html="sheetHtml"
-        class="markdown-preview h-full w-full overflow-y-auto border-l border-l-cod-gray-100 p-[0.5in] font-['RobotoMono'] leading-6 text-cod-gray-800"
+        class="markdown-preview h-full w-full overflow-y-auto border-l border-l-stone-800 p-[0.5in] font-['RobotoMono'] leading-6 text-stone-300"
       ></div>
     </div>
   </div>

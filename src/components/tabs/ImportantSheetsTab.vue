@@ -18,7 +18,7 @@ const keyLabel = ref('All Keys')
         <input
           type="text"
           placeholder="Search"
-          class="grow border-b-2 border-b-cod-gray-200 bg-transparent p-2 outline-none transition-colors duration-100 ease-in-out focus:border-b-ocean-green-400"
+          class="searchbar"
         />
         <VDropdownList v-model:label="keyLabel" :list="keys" class="w-32" />
         <VButton class="border border-ocean-green-400">
