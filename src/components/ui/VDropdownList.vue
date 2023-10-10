@@ -38,7 +38,7 @@ defineEmits(['update:label'])
         { 'right-[calc(100%+8px)] top-0 ': position === 'left' },
         { 'bottom-0 right-[calc(100%+8px)]': position === 'left-end' }
       ]"
-      class="dropdown-content invisible absolute z-10 min-w-full scale-[98%] overflow-y-auto rounded-xl bg-stone-700 p-2 opacity-0 transition-all delay-75"
+      class="dropdown-content invisible absolute z-10 min-w-full scale-[98%] overflow-y-auto rounded-xl bg-stone-700 p-2 opacity-0 transition-all"
     >
       <slot name="dropdown-content">
         <ul class="flex flex-col gap-1">

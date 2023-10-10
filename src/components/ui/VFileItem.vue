@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 defineProps({
   songTitle: String,
@@ -9,15 +9,15 @@ defineProps({
 })
 
 const menu = ref(null)
-const dropdownPosition = ref('top-end')
+const dropdownPosition = ref('top-end') //used top-end so that the initial scrollable div will not change height
 
-function checkPosition() {
-  if (menu.value.getBoundingClientRect().top > window.innerHeight - 250) {
+onMounted(() => {
+  if (menu.value.getBoundingClientRect().top > window.innerHeight - 225) {
     dropdownPosition.value = 'top-end'
   } else {
     dropdownPosition.value = 'bottom-end'
   }
-}
+})
 </script>
 
 <template>
@@ -39,8 +39,8 @@ function checkPosition() {
     <VDropdownList :position="dropdownPosition">
       <template #button>
         <button
-          @click.stop.prevent="checkPosition()"
-          class="flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-700"
+          @click.stop.prevent
+          class="flex items-center justify-center rounded-lg p-3 transition-colors hover:bg-stone-700"
           ref="menu"
         >
           <span class="material-icons text-stone-400"> more_vert </span>
