@@ -28,6 +28,7 @@ const tabs = [AllSheetsTab, PinnedSheetsTab, ImportantSheetsTab]
 
 .fade-y-enter-active,
 .fade-y-leave-active {
+  overflow-x: clip;
   transition:
     opacity 100ms ease-in-out,
     transform 150ms ease-in-out;

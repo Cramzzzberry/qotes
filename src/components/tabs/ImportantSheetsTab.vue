@@ -7,7 +7,7 @@ const musicKeyLabel = ref('All Keys')
 </script>
 
 <template>
-  <div class="h-screen grow overflow-y-auto px-16 pb-2">
+  <div class="grow overflow-y-auto px-16 pb-2">
     <!-- top bar -->
     <div
       class="bg-cod-gray-50 sticky top-0 mt-12 flex flex-row items-center justify-between pb-2 pt-4"

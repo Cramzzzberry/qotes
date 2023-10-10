@@ -8,7 +8,7 @@ const openModal = ref(false)
 </script>
 
 <template>
-  <div class="h-screen grow overflow-y-auto px-16 pb-2">
+  <div class="grow overflow-y-auto px-16 pb-2">
     <!-- top bar -->
     <div
       class="sticky top-0 z-10 mt-12 flex flex-row items-center justify-between bg-stone-900 pb-2 pt-4"
@@ -47,7 +47,7 @@ const openModal = ref(false)
     <!-- list of sheets -->
     <div class="grid grid-cols-3 gap-2">
       <VFileItem
-        v-for="n in 32"
+        v-for="n in 25"
         :key="n"
         :songTitle="`Magasin Chorus ${n}`"
         :songWritter="`Eraserheads ${n}`"
