@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   songTitle: String,
   songWritter: String,
   url: String,
@@ -9,18 +9,18 @@ defineProps({
 
 <template>
   <router-link
-    :to="url"
+    :to="props.url"
     class="inline-grid h-fit cursor-pointer items-center gap-1 rounded-xl p-2 transition-colors duration-100 ease-in-out hover:bg-stone-800"
   >
     <div
       class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900"
     >
-      {{ musicKey }}
+      {{ props.musicKey }}
     </div>
     <div class="px-2 py-0">
       <div class="flex w-full flex-col">
-        <span class="text-lg font-medium leading-none">{{ songTitle }}</span>
-        <span class="text-sm text-stone-400">{{ songWritter }}</span>
+        <span class="text-lg font-medium leading-none">{{ props.songTitle }}</span>
+        <span class="text-sm text-stone-400">{{ props.songWritter }}</span>
       </div>
     </div>
   </router-link>

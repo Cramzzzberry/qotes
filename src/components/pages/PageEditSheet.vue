@@ -8,10 +8,10 @@ import parseSheet from '@/assets/scripts/parse-sheet'
 
 const route = useRoute()
 
+const musicKeyLabel = ref('C')
 const sheetInput = ref(
   `# Song Title ${route.params.id}\n## Songwriter - Key of X\n---\n>> Intro\nC E Am F\nC E Am Fm\nOoh...\n\n>> Chorus\nC\nIba na ang 'yong ngiti\nE\nIba na ang 'yong tingin.\nAm                     F\nNagbago nang lahat sa'yo\nC\nSana'y hindi magkita\nE\nSana'y walang problema\nAm                      F        Fm\nPagkat kulang ang dala kong pera`
 )
-const musicKeyLabel = ref('C')
 
 watch(musicKeyLabel, (newValue, oldValue) => {
   //replace the user input into transposed input
@@ -26,17 +26,16 @@ const sheetHtml = computed(() => {
 <template>
   <div>
     <div
-      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center bg-stone-800 px-4 text-stone-400"
+      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center bg-stone-800 pl-2 pr-4 text-stone-400"
     >
       <div>
-        <a
+        <button
           @click="$router.go(-1)"
-          class="flex w-fit cursor-pointer flex-row items-center gap-2 py-[6px] transition-colors duration-150 ease-in-out hover:text-stone-300"
+          class="flex w-fit cursor-pointer flex-row items-center rounded-lg p-2 transition-colors duration-150 ease-in-out hover:bg-stone-700 hover:text-stone-300"
         >
           <!-- back button -->
           <span class="material-icons">arrow_back</span>
-          <span>Go back</span>
-        </a>
+        </button>
       </div>
       <div class="flex flex-row items-center justify-end gap-8">
         <!-- profile-cluster -->
@@ -44,9 +43,9 @@ const sheetHtml = computed(() => {
           <!-- transpose key -->
           <div>Key</div>
           <VDropdownList
-            btnType="ghost"
             v-model:label="musicKeyLabel"
             :list="setKeys"
+            btnType="ghost"
             name="months"
             class="dropdown-height-limit w-[80px]"
           />

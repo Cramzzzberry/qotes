@@ -1,10 +1,10 @@
 <script setup>
 import TheSidebar from '@/components/ui/TheSidebar.vue'
-import AllSheetsTab from '@/components/tabs/AllSheetstab.vue'
-import PinnedSheetsTab from '@/components/tabs/PinnedSheetstab.vue'
-import ImportantSheetsTab from '@/components/tabs/ImportantSheetstab.vue'
+import TabAll from '@/components/tabs/TabAll.vue'
+import TabPinned from '@/components/tabs/TabPinned.vue'
+import TabImportant from '@/components/tabs/TabImportant.vue'
 
-const tabs = [AllSheetsTab, PinnedSheetsTab, ImportantSheetsTab]
+const tabs = [TabAll, TabPinned, TabImportant]
 </script>
 
 <template>

@@ -1,10 +1,22 @@
 <script setup>
-defineProps({
-  label: String,
-  list: Array,
-  name: String,
-  btnType: String,
-  position: String
+const props = defineProps({
+  label: {
+    type: String,
+    required: true
+  },
+  list: {
+    type: Array,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  position: {
+    type: String,
+    default: 'bottom'
+  },
+  btnType: String
 })
 
 defineEmits(['update:label'])
@@ -16,7 +28,7 @@ defineEmits(['update:label'])
 
     <button
       :class="[
-        btnType === 'ghost'
+        props.btnType === 'ghost'
           ? 'border-transparent hover:text-stone-300 focus:text-stone-200'
           : 'border-stone-600 hover:border-stone-400 focus:border-emerald-400'
       ]"
@@ -28,26 +40,26 @@ defineEmits(['update:label'])
     <div
       tabindex="0"
       :class="[
-        { 'left-0 top-[calc(100%+8px)]': position === 'bottom' },
-        { 'right-0 top-[calc(100%+8px)]': position === 'bottom-end' },
-        { 'bottom-[calc(100%+8px)] left-0 ': position === 'top' },
-        { 'bottom-[calc(100%+8px)] right-0': position === 'top-end' },
-        { 'left-[calc(100%+8px)] top-0': position === 'right' },
-        { 'bottom-0 left-[calc(100%+8px)]': position === 'right-end' },
-        { 'right-[calc(100%+8px)] top-0 ': position === 'left' },
-        { 'bottom-0 right-[calc(100%+8px)]': position === 'left-end' }
+        { 'left-0 top-[calc(100%+8px)]': props.position === 'bottom' },
+        { 'right-0 top-[calc(100%+8px)]': props.position === 'bottom-end' },
+        { 'bottom-[calc(100%+8px)] left-0 ': props.position === 'top' },
+        { 'bottom-[calc(100%+8px)] right-0': props.position === 'top-end' },
+        { 'left-[calc(100%+8px)] top-0': props.position === 'right' },
+        { 'bottom-0 left-[calc(100%+8px)]': props.position === 'right-end' },
+        { 'right-[calc(100%+8px)] top-0 ': props.position === 'left' },
+        { 'bottom-0 right-[calc(100%+8px)]': props.position === 'left-end' }
       ]"
       class="dropdown-content invisible absolute z-10 min-w-full scale-[98%] overflow-y-auto rounded-xl bg-stone-700 p-2 opacity-0 transition-all"
     >
       <ul class="flex flex-col gap-1">
         <!-- dropdown content -->
-        <li v-for="item in list" :key="item" class="w-full">
+        <li v-for="item in props.list" :key="item" class="w-full">
           <input
             type="radio"
-            :name="name"
+            :name="props.name"
             :id="item"
             :value="item"
-            :checked="label === item"
+            :checked="props.label === item"
             @input="$emit('update:label', $event.target.value)"
             class="peer absolute -top-10 hidden"
           />

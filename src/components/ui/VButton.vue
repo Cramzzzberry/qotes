@@ -1,13 +1,14 @@
 <script setup>
-defineProps({
+const props = defineProps({
   btnType: String
 })
 </script>
 
 <template>
+  <!-- TODO: make this into a one for all all for one button -->
   <button
     :class="[
-      btnType === 'ghost'
+      props.btnType === 'ghost'
         ? 'bg-transparent text-stone-300 hover:bg-stone-600'
         : 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500'
     ]"

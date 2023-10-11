@@ -1,4 +1,5 @@
 <script setup>
+// TODO: I think i need to have a fetch url props here
 const props = defineProps({
   itemCount: String,
   fakeTImeout: String

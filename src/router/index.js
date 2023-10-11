@@ -5,15 +5,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/components/pages/LoginPage.vue')
+      component: () => import('@/components/pages/PageLogin.vue')
     },
     {
       path: '/home',
-      component: () => import('@/components/pages/HomePage.vue')
+      component: () => import('@/components/pages/PageHome.vue')
     },
     {
       path: '/edit/:id',
-      component: () => import('@/components/pages/EditChordsPage.vue')
+      component: () => import('@/components/pages/PageEditSheet.vue')
     }
   ]
 });
