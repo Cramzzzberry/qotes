@@ -9,6 +9,7 @@ const router = createRouter({
     },
     {
       path: '/home/:userId',
+      name: 'home',
       meta: {
         requiresAuth: true
       },
@@ -25,11 +26,17 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  const isLoggedIn = localStorage.getItem('loggedIn')
+
+  if (to.meta.requiresAuth) {
     const isAuthenticated = await checkAuthentication()
-    if (!isAuthenticated && to.path !== '/') {
+    if (isAuthenticated === false && to.path !== '/') {
       return { path: '/' }
     }
+  }
+
+  if (isLoggedIn === true && to.path === '/' && from.path !== '/') {
+    return false
   }
 })
 

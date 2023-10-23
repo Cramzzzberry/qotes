@@ -1,14 +1,14 @@
 <template>
   <router-view v-slot="{ Component }">
-    <suspense>
-      <transition name="fade-scale" mode="out-in">
+    <transition name="fade-scale" mode="out-in">
+      <suspense>
         <component :is="Component" />
-      </transition>
-    </suspense>
+      </suspense>
+    </transition>
   </router-view>
 </template>
 
-<style scoped>
+<style>
 .fade-scale-enter-from,
 .fade-scale-leave-to {
   opacity: 0;

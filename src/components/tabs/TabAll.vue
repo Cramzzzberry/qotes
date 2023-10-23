@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from 'vue'
+
 import VTopbar from '@/components/ui/VTopbar.vue'
+import { setKeys } from '@/assets/scripts/change-key'
+
+const musicKeys = setKeys
+const newSheetkey = ref('C')
 
 const title = 'All Sheets'
 const desc = 'A collection of sheets including pinned and important ones'
@@ -12,13 +17,36 @@ const createSheetFormRef = ref(null)
 
 async function createSheet() {
   const formdata = new FormData(createSheetFormRef.value)
-  const createFormObj = {}
+  const createSheetForm = {}
 
   formdata.forEach((value, key) => {
-    createFormObj[key] = value
+    if (value === 'on') {
+      createSheetForm[key] = true
+    } else {
+      createSheetForm[key] = value
+    }
   })
 
-  console.log(createFormObj)
+  createSheetForm['content'] =
+    '# Heading 1 \n## Heading 2 \n### Heading 3 \n---\nC D G  Am    BbmM7\nSample Lyrics'
+
+  await fetch('http://localhost:3000/sheets/create-sheet', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(createSheetForm)
+  })
+    .then(async (res) => {
+      const response = await res.json()
+
+      console.log(response.success)
+      window.location.reload()
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 </script>
 
@@ -54,13 +82,49 @@ async function createSheet() {
           </div>
 
           <div class="flex flex-col items-center gap-2">
-            <label>
+            <label class="input-text">
               Song Title
               <VTextBox input-type="text" name="song_title" required />
             </label>
-            <label>
+            <label class="input-text">
               Singer/Songwritter
               <VTextBox input-type="text" name="song_writter" required />
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <span class="text-stone-400">Key</span>
+            <ul class="grid grid-cols-4 gap-1 rounded-lg border border-stone-600 p-2">
+              <!-- dropdown content -->
+              <li v-for="key in musicKeys" :key="key" class="w-full">
+                <input
+                  type="radio"
+                  name="song_key"
+                  :id="key + ' id'"
+                  :checked="newSheetkey === key"
+                  :value="key"
+                  v-model="newSheetkey"
+                  class="peer absolute -top-10 hidden"
+                />
+                <label
+                  :for="key + ' id'"
+                  tabindex="0"
+                  class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-400 transition-colors duration-100 ease-in-out hover:bg-stone-600 hover:text-stone-200 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
+                >
+                  {{ key }}
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <div class="flex flex-row gap-2 text-stone-400">
+            <label class="flex basis-1/2 cursor-pointer flex-row gap-2">
+              <input type="checkbox" name="pinned" />
+              <span>Pinned</span>
+            </label>
+            <label class="flex basis-1/2 cursor-pointer flex-row gap-2">
+              <input type="checkbox" name="important" />
+              <span>Important</span>
             </label>
           </div>
 
@@ -73,7 +137,7 @@ async function createSheet() {
 </template>
 
 <style scoped>
-label {
+label.input-text {
   @apply flex w-full flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200;
 }
 </style>

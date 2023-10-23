@@ -31,21 +31,9 @@ await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
     console.log(err)
   })
 
-async function logout() {
-  await fetch('http://localhost:3000/users/auth/get', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('token')
-    })
-  })
-    .then(() => {
-      localStorage.setItem('token', '')
-    })
-    .catch((err) => console.log(err))
+function logout() {
+  localStorage.setItem('token', '')
+  localStorage.setItem('loggedIn', false)
 
   router.push('/')
 }

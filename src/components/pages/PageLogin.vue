@@ -30,6 +30,7 @@ async function logAccount() {
 
       if (response.success) {
         localStorage.setItem('token', response.token)
+        localStorage.setItem('loggedIn', true)
         router.push(`/home/${response.userId}`)
       } else {
         console.log('Account not existing')
