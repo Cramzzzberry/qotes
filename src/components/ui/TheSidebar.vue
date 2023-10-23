@@ -20,13 +20,13 @@ let lastName = ''
 let email = ''
 
 //getting user data
-await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
+await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
   .then(async (response) => {
-    const message = await response.json()
+    const profile = await response.json()
 
-    firstName = message.first_name
-    lastName = message.last_name
-    email = message.email
+    firstName = profile.first_name
+    lastName = profile.last_name
+    email = profile.email
   })
   .catch((err) => {
     console.log(err)

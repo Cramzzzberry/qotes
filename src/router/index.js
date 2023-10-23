@@ -27,6 +27,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const isLoggedIn = localStorage.getItem('loggedIn')
+  const userId = localStorage.getItem('user_id')
 
   if (to.meta.requiresAuth) {
     const isAuthenticated = await checkAuthentication()
@@ -35,9 +36,10 @@ router.beforeEach(async (to, from) => {
     }
   }
 
-  //TODO: make a working routeguard when logged user goes to login page
   if (isLoggedIn === 'true' && to.path === '/' && from.path !== '/') {
     return false
+  } else if (isLoggedIn === 'true' && to.path === '/') {
+    return { path: `/home/${userId}` }
   }
 })
 

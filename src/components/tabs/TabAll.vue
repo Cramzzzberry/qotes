@@ -14,7 +14,6 @@ const modalState = ref(false)
 const modalToggle = () => (modalState.value = !modalState.value)
 
 const createSheetFormRef = ref(null)
-
 async function createSheet() {
   const formdata = new FormData(createSheetFormRef.value)
   const createSheetForm = {}
@@ -39,10 +38,8 @@ async function createSheet() {
     },
     body: JSON.stringify(createSheetForm)
   })
-    .then(async (res) => {
-      const response = await res.json()
-
-      console.log(response.success)
+    .then(() => {
+      console.log('Sheet creattion success')
       window.location.reload()
     })
     .catch((err) => {

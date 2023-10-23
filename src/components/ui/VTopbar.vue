@@ -2,10 +2,6 @@
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
 
-const musicKeys = ['All Keys', ...setKeys]
-const musicKeyLabel = ref('All Keys')
-const searchValue = ref('')
-
 const props = defineProps({
   topBarTitle: {
     type: String,
@@ -19,6 +15,10 @@ const props = defineProps({
   },
   topBarIcon: String
 })
+
+const musicKeys = ['All Keys', ...setKeys]
+const musicKeyLabel = ref('All Keys')
+const searchValue = ref('')
 </script>
 
 <template>

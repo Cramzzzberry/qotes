@@ -8,40 +8,7 @@ const isLoginSection = ref(true)
 const createAccForm = ref(null)
 const logAccFormRef = ref(null)
 
-// account login
-async function logAccount() {
-  const formdata = new FormData(logAccFormRef.value)
-  const logAccObj = {}
-
-  formdata.forEach((value, key) => {
-    logAccObj[key] = value
-  })
-
-  await fetch('http://localhost:3000/users/login', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(logAccObj)
-  })
-    .then(async (res) => {
-      const response = await res.json()
-
-      if (response.success) {
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('loggedIn', 'true')
-        router.push(`/home/${response.userId}`)
-      } else {
-        console.log('Account not existing')
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-
-// creating account
+// create account
 async function createAccount() {
   const formdata = new FormData(createAccForm.value)
   const createAccObj = {}
@@ -53,7 +20,7 @@ async function createAccount() {
   })
 
   if (formdata.get('confirm_password') === formdata.get('password')) {
-    await fetch('http://localhost:3000/users/signup', {
+    await fetch('http://localhost:3000/users/create-account', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -76,6 +43,39 @@ async function createAccount() {
     console.log('Passwords required are not the same!')
   }
 }
+
+// login account
+async function loginAccount() {
+  const formdata = new FormData(logAccFormRef.value)
+  const logAccObj = {}
+
+  formdata.forEach((value, key) => {
+    logAccObj[key] = value
+  })
+
+  await fetch('http://localhost:3000/users/login-account', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(logAccObj)
+  })
+    .then(async (res) => {
+      const response = await res.json()
+
+      if (response.success) {
+        localStorage.setItem('token', response.token)
+        localStorage.setItem('loggedIn', 'true')
+        router.push(`/home/${response.userId}`)
+      } else {
+        console.log('Account not existing')
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 </script>
 
 <template>
@@ -84,7 +84,7 @@ async function createAccount() {
       <!-- login section -->
       <form
         v-if="isLoginSection"
-        @submit.prevent="logAccount()"
+        @submit.prevent="loginAccount()"
         class="flex w-full max-w-[480px] flex-col gap-4"
         ref="logAccFormRef"
       >

@@ -1,13 +1,11 @@
 <script setup>
 // TODO: I need to remove the unnecessary props later
 const props = defineProps({
-  itemCount: String, //this are unneccessary
-  fakeTImeout: String, //this are unneccessary
   fetchUrl: String
 })
 
 let sheets = await fetch(props.fetchUrl)
-  .then(async (response) => response.json())
+  .then(async (res) => res.json())
   .catch((err) => console.log(err))
 </script>
 

@@ -50,7 +50,7 @@ async function saveSheet() {
     })
   })
     .then(async (res) => {
-      console.log(res)
+      console.log('Sheet saved')
     })
     .catch((err) => console.log(err))
 }

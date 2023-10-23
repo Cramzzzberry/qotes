@@ -16,6 +16,7 @@ const updateProfileFormRef = ref(null)
 function logoutAccount() {
   localStorage.setItem('token', '')
   localStorage.setItem('loggedIn', 'false')
+  localStorage.setItem('user_id', '')
 
   router.push('/')
 }
