@@ -33,7 +33,7 @@ await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
 
 function logout() {
   localStorage.setItem('token', '')
-  localStorage.setItem('loggedIn', false)
+  localStorage.setItem('loggedIn', 'false')
 
   router.push('/')
 }

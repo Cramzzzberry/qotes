@@ -30,12 +30,12 @@ router.beforeEach(async (to, from) => {
 
   if (to.meta.requiresAuth) {
     const isAuthenticated = await checkAuthentication()
-    if (isAuthenticated === false && to.path !== '/') {
+    if (!isAuthenticated && to.path !== '/') {
       return { path: '/' }
     }
   }
 
-  if (isLoggedIn === true && to.path === '/' && from.path !== '/') {
+  if (isLoggedIn === 'true' && to.path === '/' && from.path !== '/') {
     return false
   }
 })
