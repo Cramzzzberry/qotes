@@ -37,7 +37,7 @@ async function deleteSheet() {
         <span class="text-sm text-stone-400">{{ props.songWritter }}</span>
       </div>
     </div>
-    <div class="opacity-0 group-hover:opacity-100">
+    <div class="opacity-0 transition-opacity group-hover:opacity-100">
       <VButton @click.prevent="deleteSheet()" btn-style="icon-ghost" type="button">
         <span class="material-icons"> delete </span>
       </VButton>

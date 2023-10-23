@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+
+import TheProfileSection from '@/components/ui/TheProfileSection.vue'
 
 //vue-router
 const route = useRoute()
-const router = useRouter()
 
 //initialization of values
 const index = ref(0)
@@ -30,13 +31,6 @@ await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
   .catch((err) => {
     console.log(err)
   })
-
-function logout() {
-  localStorage.setItem('token', '')
-  localStorage.setItem('loggedIn', 'false')
-
-  router.push('/')
-}
 </script>
 
 <template>
@@ -126,86 +120,20 @@ function logout() {
 
     <!-- modal for profile options -->
     <VModal :state="profileState">
-      <form>
-        <!-- header section -->
-        <div class="flex w-full flex-row items-center justify-between">
-          <h2>Your Profile</h2>
-          <VButton @click="profileToggle()" btn-style="icon-ghost" type="button">
-            <span class="material-icons"> close </span>
-          </VButton>
-        </div>
+      <!-- header section -->
+      <div class="flex w-full flex-row items-center justify-between">
+        <h2>Your Profile</h2>
+        <VButton @click="profileToggle()" btn-style="icon-ghost" type="button">
+          <span class="material-icons"> close </span>
+        </VButton>
+      </div>
 
-        <!-- change fields section -->
-        <div class="flex flex-col items-center gap-2">
-          <!-- email -->
-          <label class="input-labels">
-            Email
-            <VTextBox input-type="email" :value="email" />
-          </label>
-
-          <!-- full name -->
-          <div class="flex w-full flex-row items-center gap-2">
-            <label
-              class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200"
-            >
-              First Name
-              <VTextBox input-type="text" :value="firstName" />
-            </label>
-            <label
-              class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200"
-            >
-              Last Name
-              <VTextBox input-type="text" :value="lastName" />
-            </label>
-          </div>
-
-          <!-- passwords -->
-          <label class="input-labels">
-            Old Password
-            <VTextBox input-type="password" />
-          </label>
-          <label class="input-labels">
-            New Password
-            <VTextBox input-type="password" />
-          </label>
-          <label class="input-labels">
-            Confirm Password
-            <VTextBox input-type="password" />
-          </label>
-
-          <!-- actions -->
-          <VButton type="button" color-state="info" class="w-full justify-center">
-            <span class="material-icons"> update </span>
-            Update Account
-          </VButton>
-          <div class="flex w-full flex-row items-center justify-between px-2">
-            <button
-              type="button"
-              class="flex flex-row items-center gap-2 text-sm text-red-500 transition-colors hover:text-red-600"
-            >
-              <span class="material-icons text-base"> delete </span>
-              Delete Account
-            </button>
-            <button
-              @click="logout()"
-              type="button"
-              class="flex flex-row items-center gap-2 text-sm text-stone-400 transition-colors hover:text-emerald-400"
-            >
-              <span class="material-icons text-base"> logout </span>
-              Logout
-            </button>
-          </div>
-        </div>
-      </form>
+      <TheProfileSection :first-name="firstName" :last-name="lastName" :email="email" />
     </VModal>
   </div>
 </template>
 
 <style scoped>
-.input-labels {
-  @apply flex w-full flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200;
-}
-
 .nav-points {
   @apply relative flex w-full select-none flex-row items-center whitespace-nowrap rounded-xl px-[20px] py-2 hover:bg-stone-700;
 
