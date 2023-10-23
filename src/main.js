@@ -6,7 +6,7 @@ import router from './router'
 
 //components
 import VButton from '@/components/ui/VButton.vue'
-import VDropdownList from '@/components/ui/VDropdownList.vue'
+import VDropdown from '@/components/ui/VDropdown.vue'
 import VModal from '@/components/ui/VModal.vue'
 import VTextBox from '@/components/ui/VTextBox.vue'
 import VSheet from '@/components/ui/VSheet.vue'
@@ -20,7 +20,7 @@ app.mount('#app')
 
 app
   .component('VButton', VButton)
-  .component('VDropdownList', VDropdownList)
+  .component('VDropdown', VDropdown)
   .component('VModal', VModal)
   .component('VTextBox', VTextBox)
   .component('VSheet', VSheet)

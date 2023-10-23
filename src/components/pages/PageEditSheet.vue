@@ -19,7 +19,9 @@ watch(musicKeyLabel, (newValue, oldValue) => {
 })
 
 const sheetHtml = computed(() => {
-  return sanitizeHtml(parseSheet(sheetInput.value), { allowedAttributes: false })
+  return sanitizeHtml(parseSheet(sheetInput.value), {
+    allowedAttributes: false
+  })
 })
 </script>
 
@@ -29,27 +31,25 @@ const sheetHtml = computed(() => {
       class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center bg-stone-800 pl-2 pr-4 text-stone-400"
     >
       <div>
-        <button
-          @click="$router.go(-1)"
-          class="flex w-fit cursor-pointer flex-row items-center rounded-lg p-2 transition-colors duration-150 ease-in-out hover:bg-stone-700 hover:text-stone-300"
-        >
-          <!-- back button -->
-          <span class="material-icons">arrow_back</span>
-        </button>
+        <VButton @click="$router.go(-1)" btn-style="icon-ghost" type="button">
+          <span class="material-icons"> arrow_back </span>
+        </VButton>
       </div>
+
       <div class="flex flex-row items-center justify-end gap-8">
-        <!-- profile-cluster -->
-        <div class="flex flex-row items-center gap-4">
-          <!-- transpose key -->
+        <label class="flex flex-row items-center gap-4">
+          <!-- transpose key dropdown -->
           <div>Key</div>
-          <VDropdownList
+          <VDropdown
             v-model:label="musicKeyLabel"
             :list="setKeys"
-            btnType="ghost"
+            btn-style="ghost"
             name="months"
             class="dropdown-height-limit w-[80px]"
           />
-        </div>
+        </label>
+
+        <!-- profile cluster -->
         <div class="flex select-none flex-row items-center gap-2">
           <span>Jan Roe Bantuan</span>
           <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-emerald-400">
@@ -61,6 +61,7 @@ const sheetHtml = computed(() => {
 
     <!-- the body -->
     <div class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
+      <!-- sheet workspace -->
       <div class="border-r border-r-stone-800">
         <textarea
           v-model="sheetInput"
@@ -68,6 +69,8 @@ const sheetHtml = computed(() => {
           class="h-full w-full resize-none border-none bg-stone-900 py-4 pl-4 font-['RobotoMono'] text-base text-stone-300 outline-none"
         ></textarea>
       </div>
+
+      <!-- sheet display -->
       <div
         v-html="sheetHtml"
         class="markdown-preview h-full w-full overflow-y-auto border-l border-l-stone-800 p-[0.5in] font-['RobotoMono'] leading-6 text-stone-300"

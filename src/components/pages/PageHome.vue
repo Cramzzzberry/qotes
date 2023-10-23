@@ -18,9 +18,6 @@ const tabs = [TabAll, TabPinned, TabImportant]
 </template>
 
 <style>
-.searchbar {
-  @apply grow border-b-2 border-b-stone-600 bg-transparent p-2 outline-none transition-colors duration-100 ease-in-out placeholder:text-stone-400 focus:border-b-emerald-400;
-}
 /* vue transitions */
 .fade-y-enter-from,
 .fade-y-leave-to {

@@ -52,7 +52,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-sm bg-stone-600;
+    @apply bg-stone-600;
   }
 
   /* selection  */
@@ -97,6 +97,6 @@
   }
 
   #app {
-    @apply overflow-clip
+    @apply overflow-clip;
   }
 }

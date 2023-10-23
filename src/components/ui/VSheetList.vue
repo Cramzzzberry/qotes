@@ -1,27 +1,26 @@
 <script setup>
-// TODO: I think i need to have a fetch url props here
+// TODO: I need to remove the unnecessary props later
 const props = defineProps({
-  itemCount: String,
-  fakeTImeout: String
+  itemCount: String, //this are unneccessary
+  fakeTImeout: String, //this are unneccessary
+  fetchUrl: String
 })
 
-async function fakeLoading() {
-  await new Promise((resolve) => setTimeout(resolve, parseInt(props.fakeTImeout)))
-}
-
-await fakeLoading()
+let sheets = await fetch(props.fetchUrl)
+  .then(async (response) => response.json())
+  .catch((err) => console.log(err))
 </script>
 
 <template>
-  <Transition name="fade-y" appear>
-    <div class="grid grid-cols-3 gap-2">
+  <Transition name="fade-up" appear>
+    <div class="grid grid-cols-3 gap-2 px-16">
       <VSheet
-        v-for="n in parseInt(props.itemCount)"
-        :key="n"
-        :songTitle="`Magasin Chorus ${n}`"
-        :songWritter="`Eraserheads ${n}`"
-        musicKey="C"
-        url="/edit/1"
+        v-for="(sheet, index) in sheets"
+        :key="index"
+        :song-title="sheet.song_title"
+        :song-writter="sheet.song_writter"
+        :music-key="sheet.song_key"
+        :url="`/edit/${sheet.id}`"
       />
     </div>
   </Transition>
@@ -29,14 +28,13 @@ await fakeLoading()
 
 <style scoped>
 /* vue transitions */
-.fade-y-enter-from,
-.fade-y-leave-to {
+.fade-up-enter-from,
+.fade-up-leave-to {
   opacity: 0;
   transform: translateY(8px);
 }
-
-.fade-y-enter-active,
-.fade-y-leave-active {
+.fade-up-enter-active,
+.fade-up-leave-active {
   overflow-x: clip;
   transition:
     opacity 100ms ease-in-out,
