@@ -128,7 +128,9 @@ await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
         </VButton>
       </div>
 
-      <TheProfileSection :first-name="firstName" :last-name="lastName" :email="email" />
+      <suspense>
+        <TheProfileSection :first-name="firstName" :last-name="lastName" :email="email" />
+      </suspense>
     </VModal>
   </div>
 </template>

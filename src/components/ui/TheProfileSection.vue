@@ -11,7 +11,6 @@ const props = defineProps({
 const route = useRoute()
 const router = useRouter()
 
-const oldEmail = props.email
 const updateProfileFormRef = ref(null)
 
 function logoutAccount() {
