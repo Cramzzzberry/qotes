@@ -29,19 +29,3 @@ let sheets = await fetch(props.fetchUrl)
     </div>
   </Transition>
 </template>
-
-<style scoped>
-/* vue transitions */
-.fade-up-enter-from,
-.fade-up-leave-to {
-  opacity: 0;
-  transform: translateY(8px);
-}
-.fade-up-enter-active,
-.fade-up-leave-active {
-  overflow-x: clip;
-  transition:
-    opacity 100ms ease-in-out,
-    transform 150ms ease-in-out;
-}
-</style>

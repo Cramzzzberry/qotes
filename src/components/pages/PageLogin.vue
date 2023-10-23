@@ -170,17 +170,4 @@ async function createAccount() {
 label {
   @apply flex w-full flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200;
 }
-
-.fade-scale-enter-from,
-.fade-scale-leave-to {
-  opacity: 0;
-  transform: scale(98.5%);
-}
-
-.fade-scale-enter-active,
-.fade-scale-leave-active {
-  transition:
-    opacity 100ms ease-in-out,
-    transform 150ms ease-in-out;
-}
 </style>

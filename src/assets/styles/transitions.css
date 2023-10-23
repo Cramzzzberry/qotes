@@ -1,0 +1,25 @@
+.fade-scale-enter-from,
+.fade-scale-leave-to {
+  opacity: 0;
+  transform: scale(99.25%);
+}
+
+.fade-scale-enter-active,
+.fade-scale-leave-active {
+  transition:
+    opacity 100ms ease-in-out,
+    transform 150ms ease-in-out;
+}
+
+.fade-up-enter-from,
+.fade-up-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.fade-up-enter-active,
+.fade-up-leave-active {
+  overflow-x: clip;
+  transition:
+    opacity 100ms ease-in-out,
+    transform 150ms ease-in-out;
+}
