@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { changeKey, setKeys } from '@/assets/scripts/change-key'
@@ -8,27 +8,58 @@ import parseSheet from '@/assets/scripts/parse-sheet'
 
 const route = useRoute()
 
-const musicKeyLabel = ref('C')
-const sheetInput = ref(
-  `# Song Title ${route.params.id}\n## Songwriter - Key of X\n---\n>> Intro\nC E Am F\nC E Am Fm\nOoh...\n\n>> Chorus\nC\nIba na ang 'yong ngiti\nE\nIba na ang 'yong tingin.\nAm                     F\nNagbago nang lahat sa'yo\nC\nSana'y hindi magkita\nE\nSana'y walang problema\nAm                      F        Fm\nPagkat kulang ang dala kong pera`
-)
-
-watch(musicKeyLabel, (newValue, oldValue) => {
-  //replace the user input into transposed input
-  sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
-})
+const songKey = ref(null)
+const sheetInput = ref('')
+const songTitle = ref(null)
+const songWriter = ref(null)
 
 const sheetHtml = computed(() => {
   return sanitizeHtml(parseSheet(sheetInput.value), {
     allowedAttributes: false
   })
 })
+
+onMounted(async () => {
+  await fetch(`http://localhost:3000/sheets/get/sheet/${route.params.id}`).then(async (res) => {
+    const response = await res.json()
+
+    songTitle.value = response.song_title
+    songWriter.value = response.song_writer
+    songKey.value = response.song_key
+    sheetInput.value = response.content
+
+    //transposition watch
+    watch(songKey, (newValue, oldValue) => {
+      sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
+    })
+  })
+})
+
+async function saveSheet() {
+  await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      song_title: songTitle.value,
+      song_writer: songWriter.value,
+      song_key: songKey.value,
+      content: sheetInput.value
+    })
+  })
+    .then(async (res) => {
+      console.log(res)
+    })
+    .catch((err) => console.log(err))
+}
 </script>
 
 <template>
   <div>
     <div
-      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-2 items-center bg-stone-800 pl-2 pr-4 text-stone-400"
+      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-3 items-center bg-stone-800 pl-2 pr-4 text-stone-400"
     >
       <div>
         <VButton @click="$router.go(-1)" btn-style="icon-ghost" type="button">
@@ -36,26 +67,27 @@ const sheetHtml = computed(() => {
         </VButton>
       </div>
 
+      <div class="text-center">
+        <div class="font-semibold text-stone-300">{{ songTitle }}</div>
+        <div class="text-sm">{{ songWriter }}</div>
+      </div>
+
       <div class="flex flex-row items-center justify-end gap-8">
         <label class="flex flex-row items-center gap-4">
           <!-- transpose key dropdown -->
           <div>Key</div>
           <VDropdown
-            v-model:label="musicKeyLabel"
+            v-model:label="songKey"
             :list="setKeys"
             btn-style="ghost"
+            position="bottomEnd"
             name="months"
             class="dropdown-height-limit w-[80px]"
           />
         </label>
-
-        <!-- profile cluster -->
-        <div class="flex select-none flex-row items-center gap-2">
-          <span>Jan Roe Bantuan</span>
-          <div class="h-10 w-10 shrink-0 overflow-clip rounded-full bg-emerald-400">
-            <img src="@/assets/Cramzzzberry logo.png" alt="profile-pic" class="object-cover" />
-          </div>
-        </div>
+        <VButton @click="saveSheet()" btnStyle="icon-ghost" type="button">
+          <span class="material-icons"> save </span>
+        </VButton>
       </div>
     </div>
 

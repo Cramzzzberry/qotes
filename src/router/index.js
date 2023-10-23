@@ -35,6 +35,7 @@ router.beforeEach(async (to, from) => {
     }
   }
 
+  //TODO: make a working routeguard when logged user goes to login page
   if (isLoggedIn === 'true' && to.path === '/' && from.path !== '/') {
     return false
   }

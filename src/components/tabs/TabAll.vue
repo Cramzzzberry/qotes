@@ -27,8 +27,9 @@ async function createSheet() {
     }
   })
 
-  createSheetForm['content'] =
-    '# Heading 1 \n## Heading 2 \n### Heading 3 \n---\nC D G  Am    BbmM7\nSample Lyrics'
+  createSheetForm[
+    'content'
+  ] = `# ${createSheetForm.song_title} \n## ${createSheetForm.song_writer} Key of ${createSheetForm.song_key} \n---\nC D G  Am    BbmM7\nSample Lyrics`
 
   await fetch('http://localhost:3000/sheets/create-sheet', {
     method: 'POST',
@@ -87,8 +88,8 @@ async function createSheet() {
               <VTextBox input-type="text" name="song_title" required />
             </label>
             <label class="input-text">
-              Singer/Songwritter
-              <VTextBox input-type="text" name="song_writter" required />
+              Singer/Songwriter
+              <VTextBox input-type="text" name="song_writer" required />
             </label>
           </div>
 

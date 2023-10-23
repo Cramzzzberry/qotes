@@ -13,15 +13,19 @@ let sheets = await fetch(props.fetchUrl)
 
 <template>
   <Transition name="fade-up" appear>
-    <div class="grid grid-cols-3 gap-2 px-16">
+    <div v-if="sheets.length !== 0" class="grid grid-cols-3 gap-2 px-16">
       <VSheet
         v-for="(sheet, index) in sheets"
         :key="index"
         :song-title="sheet.song_title"
-        :song-writter="sheet.song_writter"
+        :song-writter="sheet.song_writer"
         :music-key="sheet.song_key"
-        :url="`/edit/${sheet.id}`"
+        :songId="sheet.id"
       />
+    </div>
+
+    <div v-else class="flex h-[calc(100%-156px)] w-full items-center justify-center">
+      No sheets available
     </div>
   </Transition>
 </template>

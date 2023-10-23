@@ -73,7 +73,7 @@ function makeClass() {
 
       //color state
       if (props.colorState === 'default') {
-        colorState = 'text-stone-300 hover:bg-stone-600'
+        colorState = 'text-stone-400 hover:text-stone-300 hover:bg-stone-700'
       } else if (props.colorState === 'success') {
         colorState = 'text-emerald-400 hover:bg-stone-600'
       } else if (props.colorState === 'error') {

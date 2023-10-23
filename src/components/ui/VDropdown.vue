@@ -78,7 +78,7 @@ defineEmits(['update:label'])
               type="radio"
               :name="props.name"
               :id="item + props.name"
-              :checked="props.label === item + props.name"
+              :checked="props.label === item"
               :value="item"
               @input="$emit('update:label', $event.target.value)"
               class="peer absolute -top-10 hidden"
