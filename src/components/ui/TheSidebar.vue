@@ -97,7 +97,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
             @click="profileToggle()"
             btn-style="ghost"
             :class="[sidebarState ? '!gap-4' : '!gap-10']"
-            class="w-full !px-[13px] !py-1 duration-300 hover:!bg-stone-700"
+            class="profile-btn w-full !px-[13px] !py-1 hover:!bg-stone-700"
           >
             <div
               class="flex h-9 w-9 shrink-0 items-center justify-center overflow-clip rounded-full bg-emerald-400 text-base font-semibold text-emerald-900"
@@ -141,7 +141,13 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
   transition:
     gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-btn {
+  transition:
+    gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-points.active {

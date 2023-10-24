@@ -11,14 +11,12 @@ const props = defineProps({
 const route = useRoute()
 const router = useRouter()
 
-const updateProfileFormRef = ref(null)
-
 function logoutAccount() {
   localStorage.setItem('token', '')
   localStorage.setItem('loggedIn', 'false')
   localStorage.setItem('user_id', '')
 
-  router.push('/')
+  router.push({ name: 'index' })
 }
 
 async function deleteAccount() {
@@ -35,12 +33,13 @@ async function deleteAccount() {
     .catch((err) => console.log(err))
 }
 
-async function updateProfile() {
-  const formdata = new FormData(updateProfileFormRef.value)
-  const updateProfileForm = {}
+const updateAccountFormRef = ref(null)
+async function updateAccount() {
+  const formdata = new FormData(updateAccountFormRef.value)
+  const updateAccountForm = {}
 
   formdata.forEach((value, key) => {
-    updateProfileForm[key] = value
+    updateAccountForm[key] = value
   })
 
   await fetch(`http://localhost:3000/users/user/${route.params.userId}`)
@@ -51,11 +50,7 @@ async function updateProfile() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          email: updateProfileForm.email,
-          first_name: updateProfileForm.first_name,
-          last_name: updateProfileForm.last_name
-        })
+        body: JSON.stringify(updateAccountForm)
       })
         .then(() => {
           console.log('update profile success')
@@ -70,7 +65,7 @@ async function updateProfile() {
 </script>
 
 <template>
-  <form @submit.prevent="updateProfile()" ref="updateProfileFormRef">
+  <form @submit.prevent="updateAccount()" ref="updateAccountFormRef">
     <!-- change fields section -->
     <div class="flex flex-col items-center gap-2">
       <!-- email -->

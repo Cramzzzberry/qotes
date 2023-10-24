@@ -24,7 +24,7 @@ async function deleteSheet() {
 <template>
   <router-link
     :to="`/edit/${props.songId}`"
-    class="group inline-grid h-fit cursor-pointer items-center gap-1 rounded-xl p-2 transition-colors duration-100 ease-in-out hover:bg-stone-800"
+    class="inline-grid h-fit cursor-pointer items-center gap-1 rounded-xl p-2 transition-colors hover:bg-stone-800"
   >
     <div
       class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900"
@@ -37,7 +37,7 @@ async function deleteSheet() {
         <span class="text-sm text-stone-400">{{ props.songWritter }}</span>
       </div>
     </div>
-    <div class="opacity-0 transition-opacity group-hover:opacity-100">
+    <div>
       <VButton @click.prevent="deleteSheet()" btn-style="icon-ghost" type="button">
         <span class="material-icons"> delete </span>
       </VButton>

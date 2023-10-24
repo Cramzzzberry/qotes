@@ -5,6 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'index',
       component: () => import('@/components/pages/PageLogin.vue')
     },
     {
@@ -17,6 +18,7 @@ const router = createRouter({
     },
     {
       path: '/edit/:id',
+      name: 'edit',
       meta: {
         requiresAuth: true
       },
@@ -32,10 +34,11 @@ router.beforeEach(async (to, from) => {
   if (to.meta.requiresAuth) {
     const isAuthenticated = await checkAuthentication()
     if (!isAuthenticated && to.path !== '/') {
-      return { path: '/' }
+      return { name: 'index' }
     }
   }
 
+  // cancel/redirect user if they try to go to path '/'
   if (isLoggedIn === 'true' && to.path === '/' && from.path !== '/') {
     return false
   } else if (isLoggedIn === 'true' && to.path === '/') {

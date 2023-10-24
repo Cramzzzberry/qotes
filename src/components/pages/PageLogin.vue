@@ -67,7 +67,7 @@ async function loginAccount() {
       if (response.success) {
         localStorage.setItem('token', response.token)
         localStorage.setItem('loggedIn', 'true')
-        router.push(`/home/${response.userId}`)
+        router.push({ name: 'home', params: { userId: response.userId } })
       } else {
         console.log('Account not existing')
       }

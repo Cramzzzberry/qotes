@@ -13,6 +13,7 @@ import VTextBox from '@/components/ui/VTextBox.vue'
 import VSheet from '@/components/ui/VSheet.vue'
 import VSheetList from '@/components/ui/VSheetList.vue'
 import VLoadingSheets from '@/components/ui/VLoadingSheets.vue'
+import VSearchComponent from '@/components/ui/VSearchComponent.vue'
 
 const app = createApp(App)
 
@@ -27,3 +28,4 @@ app
   .component('VSheet', VSheet)
   .component('VSheetList', VSheetList)
   .component('VLoadingSheets', VLoadingSheets)
+  .component('VSearchComponent', VSearchComponent)

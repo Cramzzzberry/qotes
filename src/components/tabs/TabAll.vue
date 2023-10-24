@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-
 import VTopbar from '@/components/ui/VTopbar.vue'
+
 import { setKeys } from '@/assets/scripts/change-key'
+import { createSheet } from '@/assets/scripts/misc'
 
 const musicKeys = setKeys
 const newSheetkey = ref('C')
@@ -13,43 +14,17 @@ const icon = 'description'
 const modalState = ref(false)
 const modalToggle = () => (modalState.value = !modalState.value)
 
-const createSheetFormRef = ref(null)
-async function createSheet() {
-  const formdata = new FormData(createSheetFormRef.value)
-  const createSheetForm = {}
-
-  formdata.forEach((value, key) => {
-    if (value === 'on') {
-      createSheetForm[key] = true
-    } else {
-      createSheetForm[key] = value
-    }
-  })
-
-  createSheetForm[
-    'content'
-  ] = `# ${createSheetForm.song_title} \n## ${createSheetForm.song_writer} Key of ${createSheetForm.song_key} \n---\nC D G  Am    BbmM7\nSample Lyrics`
-
-  await fetch('http://localhost:3000/sheets/create-sheet', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(createSheetForm)
-  })
-    .then(() => {
-      console.log('Sheet creattion success')
-      window.location.reload()
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
+const sheetFormRef = ref(null)
 </script>
 
 <template>
-  <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc">
+  <VTopbar
+    :top-bar-title="title"
+    :top-bar-icon="icon"
+    :top-bar-desc="desc"
+    search-box-id="allSheetsSB"
+    filter="all-sheets"
+  >
     <template #create-button>
       <VButton @click="modalToggle()">
         <span class="material-icons text-base"> add </span>
@@ -69,7 +44,11 @@ async function createSheet() {
 
       <!-- create modal -->
       <VModal :state="modalState">
-        <form @submit.prevent="createSheet()" class="flex flex-col gap-2" ref="createSheetFormRef">
+        <form
+          @submit.prevent="createSheet(sheetFormRef)"
+          class="flex flex-col gap-2"
+          ref="sheetFormRef"
+        >
           <div class="flex flex-row items-center justify-between">
             <h2>Create a new sheet</h2>
 
