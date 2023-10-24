@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { watchEffect } from 'vue'
+import { useSearch } from '@/composables/searchSheet'
 
 const props = defineProps({
   searchValue: String,
@@ -7,34 +8,11 @@ const props = defineProps({
   filter: String
 })
 
-const sheets = ref([])
-const loading = ref(false)
+let { sheets, loading } = { sheets: null, loading: null }
 
 watchEffect(() => {
-  if (props.searchValue !== '') {
-    let input = document.getElementById(props.searchBoxId)
-    loading.value = true
-
-    input.addEventListener('keyup', () => {
-      clearTimeout(input._timer) //reset timer
-
-      sheets.value = [] //reset sheets
-
-      input._timer = setTimeout(async () => {
-        await getRequestedSheets(props.searchValue)
-      }, 500)
-    })
-  }
+  ;({ sheets, loading } = useSearch(props.searchValue, props.searchBoxId, props.filter))
 })
-
-async function getRequestedSheets(sheetName) {
-  await fetch(`http://localhost:3000/sheets/get/${props.filter}/${sheetName}`)
-    .then(async (res) => {
-      sheets.value = await res.json()
-      loading.value = false
-    })
-    .catch((err) => console.log(err))
-}
 </script>
 
 <template>
@@ -53,7 +31,7 @@ async function getRequestedSheets(sheetName) {
     tabindex="0"
     class="invisible absolute top-[calc(100%+1rem)] h-fit w-full scale-[98%] rounded-lg bg-stone-700 opacity-0 transition-all group-focus-within/search:visible group-focus-within/search:scale-100 group-focus-within/search:opacity-100"
   >
-    <li class="flex items-center justify-center p-4">Loading...</li>
+    <li class="flex animate-pulse items-center justify-center p-4">Loading...</li>
   </ul>
 
   <!-- if there are no sheets -->

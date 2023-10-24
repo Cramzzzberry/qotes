@@ -1,6 +1,6 @@
 import { toValue } from 'vue'
 
-async function createSheet(form) {
+export async function createSheet(form) {
   const formdata = new FormData(toValue(form))
   const formObj = {}
 
@@ -32,5 +32,3 @@ async function createSheet(form) {
       console.log(err)
     })
 }
-
-export { createSheet }
