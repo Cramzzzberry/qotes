@@ -26,8 +26,6 @@ async function deleteAccount() {
   })
     .then(() => {
       console.log('account deleted')
-      localStorage.setItem('token', '')
-      localStorage.setItem('loggedIn', 'false')
       router.push('/')
     })
     .catch((err) => console.log(err))
@@ -76,15 +74,11 @@ async function updateAccount() {
 
       <!-- full name -->
       <div class="flex w-full flex-row items-center gap-2">
-        <label
-          class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200"
-        >
+        <label class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200">
           First Name
           <VTextBox input-type="text" :value="props.firstName" name="first_name" />
         </label>
-        <label
-          class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200"
-        >
+        <label class="flex basis-1/2 flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200">
           Last Name
           <VTextBox input-type="text" :value="props.lastName" name="last_name" />
         </label>

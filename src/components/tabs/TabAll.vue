@@ -10,13 +10,7 @@ const modalToggle = () => (modalState.value = !modalState.value)
 </script>
 
 <template>
-  <VTopbar
-    :top-bar-title="title"
-    :top-bar-icon="icon"
-    :top-bar-desc="desc"
-    search-box-id="allSheetsSB"
-    filter="all-sheets"
-  >
+  <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc" search-box-id="allSheetsSB">
     <template #create-button>
       <VButton @click="modalToggle()">
         <span class="material-icons text-base"> add </span>
@@ -24,10 +18,10 @@ const modalToggle = () => (modalState.value = !modalState.value)
       </VButton>
     </template>
 
-    <template #body>
+    <template #body="slotProps">
       <!-- list of sheets -->
       <Suspense>
-        <VSheetList fetch-url="http://localhost:3000/sheets/get/all-sheets" />
+        <VSheetList search-box-id="allSheetsSB" categopry="all-sheets" :search-value="slotProps.searchValue" />
 
         <template #fallback>
           <VLoadingSheets />

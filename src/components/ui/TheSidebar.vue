@@ -144,12 +144,6 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
     background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.profile-btn {
-  transition:
-    gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .nav-points.active {
   @apply bg-emerald-800 text-stone-300;
 }
@@ -164,5 +158,11 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
 .nav-points > .nav-name {
   @apply text-base transition-opacity duration-300 ease-in-out;
+}
+
+.profile-btn {
+  transition:
+    gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

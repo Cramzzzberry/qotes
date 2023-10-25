@@ -10,13 +10,7 @@ const modalToggle = () => (modalState.value = !modalState.value)
 </script>
 
 <template>
-  <VTopbar
-    :top-bar-title="title"
-    :top-bar-icon="icon"
-    :top-bar-desc="desc"
-    search-box-id="pinnedSheetsSB"
-    filter="pinned-sheets"
-  >
+  <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc" search-box-id="pinnedSheetsSB">
     <template #create-button>
       <VButton @click="modalToggle()" class="border border-emerald-400 hover:border-emerald-500">
         <span class="material-icons text-base"> add </span>
@@ -24,10 +18,10 @@ const modalToggle = () => (modalState.value = !modalState.value)
       </VButton>
     </template>
 
-    <template #body>
+    <template #body="slotProps">
       <!-- Sheet list -->
       <Suspense>
-        <VSheetList fetch-url="http://localhost:3000/sheets/get/pinned-sheets" />
+        <VSheetList search-box-id="pinnedSheetsSB" categopry="pinned-sheets" :search-value="slotProps.searchValue" />
 
         <template #fallback>
           <VLoadingSheets />

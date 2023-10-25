@@ -14,14 +14,13 @@ const props = defineProps({
     default: 'Put description here'
   },
   topBarIcon: String,
-  searchBoxId: String,
-  filter: String
+  searchBoxId: String
 })
 
 defineEmits(['update:search'])
 
-const musicKeys = ['All Keys', ...setKeys]
-const musicKeyLabel = ref('All Keys')
+const songKeys = ['All Keys', ...setKeys]
+const songKeyLabel = ref('All Keys')
 
 const searchValue = ref('')
 </script>
@@ -29,9 +28,7 @@ const searchValue = ref('')
 <template>
   <div class="grow overflow-y-auto pb-2">
     <!-- top bar -->
-    <div
-      class="sticky top-0 z-10 flex flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16"
-    >
+    <div class="sticky top-0 z-10 flex flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
       <!-- topbar information -->
       <div class="flex flex-col">
         <div class="flex flex-row items-center gap-4">
@@ -57,23 +54,16 @@ const searchValue = ref('')
               :id="props.searchBoxId"
             />
           </label>
-
-          <!-- search results -->
-          <VSearchBlock
-            :search-value="searchValue"
-            :search-box-id="props.searchBoxId"
-            :filter="props.filter"
-          />
         </div>
 
         <!-- music keys dropdown -->
-        <VDropdown v-model:label="musicKeyLabel" :list="musicKeys" name="musicKeys" class="w-32" />
+        <VDropdown v-model:label="songKeyLabel" :list="songKeys" name="songKeys" class="w-32" />
 
         <!-- create button -->
         <slot name="create-button" />
       </div>
     </div>
 
-    <slot name="body" />
+    <slot name="body" :search-value="searchValue" :selected-key="songKeyLabel" />
   </div>
 </template>

@@ -1,29 +1,33 @@
 <script setup>
-// TODO: I need to remove the unnecessary props later
+import { watchEffect } from 'vue'
+import { useSearch } from '@/composables/searchSheet'
+
 const props = defineProps({
-  fetchUrl: String
+  searchValue: String,
+  searchBoxId: String,
+  categopry: String
 })
 
-let sheets = await fetch(props.fetchUrl)
-  .then(async (res) => res.json())
-  .catch((err) => console.log(err))
+let { sheets, loading } = { sheets: null, loading: null }
+
+watchEffect(() => {
+  ;({ sheets, loading } = useSearch(props.searchValue, props.searchBoxId, props.categopry))
+})
 </script>
 
 <template>
-  <Transition name="fade-up" appear>
-    <div v-if="sheets.length !== 0" class="grid grid-cols-3 gap-2 px-16">
-      <VSheet
-        v-for="(sheet, index) in sheets"
-        :key="index"
-        :song-title="sheet.song_title"
-        :song-writter="sheet.song_writer"
-        :music-key="sheet.song_key"
-        :songId="sheet.id"
-      />
-    </div>
+  <div v-if="sheets.length === 0 && !loading" class="flex h-[calc(100%-156px)] w-full items-center justify-center">No sheets available</div>
 
-    <div v-else class="flex h-[calc(100%-156px)] w-full items-center justify-center">
-      No sheets available
-    </div>
-  </Transition>
+  <div v-if="loading" class="flex h-[calc(100%-156px)] w-full animate-pulse items-center justify-center">Loading</div>
+
+  <div v-else class="grid grid-cols-3 gap-2 px-16">
+    <VSheet
+      v-for="(sheet, index) in sheets"
+      :key="index"
+      :song-title="sheet.song_title"
+      :song-writter="sheet.song_writer"
+      :music-key="sheet.song_key"
+      :songId="sheet.id"
+    />
+  </div>
 </template>

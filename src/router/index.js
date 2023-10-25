@@ -6,7 +6,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: () => import('@/components/pages/PageLogin.vue')
+      component: () => import('@/components/pages/PageLogin.vue'),
+      beforeEnter: () => {
+        localStorage.setItem('token', '')
+        localStorage.setItem('loggedIn', 'false')
+      }
     },
     {
       path: '/home/:userId',

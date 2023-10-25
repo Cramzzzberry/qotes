@@ -110,7 +110,6 @@ btnClass.value = makeClass()
 </script>
 
 <template>
-  <!-- TODO: make this into a one for all all for one button -->
   <button
     :class="btnClass"
     type="button"

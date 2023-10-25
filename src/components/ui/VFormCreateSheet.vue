@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
-import { createSheet } from '@/composables/createSheet'
+import { useCreateSheet } from '@/composables/createSheet'
 
 const props = defineProps({
   pinnedChecked: {
@@ -20,7 +20,7 @@ const sheetFormRef = ref(null)
 </script>
 
 <template>
-  <form @submit.prevent="createSheet(sheetFormRef)" class="flex flex-col gap-2" ref="sheetFormRef">
+  <form @submit.prevent="useCreateSheet(sheetFormRef)" class="flex flex-col gap-2" ref="sheetFormRef">
     <div class="flex flex-col items-center gap-2">
       <label class="input-text">
         Song Title

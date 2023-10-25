@@ -1,20 +1,20 @@
 import { toValue } from 'vue'
 
-export async function createSheet(form) {
+export async function useCreateSheet(form) {
   const formdata = new FormData(toValue(form))
-  const formObj = {}
+  const formValues = {}
 
   formdata.forEach((value, key) => {
     if (value === 'on') {
-      formObj[key] = true
+      formValues[key] = true
     } else {
-      formObj[key] = value
+      formValues[key] = value
     }
   })
 
-  formObj[
+  formValues[
     'content'
-  ] = `# ${formObj.song_title} \n## ${formObj.song_writer} Key of ${formObj.song_key} \n---\nC   G   Am   F\nSample Lyrics`
+  ] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC   G   Am   F\nSample Lyrics`
 
   await fetch('http://localhost:3000/sheets/create-sheet', {
     method: 'POST',
@@ -22,7 +22,7 @@ export async function createSheet(form) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(formObj)
+    body: JSON.stringify(formValues)
   })
     .then(() => {
       console.log('Sheet creattion success')
