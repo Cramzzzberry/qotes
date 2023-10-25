@@ -21,7 +21,7 @@ const modalToggle = () => (modalState.value = !modalState.value)
     <template #body="slotProps">
       <!-- Sheet list -->
       <Suspense>
-        <VSheetList search-box-id="pinnedSheetsSB" categopry="pinned-sheets" :search-value="slotProps.searchValue" />
+        <VSheetList search-box-id="pinnedSheetsSB" category="pinned-sheets" :search-value="slotProps.searchValue" :music-key="slotProps.selectedKey" />
 
         <template #fallback>
           <VLoadingSheets />

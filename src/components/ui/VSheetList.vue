@@ -5,13 +5,14 @@ import { useSearch } from '@/composables/searchSheet'
 const props = defineProps({
   searchValue: String,
   searchBoxId: String,
-  categopry: String
+  category: String,
+  musicKey: String
 })
 
 let { sheets, loading } = { sheets: null, loading: null }
 
 watchEffect(() => {
-  ;({ sheets, loading } = useSearch(props.searchValue, props.searchBoxId, props.categopry))
+  ;({ sheets, loading } = useSearch(props.searchValue, props.searchBoxId, props.category, props.musicKey))
 })
 </script>
 

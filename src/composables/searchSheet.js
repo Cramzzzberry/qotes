@@ -1,35 +1,53 @@
 import { ref } from 'vue'
+import { debounce } from '@/assets/scripts/debounce'
 
-export function useSearch(searchValue, searchBoxId, category) {
+let controller
+
+export function useSearch(searchValue, searchBoxId, category, musicKey) {
   const sheets = ref([])
   const loading = ref(false)
 
   async function onFetch() {
     if (searchValue !== '') {
-      let input = document.getElementById(searchBoxId)
       loading.value = true
 
-      input.addEventListener('keyup', () => {
-        clearTimeout(input._timer) //reset timer
+      const delayFunc = debounce(async () => {
+        if (controller) {
+          controller.abort()
+        }
 
-        sheets.value = [] //reset sheets
+        controller = new AbortController()
+        const signal = controller.signal
 
-        input._timer = setTimeout(async () => {
-          await fetch(`http://localhost:3000/sheets/search/${category}/all-keys/${searchValue}`)
-            .then(async (res) => {
-              sheets.value = await res.json()
-              loading.value = false
-            })
-            .catch((err) => console.log(err))
-        }, 500)
+        await fetch(`http://localhost:3000/sheets/search/${category}/${musicKey.toLowerCase().replace(' ', '-')}/${searchValue}`, { signal })
+          .then(async (res) => {
+            sheets.value = await res.json()
+            loading.value = false
+          })
+          .catch((err) => console.log(err))
       })
+
+      delayFunc()
     } else {
-      await fetch(`http://localhost:3000/sheets/get/${category}`)
-        .then(async (res) => {
-          sheets.value = await res.json()
-          loading.value = false
-        })
-        .catch((err) => console.log(err))
+      loading.value = true
+
+      const delayFunc = debounce(async () => {
+        if (controller) {
+          controller.abort()
+        }
+
+        controller = new AbortController()
+        const signal = controller.signal
+
+        await fetch(`http://localhost:3000/sheets/get/${category}/${musicKey.toLowerCase().replace(' ', '-')}`, { signal })
+          .then(async (res) => {
+            sheets.value = await res.json()
+            loading.value = false
+          })
+          .catch((err) => console.log(err))
+      })
+
+      delayFunc()
     }
   }
 
