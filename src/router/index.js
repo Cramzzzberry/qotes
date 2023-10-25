@@ -7,9 +7,14 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: () => import('@/components/pages/PageLogin.vue'),
-      beforeEnter: () => {
-        localStorage.setItem('token', '')
-        localStorage.setItem('loggedIn', 'false')
+      beforeEnter: async () => {
+        const userId = localStorage.getItem('user_id')
+
+        //i put beforeEnter here to prevent infinite redirection in beforeEach
+        const isAuthenticated = await checkAuthentication()
+        if (isAuthenticated) {
+          return { name: 'home', params: { userId: userId }, replace: true }
+        }
       }
     },
     {
@@ -18,7 +23,14 @@ const router = createRouter({
       meta: {
         requiresAuth: true
       },
-      component: () => import('@/components/pages/PageHome.vue')
+      component: () => import('@/components/pages/PageHome.vue'),
+      beforeEnter: async (to) => {
+        const userId = localStorage.getItem('user_id')
+
+        if (to.params.userId !== userId) {
+          return { name: 'home', params: { userId: userId }, replace: true }
+        }
+      }
     },
     {
       path: '/edit/:id',
@@ -31,22 +43,12 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to, from) => {
-  const isLoggedIn = localStorage.getItem('loggedIn')
-  const userId = localStorage.getItem('user_id')
-
+router.beforeEach(async (to) => {
   if (to.meta.requiresAuth) {
     const isAuthenticated = await checkAuthentication()
     if (!isAuthenticated && to.path !== '/') {
-      return { name: 'index' }
+      return { name: 'index', replace: true }
     }
-  }
-
-  // cancel/redirect user if they try to go to path '/'
-  if (isLoggedIn === 'true' && to.path === '/' && from.path !== '/') {
-    return false
-  } else if (isLoggedIn === 'true' && to.path === '/') {
-    return { path: `/home/${userId}` }
   }
 })
 

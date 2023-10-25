@@ -57,7 +57,7 @@ const searchValue = ref('')
         </div>
 
         <!-- music keys dropdown -->
-        <VDropdown v-model:label="songKeyLabel" :list="songKeys" name="songKeys" class="w-32" />
+        <VDropdown v-model:label="songKeyLabel" :list="songKeys" name="songKeys" class="dropdown-height-limit w-32" />
 
         <!-- create button -->
         <slot name="create-button" />
@@ -67,3 +67,9 @@ const searchValue = ref('')
     <slot name="body" :search-value="searchValue" :selected-key="songKeyLabel" />
   </div>
 </template>
+
+<style scoped>
+.dropdown-height-limit:deep(div) {
+  max-height: calc(100vh - 140px);
+}
+</style>

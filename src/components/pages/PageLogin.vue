@@ -67,6 +67,8 @@ async function loginAccount() {
       if (response.success) {
         localStorage.setItem('token', response.token)
         localStorage.setItem('loggedIn', 'true')
+        localStorage.setItem('user_id', response.userId)
+
         router.push({ name: 'home', params: { userId: response.userId } })
       } else {
         console.log('Account not existing')
@@ -82,12 +84,7 @@ async function loginAccount() {
   <div class="flex h-screen w-screen items-center justify-center">
     <Transition name="fade-scale" mode="out-in">
       <!-- login section -->
-      <form
-        v-if="isLoginSection"
-        @submit.prevent="loginAccount()"
-        class="flex w-full max-w-[480px] flex-col gap-4"
-        ref="logAccFormRef"
-      >
+      <form v-if="isLoginSection" @submit.prevent="loginAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="logAccFormRef">
         <h1>Login to your account</h1>
         <div class="flex flex-col items-center gap-4">
           <label>
@@ -117,12 +114,7 @@ async function loginAccount() {
       </form>
 
       <!-- create account section -->
-      <form
-        v-else
-        @submit.prevent="createAccount()"
-        class="flex w-full max-w-[480px] flex-col gap-4"
-        ref="createAccForm"
-      >
+      <form v-else @submit.prevent="createAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="createAccForm">
         <h1>Create your account</h1>
         <div class="flex flex-col items-center gap-4">
           <label>

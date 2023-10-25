@@ -48,12 +48,10 @@ defineEmits(['update:label'])
         type="button"
         :class="[
           {
-            'border-transparent hover:text-stone-300 focus:text-stone-200':
-              props.btnStyle === 'ghost'
+            'border-transparent hover:text-stone-300 focus:text-stone-200': props.btnStyle === 'ghost'
           },
           {
-            'border-stone-600 hover:border-stone-400 focus:border-emerald-400':
-              props.btnStyle === 'default'
+            'border-stone-600 hover:border-stone-400 focus:border-emerald-400': props.btnStyle === 'default'
           }
         ]"
         class="flex w-full cursor-pointer flex-row items-center justify-between rounded-xl border py-2 pl-4 pr-[0.625rem] text-base text-stone-400 transition-colors duration-100 ease-in-out"
@@ -71,7 +69,7 @@ defineEmits(['update:label'])
     >
       <!-- dropdown content -->
       <slot name="dropdown-content">
-        <ul class="flex flex-col gap-1">
+        <ul class="flex flex-col gap-1 overflow-y-auto">
           <!-- dropdown content -->
           <li v-for="item in props.list" :key="item" class="w-full">
             <input

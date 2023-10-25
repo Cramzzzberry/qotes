@@ -13,6 +13,26 @@ const sheetInput = ref('')
 const songTitle = ref(null)
 const songWriter = ref(null)
 
+async function saveSheet() {
+  await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
+    method: 'PUT',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      song_title: songTitle.value,
+      song_writer: songWriter.value,
+      song_key: songKey.value,
+      content: sheetInput.value
+    })
+  })
+    .then(() => {
+      console.log('Sheet saved')
+    })
+    .catch((err) => console.log(err))
+}
+
 const sheetHtml = computed(() => {
   return sanitizeHtml(parseSheet(sheetInput.value), {
     allowedAttributes: false
@@ -34,33 +54,11 @@ onMounted(async () => {
     })
   })
 })
-
-async function saveSheet() {
-  await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      song_title: songTitle.value,
-      song_writer: songWriter.value,
-      song_key: songKey.value,
-      content: sheetInput.value
-    })
-  })
-    .then(async (res) => {
-      console.log('Sheet saved')
-    })
-    .catch((err) => console.log(err))
-}
 </script>
 
 <template>
   <div>
-    <div
-      class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-3 items-center bg-stone-800 pl-2 pr-4 text-stone-400"
-    >
+    <div class="sticky top-0 z-10 grid h-[61px] w-full grid-cols-3 items-center bg-stone-800 pl-2 pr-4 text-stone-400">
       <div>
         <VButton @click="$router.go(-1)" btn-style="icon-ghost" type="button">
           <span class="material-icons"> arrow_back </span>
@@ -112,7 +110,7 @@ async function saveSheet() {
 </template>
 
 <style scoped>
-.dropdown-height-limit :deep(.dropdown-content) {
-  max-height: calc(100vh - 68px);
+.dropdown-height-limit:deep(div) {
+  max-height: calc(100vh - 76px);
 }
 </style>
