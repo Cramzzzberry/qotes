@@ -1,6 +1,4 @@
 <script setup>
-import VButton from '@/components/ui/VButton.vue'
-
 const props = defineProps({
   songId: String,
   songTitle: String,
@@ -26,9 +24,7 @@ async function deleteSheet() {
     :to="`/edit/${props.songId}`"
     class="inline-grid h-fit cursor-pointer items-center gap-1 rounded-xl p-2 transition-colors hover:bg-stone-800"
   >
-    <div
-      class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900"
-    >
+    <div class="flex h-16 w-16 items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900">
       {{ props.musicKey }}
     </div>
     <div class="px-2 py-0">
@@ -37,16 +33,6 @@ async function deleteSheet() {
         <span class="text-sm text-stone-400">{{ props.songWritter }}</span>
       </div>
     </div>
-    <div>
-      <VButton @click.prevent="deleteSheet()" btn-style="icon-ghost" type="button">
-        <span class="material-icons"> delete </span>
-      </VButton>
-    </div>
+    <VCheckbox name="sheets" :check-id="props.songId" />
   </router-link>
 </template>
-
-<style scoped>
-a {
-  grid-template-columns: max-content auto max-content;
-}
-</style>

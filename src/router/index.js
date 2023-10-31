@@ -6,16 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: () => import('@/components/pages/PageLogin.vue'),
-      beforeEnter: async () => {
-        const userId = localStorage.getItem('user_id')
-
-        //i put beforeEnter here to prevent infinite redirection in beforeEach
-        const isAuthenticated = await checkAuthentication()
-        if (isAuthenticated) {
-          return { name: 'home', params: { userId: userId }, replace: true }
-        }
-      }
+      component: () => import('@/components/pages/PageLogin.vue')
     },
     {
       path: '/home/:userId',
@@ -44,10 +35,16 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
+  const userId = localStorage.getItem('user_id')
+  const isAuthenticated = await checkAuthentication()
+
   if (to.meta.requiresAuth) {
-    const isAuthenticated = await checkAuthentication()
     if (!isAuthenticated && to.path !== '/') {
       return { name: 'index', replace: true }
+    }
+  } else {
+    if (isAuthenticated) {
+      return { name: 'home', params: { userId: userId }, replace: true }
     }
   }
 })
@@ -57,11 +54,8 @@ async function checkAuthentication() {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('token')
-    })
+      authorization: localStorage.getItem('token')
+    }
   })
     .then(async (res) => {
       const response = await res.json()

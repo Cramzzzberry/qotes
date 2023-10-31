@@ -13,7 +13,6 @@ const router = useRouter()
 
 function logoutAccount() {
   localStorage.setItem('token', '')
-  localStorage.setItem('loggedIn', 'false')
   localStorage.setItem('user_id', '')
 
   router.push({ name: 'index' })

@@ -37,7 +37,7 @@ export default function parseSheet(input) {
       let songSegment = str.replace(/ /g, '|&nbsp|').split('|') //named as song segment because string is redundant
 
       songSegment.forEach((songEntity) => {
-        if (/([A-G])([#b]?)(m|maj|aug|dim|sus|add)?(M)?([0-9])?$/.test(songEntity)) {
+        if (/(^| )([A-G])([#b]?)(m|maj|aug|dim|sus|add)?(M)?([0-9])?$/.test(songEntity)) {
           //if it is a chord
           parsedSongSegment.push(`<span class="chord">${songEntity}</span>`)
         } else {

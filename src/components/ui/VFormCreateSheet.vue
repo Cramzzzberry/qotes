@@ -63,13 +63,13 @@ const sheetFormRef = ref(null)
         <span>Pinned</span>
       </label>
       <label v-else class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="important" />
-        <span>Important</span>
+        <input type="checkbox" name="pinned" />
+        <span>Pinned</span>
       </label>
 
       <label v-if="props.importantChecked" class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="pinned" checked />
-        <span>Pinned</span>
+        <input type="checkbox" name="important" checked />
+        <span>Important</span>
       </label>
       <label v-else class="flex basis-1/2 cursor-pointer flex-row gap-2">
         <input type="checkbox" name="important" />

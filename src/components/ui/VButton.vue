@@ -23,20 +23,17 @@ function makeClass() {
 
       //color state
       if (props.colorState === 'default' || props.colorState === 'success') {
-        colorState =
-          'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
+        colorState = 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
       } else if (props.colorState === 'error') {
         colorState = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
       } else if (props.colorState === 'info') {
-        colorState =
-          'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
+        colorState = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
       } else if (props.colorState === 'warning') {
-        colorState =
-          'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
+        colorState = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
       }
       break
     case 'ghost':
-      btnStyle = 'bg-transparent px-4 py-2 text-stone-300 hover:bg-stone-600 border-transparent'
+      btnStyle = 'bg-transparent px-4 py-2 text-stone-400 hover:text-stone-300 hover:bg-stone-700 border-transparent'
 
       //color state
       if (props.colorState === 'default') {
@@ -56,16 +53,13 @@ function makeClass() {
 
       //color state
       if (props.colorState === 'default' || props.colorState === 'success') {
-        colorState =
-          'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
+        colorState = 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
       } else if (props.colorState === 'error') {
         colorState = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
       } else if (props.colorState === 'info') {
-        colorState =
-          'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
+        colorState = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
       } else if (props.colorState === 'warning') {
-        colorState =
-          'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
+        colorState = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
       }
       break
     case 'icon-ghost':

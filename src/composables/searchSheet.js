@@ -2,11 +2,10 @@ import { ref } from 'vue'
 import { debounce } from '@/assets/scripts/debounce'
 
 let controller
+const sheets = ref([])
+const loading = ref(false)
 
-export function useSearch(searchValue, searchBoxId, category, musicKey) {
-  const sheets = ref([])
-  const loading = ref(false)
-
+export function useSearch(searchValue, category, musicKey) {
   async function onFetch() {
     if (searchValue !== '') {
       loading.value = true
