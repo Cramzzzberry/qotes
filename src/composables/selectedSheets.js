@@ -2,9 +2,10 @@ import { ref } from 'vue'
 
 const hasSelection = ref(false)
 const noOfSelected = ref(0)
-const selectedData = ref([])
 
 export function useSelectedSheets() {
+  const selectedData = ref([])
+
   function getSelectedData(data) {
     selectedData.value = {
       id: data

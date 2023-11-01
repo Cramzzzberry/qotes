@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-
+import { useSelectedSheets } from '@/composables/selectedSheets'
 import TheProfileSection from '@/components/ui/TheProfileSection.vue'
 
 //vue-router
@@ -14,6 +14,13 @@ const profileToggle = () => (profileState.value = !profileState.value)
 
 const sidebarState = ref(false)
 const sidebarToggle = () => (sidebarState.value = !sidebarState.value)
+
+const selectedSheets = useSelectedSheets()
+const hasSelection = ref(false)
+
+watchEffect(() => {
+  hasSelection.value = selectedSheets.hasSelection.value
+})
 
 let firstName = ''
 let lastName = ''
@@ -43,16 +50,10 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
     >
       <!-- hamburger icon -->
       <div class="basis-1/3">
-        <button
-          @click="sidebarToggle()"
-          :class="[sidebarState ? 'gap-4' : 'gap-10']"
-          class="nav-points"
-        >
+        <button @click="sidebarToggle()" :class="[sidebarState ? 'gap-4' : 'gap-10']" class="nav-points">
           <span v-if="!sidebarState" class="material-icons"> menu </span>
           <span v-else class="material-icons"> close </span>
-          <span class="nav-name" :class="[sidebarState ? 'opacity-100' : 'opacity-0']">
-            Close
-          </span>
+          <span class="nav-name" :class="[sidebarState ? 'opacity-100' : 'opacity-0']"> Close </span>
         </button>
       </div>
 
@@ -60,33 +61,30 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
       <div class="flex basis-1/3 flex-col justify-center gap-1 text-stone-400">
         <button
           @click="index = 0"
+          :disabled="hasSelection"
           :class="[sidebarState ? 'gap-4' : 'gap-10', index === 0 ? 'active' : '']"
           class="nav-points"
         >
           <span class="material-icons"> description </span>
-          <span class="nav-name" :class="[sidebarState ? 'opacity-100' : 'opacity-0']">
-            All sheets
-          </span>
+          <span class="nav-name" :class="[sidebarState ? 'opacity-100' : 'opacity-0']"> All sheets </span>
         </button>
         <button
           @click="index = 1"
+          :disabled="hasSelection"
           :class="[sidebarState ? 'gap-4' : 'gap-10', index === 1 ? 'active' : '']"
           class="nav-points"
         >
           <span class="material-icons"> push_pin </span>
-          <span :class="[sidebarState ? 'opacity-100' : 'opacity-0']" class="nav-name">
-            Pinned
-          </span>
+          <span :class="[sidebarState ? 'opacity-100' : 'opacity-0']" class="nav-name"> Pinned </span>
         </button>
         <button
           @click="index = 2"
+          :disabled="hasSelection"
           :class="[sidebarState ? 'gap-4' : 'gap-10', index === 2 ? 'active' : '']"
           class="nav-points"
         >
           <span class="material-icons"> lightbulb </span>
-          <span :class="[sidebarState ? 'opacity-100' : 'opacity-0']" class="nav-name">
-            Important
-          </span>
+          <span :class="[sidebarState ? 'opacity-100' : 'opacity-0']" class="nav-name"> Important </span>
         </button>
       </div>
 
@@ -104,10 +102,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
             >
               {{ firstName.split('')[0] + lastName.split('')[0] }}
             </div>
-            <div
-              :class="[sidebarState ? 'opacity-100' : 'opacity-0']"
-              class="whitespace-nowrap transition-opacity duration-300 ease-in-out"
-            >
+            <div :class="[sidebarState ? 'opacity-100' : 'opacity-0']" class="whitespace-nowrap transition-opacity duration-300 ease-in-out">
               {{ firstName + ' ' + lastName }}
             </div>
           </VButton>
@@ -141,7 +136,8 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
   transition:
     gap 300ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-points.active {
@@ -158,6 +154,18 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
 .nav-points > .nav-name {
   @apply text-base transition-opacity duration-300 ease-in-out;
+}
+
+.nav-points:disabled {
+  @apply opacity-50;
+}
+
+.nav-points:disabled:hover {
+  @apply bg-transparent;
+}
+
+.nav-points.active:disabled:hover {
+  @apply bg-emerald-800;
 }
 
 .profile-btn {
