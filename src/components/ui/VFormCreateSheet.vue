@@ -3,20 +3,10 @@ import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
 import { useCreateSheet } from '@/composables/createSheet'
 
-const props = defineProps({
-  pinnedChecked: {
-    type: Boolean,
-    default: false
-  },
-  importantChecked: {
-    type: Boolean,
-    default: false
-  }
-})
-
 const musicKeys = setKeys
 const newSheetkey = ref('C')
 const sheetFormRef = ref(null)
+const labelSelection = ref([])
 </script>
 
 <template>
@@ -57,23 +47,27 @@ const sheetFormRef = ref(null)
       </ul>
     </div>
 
-    <div class="flex flex-row gap-2 text-stone-400">
-      <label v-if="props.pinnedChecked" class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="pinned" checked />
-        <span>Pinned</span>
-      </label>
-      <label v-else class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="pinned" />
-        <span>Pinned</span>
+    <div class="flex flex-row justify-around gap-2 text-stone-400">
+      <!-- pinned checkbox -->
+      <input type="checkbox" class="invisible absolute -top-10" v-model="labelSelection" value="pinned" name="pinned" id="pinned" />
+      <label
+        for="pinned"
+        class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+      >
+        <span v-if="!labelSelection.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
+        <span v-else class="material-icons select-none"> check_box </span>
+        <span class="pl-2">Pinned</span>
       </label>
 
-      <label v-if="props.importantChecked" class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="important" checked />
-        <span>Important</span>
-      </label>
-      <label v-else class="flex basis-1/2 cursor-pointer flex-row gap-2">
-        <input type="checkbox" name="important" />
-        <span>Important</span>
+      <!-- important checkbox -->
+      <input type="checkbox" class="invisible absolute -top-10" v-model="labelSelection" value="important" name="important" id="important" />
+      <label
+        for="important"
+        class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+      >
+        <span v-if="!labelSelection.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
+        <span v-else class="material-icons select-none"> check_box </span>
+        <span class="pl-2">Important</span>
       </label>
     </div>
 

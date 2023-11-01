@@ -5,16 +5,14 @@ export async function useCreateSheet(form) {
   const formValues = {}
 
   formdata.forEach((value, key) => {
-    if (value === 'on') {
+    if (value === 'pinned' || value === 'important') {
       formValues[key] = true
     } else {
       formValues[key] = value
     }
   })
 
-  formValues[
-    'content'
-  ] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC   G   Am   F\nSample Lyrics`
+  formValues['content'] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC   G   Am   F\nSample Lyrics`
 
   await fetch('http://localhost:3000/sheets/create-sheet', {
     method: 'POST',

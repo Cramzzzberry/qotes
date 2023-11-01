@@ -100,7 +100,7 @@ async function updateAccount() {
         <button
           @click="logoutAccount()"
           type="button"
-          class="flex flex-row items-center gap-2 text-sm text-stone-400 transition-colors hover:text-emerald-400"
+          class="flex flex-row items-center gap-2 text-sm text-stone-400 transition-colors hover:text-stone-200"
         >
           <span class="material-icons text-base"> logout </span>
           Logout

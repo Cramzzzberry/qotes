@@ -33,11 +33,11 @@ function makeClass() {
       }
       break
     case 'ghost':
-      btnStyle = 'bg-transparent px-4 py-2 text-stone-400 hover:text-stone-300 hover:bg-stone-700 border-transparent'
+      btnStyle = 'bg-transparent px-4 py-2 hover:bg-stone-700 border-transparent'
 
       //color state
       if (props.colorState === 'default') {
-        colorState = 'text-stone-300'
+        colorState = 'text-stone-400 hover:text-stone-300'
       } else if (props.colorState === 'success') {
         colorState = 'text-emerald-400'
       } else if (props.colorState === 'error') {

@@ -50,7 +50,7 @@ watchEffect(() => {
         </div>
 
         <!-- action bar -->
-        <div class="flex basis-[880px] flex-row items-center gap-2">
+        <div class="flex basis-1/2 flex-row items-center gap-2">
           <!-- search box -->
           <div class="group/search relative grow">
             <label class="flex flex-row items-center gap-2">
@@ -66,9 +66,6 @@ watchEffect(() => {
 
           <!-- music keys dropdown -->
           <VDropdown v-model:label="songKeyLabel" :list="songKeys" name="songKeys" class="dropdown-height-limit w-32" />
-
-          <!-- create button -->
-          <slot name="create-button" />
         </div>
       </div>
 
@@ -86,7 +83,7 @@ watchEffect(() => {
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
           </VButton>
-          <VButton @click="selectedSheets.deleteSelectedSheets()" btn-style="ghost">
+          <VButton @click="selectedSheets.deleteSelectedSheets()" btn-style="ghost" color-state="error">
             <span class="material-icons"> delete </span>
             <span>Delete</span>
           </VButton>

@@ -16,5 +16,3 @@ const props = defineProps({ state: Boolean })
     </div>
   </div>
 </template>
-
-<style scoped></style>

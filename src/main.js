@@ -10,7 +10,6 @@ import VButton from '@/components/ui/VButton.vue'
 import VDropdown from '@/components/ui/VDropdown.vue'
 import VModal from '@/components/ui/VModal.vue'
 import VTextBox from '@/components/ui/VTextBox.vue'
-import VSheet from '@/components/ui/VSheet.vue'
 import VSheetList from '@/components/ui/VSheetList.vue'
 import VLoadingSheets from '@/components/ui/VLoadingSheets.vue'
 import VFormCreateSheet from '@/components/ui/VFormCreateSheet.vue'
@@ -26,7 +25,6 @@ app
   .component('VDropdown', VDropdown)
   .component('VModal', VModal)
   .component('VTextBox', VTextBox)
-  .component('VSheet', VSheet)
   .component('VSheetList', VSheetList)
   .component('VLoadingSheets', VLoadingSheets)
   .component('VFormCreateSheet', VFormCreateSheet)
