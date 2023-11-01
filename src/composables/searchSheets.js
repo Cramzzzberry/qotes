@@ -2,11 +2,12 @@ import { ref } from 'vue'
 import { debounce } from '@/assets/scripts/debounce'
 
 let controller
-const sheets = ref([])
-const loading = ref(false)
 
 export function useSearch(searchValue, category, musicKey) {
-  async function onFetch() {
+  const sheets = ref([])
+  const loading = ref(false)
+
+  async function onSearch() {
     if (searchValue !== '') {
       loading.value = true
 
@@ -50,7 +51,7 @@ export function useSearch(searchValue, category, musicKey) {
     }
   }
 
-  onFetch()
+  onSearch()
 
   return { sheets, loading }
 }

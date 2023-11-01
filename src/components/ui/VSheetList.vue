@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
-import { useSearch } from '@/composables/searchSheet'
-import { useSelect } from '@/composables/select'
+import { useSearch } from '@/composables/searchSheets'
+import { useSelectedSheets } from '@/composables/selectedSheets'
 
 const props = defineProps({
   searchValue: String,
@@ -10,23 +10,19 @@ const props = defineProps({
 })
 
 //for selected sheets
-const select = useSelect()
-const selectedSheets = ref([])
+const selectedSheets = useSelectedSheets()
+const selection = ref([])
 
 watchEffect(() => {
-  if (selectedSheets.value.length > 0) {
-    select.hasSelected.value = true
-  } else {
-    select.hasSelected.value = false
-  }
-  select.setNoOfSelection(selectedSheets.value)
+  selectedSheets.getSelectedData(selection.value)
 })
 
 //for sheets
-let { sheets, loading } = { sheets: null, loading: null }
+let sheets
+let loading
 
 watchEffect(() => {
-  selectedSheets.value = []
+  selection.value = []
   ;({ sheets, loading } = useSearch(props.searchValue, props.category, props.musicKey))
 })
 </script>
@@ -56,12 +52,12 @@ watchEffect(() => {
 
       <div>
         <!-- checkbox -->
-        <input type="checkbox" class="invisible absolute -top-10" v-model="selectedSheets" :value="sheet.id" :id="sheet.id" />
+        <input type="checkbox" class="invisible absolute -top-10" v-model="selection" :value="sheet.id" :id="sheet.id" />
         <label
           :for="sheet.id"
           class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
         >
-          <span v-if="!selectedSheets.includes(sheet.id)" class="material-icons select-none"> check_box_outline_blank </span>
+          <span v-if="!selection.includes(sheet.id)" class="material-icons select-none"> check_box_outline_blank </span>
           <span v-else class="material-icons select-none"> check_box </span>
         </label>
       </div>

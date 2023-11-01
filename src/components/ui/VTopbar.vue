@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
-import { useSelect } from '@/composables/select'
+import { useSelectedSheets } from '@/composables/selectedSheets'
 
 const props = defineProps({
   topBarTitle: {
@@ -24,20 +24,20 @@ const songKeyLabel = ref('All Keys')
 
 const searchValue = ref('')
 
-const select = useSelect()
-const hasSelected = ref(false)
-const selected = ref(0)
+const selectedSheets = useSelectedSheets()
+const hasSelection = ref(false)
+const noOfSelected = ref(0)
 
 watchEffect(() => {
-  hasSelected.value = select.hasSelected.value
-  selected.value = select.noOfSelection.value
+  hasSelection.value = selectedSheets.hasSelection.value
+  noOfSelected.value = selectedSheets.noOfSelected.value
 })
 </script>
 
 <template>
   <div class="grow overflow-y-auto pb-2">
     <Transition name="fade-down" mode="out-in">
-      <div v-if="!hasSelected" class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
+      <div v-if="!hasSelection" class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
         <!-- topbar information -->
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-4">
@@ -71,10 +71,10 @@ watchEffect(() => {
           <slot name="create-button" />
         </div>
       </div>
-      <!-- if there is a selected value -->
+
       <div v-else class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
         <div class="flex flex-row items-center gap-4">
-          <h1>Select sheets ({{ selected }})</h1>
+          <h1>Selected sheets ({{ noOfSelected }})</h1>
           <span class="material-icons text-3xl"> done </span>
         </div>
         <div class="flex flex-row gap-2">
@@ -84,9 +84,9 @@ watchEffect(() => {
           </VButton>
           <VButton btn-style="ghost">
             <span class="material-icons"> lightbulb </span>
-            <span>Important</span>
+            <span>Mark as Important</span>
           </VButton>
-          <VButton btn-style="ghost">
+          <VButton @click="selectedSheets.deleteSelectedSheets()" btn-style="ghost">
             <span class="material-icons"> delete </span>
             <span>Delete</span>
           </VButton>
