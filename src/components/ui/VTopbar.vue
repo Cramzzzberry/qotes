@@ -27,10 +27,14 @@ const searchValue = ref('')
 const selectedSheets = useSelectedSheets()
 const hasSelection = ref(false)
 const noOfSelected = ref(0)
+const pinStates = ref([])
+const importantStates = ref([])
 
 watchEffect(() => {
   hasSelection.value = selectedSheets.hasSelection.value
   noOfSelected.value = selectedSheets.noOfSelected.value
+  pinStates.value = selectedSheets.selectedData.value.pinStates
+  importantStates.value = selectedSheets.selectedData.value.importantStates
 })
 </script>
 
@@ -74,13 +78,21 @@ watchEffect(() => {
           <h1>Selected sheets ({{ noOfSelected }})</h1>
         </div>
         <div class="flex flex-row gap-2">
-          <VButton @click="selectedSheets.pinSheets(true)" btn-style="ghost">
+          <VButton v-if="!pinStates.includes('true')" @click="selectedSheets.pinSheets(true)" btn-style="ghost">
             <span class="material-icons"> push_pin </span>
             <span>Pin</span>
           </VButton>
-          <VButton @click="selectedSheets.importantSheets(true)" btn-style="ghost">
+          <VButton v-if="!pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost" color-state="warning">
+            <span class="material-icons"> remove_circle </span>
+            <span>Unpin</span>
+          </VButton>
+          <VButton v-if="!importantStates.includes('true')" @click="selectedSheets.importantSheets(true)" btn-style="ghost">
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
+          </VButton>
+          <VButton v-if="!importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost" color-state="warning">
+            <span class="material-icons"> remove_circle </span>
+            <span>Mark as Unmportant</span>
           </VButton>
           <VButton @click="selectedSheets.deleteSheets()" btn-style="ghost" color-state="error">
             <span class="material-icons"> delete </span>

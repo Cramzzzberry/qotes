@@ -6,9 +6,24 @@ const selectedData = ref([])
 
 export function useSelectedSheets() {
   function getSelectedData(data) {
+    const _dataId = data.map((datum) => {
+      return datum.split('===')[0]
+    })
+
+    const _dataPinStates = data.map((datum) => {
+      return datum.split('===')[1]
+    })
+
+    const _dataImportantStates = data.map((datum) => {
+      return datum.split('===')[2]
+    })
+
     selectedData.value = {
-      ids: data
+      ids: _dataId,
+      pinStates: _dataPinStates,
+      importantStates: _dataImportantStates
     }
+
     hasSelection.value = data.length > 0 ? true : false
     noOfSelected.value = data.length
   }
@@ -80,5 +95,5 @@ export function useSelectedSheets() {
     onDelete()
   }
 
-  return { hasSelection, noOfSelected, getSelectedData, pinSheets, importantSheets, deleteSheets }
+  return { selectedData, hasSelection, noOfSelected, getSelectedData, pinSheets, importantSheets, deleteSheets }
 }

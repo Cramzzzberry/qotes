@@ -54,14 +54,22 @@ watchEffect(() => {
         </div>
       </router-link>
 
+      <!-- checkbox -->
       <div>
-        <!-- checkbox -->
-        <input type="checkbox" class="invisible absolute -top-10" v-model="selection" :value="sheet.id" :id="sheet.id" />
+        <input
+          type="checkbox"
+          class="invisible absolute -top-10"
+          v-model="selection"
+          :value="`${sheet.id}===${sheet.pinned}===${sheet.important}`"
+          :id="sheet.id"
+        />
         <label
           :for="sheet.id"
           class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
         >
-          <span v-if="!selection.includes(sheet.id)" class="material-icons select-none"> check_box_outline_blank </span>
+          <span v-if="!selection.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
+            check_box_outline_blank
+          </span>
           <span v-else class="material-icons select-none"> check_box </span>
         </label>
       </div>
