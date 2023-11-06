@@ -1,4 +1,5 @@
 import { toValue } from 'vue'
+import { socket } from '@/socket'
 
 export async function useCreateSheet(form) {
   const formdata = new FormData(toValue(form))
@@ -14,19 +15,6 @@ export async function useCreateSheet(form) {
 
   formValues['content'] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC   G   Am   F\nSample Lyrics`
 
-  await fetch('http://localhost:3000/sheets/create-sheet', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formValues)
-  })
-    .then(() => {
-      console.log('Sheet creattion success')
-      window.location.reload()
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  socket.emit('create sheet', formValues)
+  window.location.reload()
 }

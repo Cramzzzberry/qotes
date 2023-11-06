@@ -1,13 +1,12 @@
 import { ref } from 'vue'
 import { debounce } from '@/assets/scripts/debounce'
 
-let controller
-
 export function useSearch(searchValue, category, musicKey) {
   const sheets = ref([])
   const loading = ref(false)
+  let controller
 
-  async function onSearch() {
+  function onSearch() {
     if (searchValue !== '') {
       loading.value = true
 
@@ -49,9 +48,11 @@ export function useSearch(searchValue, category, musicKey) {
 
       delayFunc()
     }
+
+    return
   }
 
   onSearch()
 
-  return { sheets, loading }
+  return { sheets: sheets, loadState: loading }
 }

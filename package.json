@@ -13,6 +13,7 @@
     "marked": "^9.0.3",
     "material-icons": "^1.13.11",
     "sanitize-html": "^2.11.0",
+    "socket.io-client": "^4.7.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },

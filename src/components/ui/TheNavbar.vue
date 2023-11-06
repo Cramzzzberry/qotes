@@ -4,11 +4,7 @@ import { useRoute } from 'vue-router'
 import { useSelectedSheets } from '@/composables/selectedSheets'
 import TheProfileSection from '@/components/ui/TheProfileSection.vue'
 
-//vue-router
 const route = useRoute()
-
-//initialization of values
-const index = ref(0)
 const profileState = ref(false)
 const profileToggle = () => (profileState.value = !profileState.value)
 
@@ -17,6 +13,13 @@ const hasSelection = ref(false)
 
 const modalState = ref(false)
 const modalToggle = () => (modalState.value = !modalState.value)
+
+const index = ref(0)
+
+function setPage(number = 0) {
+  index.value = number
+  localStorage.setItem('pageIndex', index.value)
+}
 
 watchEffect(() => {
   hasSelection.value = selectedSheets.hasSelection.value
@@ -62,15 +65,15 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
       </button>
 
       <div class="mt-10 flex flex-col items-center gap-4">
-        <button @click="index = 0" :disabled="hasSelection" :class="[index === 0 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(0)" :disabled="hasSelection" :class="[index === 0 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> description </span>
           <span>All</span>
         </button>
-        <button @click="index = 1" :disabled="hasSelection" :class="[index === 1 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(1)" :disabled="hasSelection" :class="[index === 1 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> push_pin </span>
           <span>Pinned</span>
         </button>
-        <button @click="index = 2" :disabled="hasSelection" :class="[index === 2 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(2)" :disabled="hasSelection" :class="[index === 2 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> lightbulb </span>
           <span>Important</span>
         </button>

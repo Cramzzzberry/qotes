@@ -2,6 +2,7 @@
 import { ref, watchEffect } from 'vue'
 import { useSearch } from '@/composables/searchSheets'
 import { useSelectedSheets } from '@/composables/selectedSheets'
+import { socket } from '@/socket'
 
 const props = defineProps({
   searchValue: String,
@@ -9,32 +10,47 @@ const props = defineProps({
   musicKey: String
 })
 
-//for selected sheets
+//selected sheets
 const selectedSheets = useSelectedSheets()
 const selection = ref([])
-
 watchEffect(() => {
   selectedSheets.getSelectedData(selection.value)
 })
 
-//for sheets
-let sheets
-let loading
+//websocket for realtime updates
+const updateTrigger = ref(1)
 
+socket.on('sheet created', () => {
+  updateTrigger.value *= -1
+})
+
+socket.on('sheets updated', () => {
+  updateTrigger.value *= -1
+})
+socket.on('sheets deleted', () => {
+  updateTrigger.value *= -1
+})
+
+//sheet list
+const searchResults = ref({})
 watchEffect(() => {
   selection.value = []
-  ;({ sheets, loading } = useSearch(props.searchValue, props.category, props.musicKey))
+  searchResults.value = useSearch(props.searchValue, props.category, props.musicKey)
+
+  updateTrigger.value //added this just for the sake of realtime ui update
 })
 </script>
 
 <template>
-  <VLoadingSheets v-if="loading" />
+  <VLoadingSheets v-if="searchResults.loadState" />
 
-  <div v-else-if="sheets.length === 0 && !loading" class="flex h-[calc(100%-156px)] w-full items-center justify-center">No sheets available</div>
+  <div v-else-if="searchResults.sheets.length === 0 && !searchResults.loadState" class="flex h-[calc(100%-156px)] w-full items-center justify-center">
+    No sheets available
+  </div>
 
   <div v-else class="grid grid-cols-3 gap-2 px-16">
     <div
-      v-for="(sheet, index) in sheets"
+      v-for="(sheet, index) in searchResults.sheets"
       :key="index"
       class="flex h-fit cursor-pointer flex-row items-center gap-1 rounded-xl p-2 transition-colors hover:bg-stone-800"
     >
