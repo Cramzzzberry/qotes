@@ -56,7 +56,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
       <button
         @click="modalToggle()"
-        class="mt-4 flex items-center justify-center rounded-2xl bg-yellow-400 p-3 text-yellow-900 transition-colors hover:bg-yellow-500"
+        class="mt-4 flex items-center justify-center rounded-2xl bg-amber-400 p-3 text-amber-900 transition-colors hover:bg-amber-500"
       >
         <span class="material-icons text-3xl leading-none"> add </span>
       </button>

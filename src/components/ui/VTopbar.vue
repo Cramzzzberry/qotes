@@ -82,7 +82,7 @@ watchEffect(() => {
             <span class="material-icons"> push_pin </span>
             <span>Pin</span>
           </VButton>
-          <VButton v-if="!pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost" color-state="warning">
+          <VButton v-if="!pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
             <span>Unpin</span>
           </VButton>
@@ -90,9 +90,9 @@ watchEffect(() => {
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
           </VButton>
-          <VButton v-if="!importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost" color-state="warning">
+          <VButton v-if="!importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
-            <span>Mark as Unmportant</span>
+            <span>Mark as Unimportant</span>
           </VButton>
           <VButton @click="selectedSheets.deleteSheets()" btn-style="ghost" color-state="error">
             <span class="material-icons"> delete </span>

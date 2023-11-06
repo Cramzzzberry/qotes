@@ -65,9 +65,9 @@ onMounted(async () => {
         </VButton>
       </div>
 
-      <div class="text-center">
-        <div class="font-semibold text-stone-300">{{ songTitle }}</div>
-        <div class="text-sm">{{ songWriter }}</div>
+      <div class="flex flex-col items-center">
+        <input type="text" v-model="songTitle" class="h-fit w-full bg-transparent text-center font-semibold text-stone-300" />
+        <input type="text" v-model="songWriter" class="h-fit w-full bg-transparent text-center text-sm" />
       </div>
 
       <div class="flex flex-row items-center justify-end gap-8">
