@@ -72,18 +72,17 @@ watchEffect(() => {
       <div v-else class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
         <div class="flex flex-row items-center gap-4">
           <h1>Selected sheets ({{ noOfSelected }})</h1>
-          <span class="material-icons text-3xl"> done </span>
         </div>
         <div class="flex flex-row gap-2">
-          <VButton btn-style="ghost">
+          <VButton @click="selectedSheets.pinSheets(true)" btn-style="ghost">
             <span class="material-icons"> push_pin </span>
             <span>Pin</span>
           </VButton>
-          <VButton btn-style="ghost">
+          <VButton @click="selectedSheets.importantSheets(true)" btn-style="ghost">
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
           </VButton>
-          <VButton @click="selectedSheets.deleteSelectedSheets()" btn-style="ghost" color-state="error">
+          <VButton @click="selectedSheets.deleteSheets()" btn-style="ghost" color-state="error">
             <span class="material-icons"> delete </span>
             <span>Delete</span>
           </VButton>

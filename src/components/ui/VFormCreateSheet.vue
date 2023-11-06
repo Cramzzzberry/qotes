@@ -47,12 +47,12 @@ const labelSelection = ref([])
       </ul>
     </div>
 
-    <div class="flex flex-row justify-around gap-2 text-stone-400">
+    <div class="flex gap-2 text-stone-400">
       <!-- pinned checkbox -->
       <input type="checkbox" class="invisible absolute -top-10" v-model="labelSelection" value="pinned" name="pinned" id="pinned" />
       <label
         for="pinned"
-        class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+        class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
       >
         <span v-if="!labelSelection.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
         <span v-else class="material-icons select-none"> check_box </span>
@@ -63,7 +63,7 @@ const labelSelection = ref([])
       <input type="checkbox" class="invisible absolute -top-10" v-model="labelSelection" value="important" name="important" id="important" />
       <label
         for="important"
-        class="flex cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+        class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
       >
         <span v-if="!labelSelection.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
         <span v-else class="material-icons select-none"> check_box </span>

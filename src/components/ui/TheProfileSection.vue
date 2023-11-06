@@ -24,6 +24,9 @@ async function deleteAccount() {
     mode: 'cors'
   })
     .then(() => {
+      localStorage.setItem('token', '')
+      localStorage.setItem('user_id', '')
+
       console.log('account deleted')
       router.push('/')
     })
@@ -50,8 +53,8 @@ async function updateAccount() {
         body: JSON.stringify(updateAccountForm)
       })
         .then(() => {
-          console.log('update profile success')
           window.location.reload()
+          console.log('update profile success')
         })
         .catch((err) => console.log(err))
     })

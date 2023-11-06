@@ -46,6 +46,10 @@ watchEffect(() => {
           <div class="flex w-full flex-col">
             <span class="text-lg font-medium leading-none">{{ sheet.song_title }}</span>
             <span class="text-sm text-stone-400">{{ sheet.song_writer }}</span>
+            <div class="flex flex-row gap-1">
+              <span v-if="sheet.pinned" class="rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400">Pinned</span>
+              <span v-if="sheet.important" class="rounded-full border border-yellow-400 px-2 text-[0.75rem] text-yellow-400">Important</span>
+            </div>
           </div>
         </div>
       </router-link>

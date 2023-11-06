@@ -46,10 +46,11 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
     <div class="flex flex-col items-center overflow-x-hidden bg-stone-800 px-3 py-6">
       <!-- profile section -->
       <div class="flex w-full flex-col items-center gap-2">
-        <button @click="profileToggle()" class="transition-opacity hover:opacity-70">
-          <div class="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 text-xl font-semibold text-emerald-900">
-            {{ firstName.split('')[0] + lastName.split('')[0] }}
-          </div>
+        <button
+          @click="profileToggle()"
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 text-xl font-semibold text-emerald-900 transition-opacity hover:opacity-70"
+        >
+          {{ firstName.split('')[0] + lastName.split('')[0] }}
         </button>
       </div>
 
@@ -120,7 +121,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 }
 
 .nav-points.active {
-  @apply !text-emerald-400 transition-none;
+  @apply !text-stone-100;
 }
 
 .nav-points:hover {
