@@ -23,6 +23,7 @@ socket.on('disconnect', () => {
 socket.on('toast', (msg, duration) => {
   toast.addToast({
     msg: msg,
-    duration: duration
+    duration: duration,
+    showAction: true
   })
 })

@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useToast } from '@/composables/toast'
 
 const props = defineProps({
   firstName: String,
@@ -10,10 +11,16 @@ const props = defineProps({
 
 const route = useRoute()
 const router = useRouter()
+const toast = useToast()
 
 function logoutAccount() {
   localStorage.setItem('token', '')
   localStorage.setItem('user_id', '')
+
+  toast.addToast({
+    msg: 'Logged out successfully.',
+    duration: 4000
+  })
 
   router.push({ name: 'index' })
 }

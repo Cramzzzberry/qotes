@@ -3,43 +3,44 @@ import { useToast } from '@/composables/toast'
 import { useRefreshSheetList } from '@/composables/refreshSheetList'
 import { socket } from '@/socket'
 
-const hasSelection = ref(false)
-const noOfSelected = ref(0)
-const selectedData = ref([])
+export const hasSelection = ref(false)
+export const noOfSelected = ref(0)
+export const selectedData = ref([])
+export const organizedSelData = ref([])
 
 export function useSelectedSheets() {
   const toast = useToast()
   const refreshSheetList = useRefreshSheetList()
 
-  function getSelectedData(data) {
-    const _dataId = data.map((datum) => {
+  function getSelectedData() {
+    const _dataId = selectedData.value.map((datum) => {
       return datum.split('===')[0]
     })
 
-    const _dataPinStates = data.map((datum) => {
+    const _dataPinStates = selectedData.value.map((datum) => {
       return datum.split('===')[1]
     })
 
-    const _dataImportantStates = data.map((datum) => {
+    const _dataImportantStates = selectedData.value.map((datum) => {
       return datum.split('===')[2]
     })
 
-    selectedData.value = {
+    organizedSelData.value = {
       ids: _dataId,
       pinStates: _dataPinStates,
       importantStates: _dataImportantStates
     }
 
-    hasSelection.value = data.length > 0 ? true : false
-    noOfSelected.value = data.length
+    hasSelection.value = selectedData.value.length > 0 ? true : false
+    noOfSelected.value = selectedData.value.length
   }
 
-  function pinSheets(willBePinned) {
+  function pinSheets(makeItPinned) {
     socket.emit('update sheets', {
       data: {
-        pinned: willBePinned ? true : false
+        pinned: makeItPinned ? true : false
       },
-      ...selectedData.value
+      ...organizedSelData.value
     })
 
     refreshSheetList.refresh()
@@ -49,12 +50,12 @@ export function useSelectedSheets() {
     })
   }
 
-  function importantSheets(willBeImportant) {
+  function importantSheets(makeItImportant) {
     socket.emit('update sheets', {
       data: {
-        important: willBeImportant ? true : false
+        important: makeItImportant ? true : false
       },
-      ...selectedData.value
+      ...organizedSelData.value
     })
 
     refreshSheetList.refresh()
@@ -65,7 +66,7 @@ export function useSelectedSheets() {
   }
 
   function deleteSheets() {
-    socket.emit('delete sheets', selectedData.value)
+    socket.emit('delete sheets', organizedSelData.value)
 
     refreshSheetList.refresh()
     toast.addToast({
@@ -74,5 +75,5 @@ export function useSelectedSheets() {
     })
   }
 
-  return { selectedData, hasSelection, noOfSelected, getSelectedData, pinSheets, importantSheets, deleteSheets }
+  return { getSelectedData, pinSheets, importantSheets, deleteSheets }
 }

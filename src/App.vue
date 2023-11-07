@@ -1,3 +1,7 @@
+<script setup>
+import TheToast from '@/components/ui/TheToast.vue'
+</script>
+
 <template>
   <router-view v-slot="{ Component, route }">
     <transition name="fade-scale" mode="out-in">
@@ -9,4 +13,6 @@
       </suspense>
     </transition>
   </router-view>
+
+  <TheToast />
 </template>

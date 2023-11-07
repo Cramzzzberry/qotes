@@ -1,3 +1,7 @@
+// what this does is that if the searchbar at the Topbar is an empty string, return a full list of sheets
+// else, fetch based on search input. the searchbar on mounted is typically empty, so what I did is that
+// rather than use onMounted to fetch full list initially, I fetch it based on searchbar value
+
 import { ref } from 'vue'
 import { debounce } from '@/assets/scripts/debounce'
 

@@ -1,12 +1,14 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useToast } from '@/composables/toast'
+import sanitizeHtml from 'sanitize-html'
 
 import { changeKey, setKeys } from '@/assets/scripts/change-key'
-import sanitizeHtml from 'sanitize-html'
 import parseSheet from '@/assets/scripts/parse-sheet'
 
 const route = useRoute()
+const toast = useToast()
 
 const songKey = ref(null)
 const sheetInput = ref('')
@@ -29,6 +31,10 @@ async function saveSheet() {
   })
     .then(() => {
       console.log('Sheet saved')
+      toast.addToast({
+        msg: 'Saved successfully.',
+        duration: 4000
+      })
     })
     .catch((err) => console.log(err))
 }

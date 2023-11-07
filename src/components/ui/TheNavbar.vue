@@ -1,15 +1,12 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useSelectedSheets } from '@/composables/selectedSheets'
+import { hasSelection } from '@/composables/selectedSheets'
 import TheProfileSection from '@/components/ui/TheProfileSection.vue'
 
 const route = useRoute()
 const profileState = ref(false)
 const profileToggle = () => (profileState.value = !profileState.value)
-
-const selectedSheets = useSelectedSheets()
-const hasSelection = ref(false)
 
 const modalState = ref(false)
 const modalToggle = () => (modalState.value = !modalState.value)
@@ -20,10 +17,6 @@ function setPage(number = 0) {
   index.value = number
   // localStorage.setItem('pageIndex', index.value)
 }
-
-watchEffect(() => {
-  hasSelection.value = selectedSheets.hasSelection.value
-})
 
 let firstName = ''
 let lastName = ''

@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useToast } from '@/composables/toast'
 
 const router = useRouter()
+const toast = useToast()
 
 const isLoginSection = ref(true)
 const createAccForm = ref(null)
@@ -34,6 +36,11 @@ async function createAccount() {
         if (response.success) {
           isLoginSection.value = true
           console.log('Registration Success')
+
+          toast.addToast({
+            msg: 'Account created successfully.',
+            duration: 4000
+          })
         }
       })
       .catch((err) => {
@@ -65,6 +72,11 @@ async function loginAccount() {
       const response = await res.json()
 
       if (response.success) {
+        toast.addToast({
+          msg: 'Logged in successfully.',
+          duration: 4000
+        })
+
         localStorage.setItem('token', response.token)
         localStorage.setItem('user_id', response.userId)
 
