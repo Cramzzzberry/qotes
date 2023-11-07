@@ -2,7 +2,7 @@
 import { ref, watchEffect } from 'vue'
 import { useSearch } from '@/composables/searchSheets'
 import { useSelectedSheets } from '@/composables/selectedSheets'
-import { socket } from '@/socket'
+import { useRefreshSheetList } from '@/composables/refreshSheetList'
 
 const props = defineProps({
   searchValue: String,
@@ -17,27 +17,14 @@ watchEffect(() => {
   selectedSheets.getSelectedData(selection.value)
 })
 
-//websocket for realtime updates
-const updateTrigger = ref(1)
-
-socket.on('sheet created', () => {
-  updateTrigger.value *= -1
-})
-
-socket.on('sheets updated', () => {
-  updateTrigger.value *= -1
-})
-socket.on('sheets deleted', () => {
-  updateTrigger.value *= -1
-})
-
 //sheet list
 const searchResults = ref({})
+const refreshSheetList = useRefreshSheetList()
 watchEffect(() => {
   selection.value = []
   searchResults.value = useSearch(props.searchValue, props.category, props.musicKey)
 
-  updateTrigger.value //added this just for the sake of realtime ui update
+  refreshSheetList.refreshToggle.value //this is just to kickstart fetch from useSearch()
 })
 </script>
 
@@ -81,7 +68,7 @@ watchEffect(() => {
         />
         <label
           :for="sheet.id"
-          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
         >
           <span v-if="!selection.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank

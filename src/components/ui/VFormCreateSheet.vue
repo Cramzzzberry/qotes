@@ -39,7 +39,7 @@ const labelSelection = ref([])
           <label
             :for="key + ' id'"
             tabindex="0"
-            class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-400 transition-colors duration-100 ease-in-out hover:bg-stone-600 hover:text-stone-200 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
+            class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-400 transition-colors duration-100 ease-in-out hover:bg-stone-700 hover:text-stone-200 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
           >
             {{ key }}
           </label>
@@ -63,7 +63,7 @@ const labelSelection = ref([])
       <input type="checkbox" class="invisible absolute -top-10" v-model="labelSelection" value="important" name="important" id="important" />
       <label
         for="important"
-        class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
+        class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
       >
         <span v-if="!labelSelection.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
         <span v-else class="material-icons select-none"> check_box </span>

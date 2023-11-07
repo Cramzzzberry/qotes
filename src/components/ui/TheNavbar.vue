@@ -18,7 +18,7 @@ const index = ref(0)
 
 function setPage(number = 0) {
   index.value = number
-  localStorage.setItem('pageIndex', index.value)
+  // localStorage.setItem('pageIndex', index.value)
 }
 
 watchEffect(() => {
@@ -51,7 +51,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
       <div class="flex w-full flex-col items-center gap-2">
         <button
           @click="profileToggle()"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-400 text-xl font-semibold text-emerald-900 transition-opacity hover:opacity-70"
+          class="transition-color flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400 text-xl font-semibold text-emerald-900 hover:bg-emerald-500"
         >
           {{ firstName.split('')[0] + lastName.split('')[0] }}
         </button>
@@ -59,7 +59,7 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
 
       <button
         @click="modalToggle()"
-        class="mt-4 flex items-center justify-center rounded-2xl bg-amber-400 p-3 text-amber-900 transition-colors hover:bg-amber-500"
+        class="mt-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400 text-amber-900 transition-colors hover:bg-amber-500"
       >
         <span class="material-icons text-3xl leading-none"> add </span>
       </button>

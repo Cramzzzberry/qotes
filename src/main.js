@@ -14,6 +14,7 @@ import VSheetList from '@/components/ui/VSheetList.vue'
 import VLoadingSheets from '@/components/ui/VLoadingSheets.vue'
 import VFormCreateSheet from '@/components/ui/VFormCreateSheet.vue'
 import VCheckbox from '@/components/ui/VCheckbox.vue'
+import VToast from '@/components/ui/VToast.vue'
 
 const app = createApp(App)
 
@@ -29,3 +30,4 @@ app
   .component('VLoadingSheets', VLoadingSheets)
   .component('VFormCreateSheet', VFormCreateSheet)
   .component('VCheckbox', VCheckbox)
+  .component('VToast', VToast)

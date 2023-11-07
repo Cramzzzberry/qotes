@@ -19,5 +19,7 @@ const tabs = [TabAll, TabPinned, TabImportant]
         <component :is="tabs[slotProps.index]" />
       </KeepAlive>
     </Transition>
+
+    <VToast />
   </TheNavbar>
 </template>

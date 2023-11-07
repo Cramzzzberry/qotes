@@ -1,4 +1,6 @@
 import { ref } from 'vue'
+import { useToast } from '@/composables/toast'
+import { useRefreshSheetList } from '@/composables/refreshSheetList'
 import { socket } from '@/socket'
 
 const hasSelection = ref(false)
@@ -6,6 +8,9 @@ const noOfSelected = ref(0)
 const selectedData = ref([])
 
 export function useSelectedSheets() {
+  const toast = useToast()
+  const refreshSheetList = useRefreshSheetList()
+
   function getSelectedData(data) {
     const _dataId = data.map((datum) => {
       return datum.split('===')[0]
@@ -36,6 +41,12 @@ export function useSelectedSheets() {
       },
       ...selectedData.value
     })
+
+    refreshSheetList.refresh()
+    toast.addToast({
+      msg: 'List updated.',
+      duration: 4000
+    })
   }
 
   function importantSheets(willBeImportant) {
@@ -45,10 +56,22 @@ export function useSelectedSheets() {
       },
       ...selectedData.value
     })
+
+    refreshSheetList.refresh()
+    toast.addToast({
+      msg: 'List updated.',
+      duration: 4000
+    })
   }
 
   function deleteSheets() {
     socket.emit('delete sheets', selectedData.value)
+
+    refreshSheetList.refresh()
+    toast.addToast({
+      msg: noOfSelected.value > 1 ? `${noOfSelected.value} sheets deleted successfully.` : 'Sheet deleted successfully.',
+      duration: 4000
+    })
   }
 
   return { selectedData, hasSelection, noOfSelected, getSelectedData, pinSheets, importantSheets, deleteSheets }
