@@ -55,8 +55,8 @@ onMounted(async () => {
     sheetInput.value = response.content
 
     //transposition watch
-    watch(songKey, (newValue, oldValue) => {
-      sheetInput.value = changeKey(sheetInput.value, newValue, oldValue)
+    watch(songKey, (newKey, oldKey) => {
+      sheetInput.value = changeKey(sheetInput.value, newKey, oldKey)
     })
   })
 })

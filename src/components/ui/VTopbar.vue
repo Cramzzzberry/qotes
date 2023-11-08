@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
-import { useSelectedSheets, selectedData, organizedSelData, hasSelection, noOfSelected } from '@/composables/selectedSheets'
+import { useSelectedSheets, selection } from '@/composables/selectedSheets'
 
 const props = defineProps({
   topBarTitle: {
@@ -27,14 +27,14 @@ const searchValue = ref('')
 const selectedSheets = useSelectedSheets()
 
 function cancelSelection() {
-  selectedData.value = []
+  selection.list = []
 }
 </script>
 
 <template>
   <div class="grow overflow-y-auto pb-2">
     <Transition name="fade-down" mode="out-in">
-      <div v-if="!hasSelection" class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
+      <div v-if="!selection.isFilled" class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
         <!-- topbar information -->
         <div class="flex flex-col">
           <div class="flex flex-row items-center gap-4">
@@ -71,22 +71,22 @@ function cancelSelection() {
           <VButton @click="cancelSelection()" btn-style="icon-ghost" type="button">
             <span class="material-icons font-bold"> close </span>
           </VButton>
-          <h1>Selected sheets ({{ noOfSelected }})</h1>
+          <h1>Selected sheets ({{ selection.length }})</h1>
         </div>
         <div class="flex flex-row gap-2">
-          <VButton v-if="!organizedSelData.pinStates.includes('true')" @click="selectedSheets.pinSheets(true)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="selectedSheets.pinSheets(true)" btn-style="ghost">
             <span class="material-icons"> push_pin </span>
             <span>Pin</span>
           </VButton>
-          <VButton v-if="!organizedSelData.pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
             <span>Unpin</span>
           </VButton>
-          <VButton v-if="!organizedSelData.importantStates.includes('true')" @click="selectedSheets.importantSheets(true)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="selectedSheets.importantSheets(true)" btn-style="ghost">
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
           </VButton>
-          <VButton v-if="!organizedSelData.importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
             <span>Mark as Unimportant</span>
           </VButton>

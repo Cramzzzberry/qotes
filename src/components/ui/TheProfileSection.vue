@@ -34,7 +34,11 @@ async function deleteAccount() {
       localStorage.setItem('token', '')
       localStorage.setItem('user_id', '')
 
-      console.log('account deleted')
+      toast.addToast({
+        msg: 'Account deleted successfully.',
+        duration: 4000
+      })
+
       router.push('/')
     })
     .catch((err) => console.log(err))
@@ -60,8 +64,13 @@ async function updateAccount() {
         body: JSON.stringify(updateAccountForm)
       })
         .then(() => {
+          //TODO: need to fix this, all components are 'remounted' on refresh thats why toasts are not showing
+          toast.addToast({
+            msg: 'Account updated successfully.',
+            duration: 4000
+          })
+
           window.location.reload()
-          console.log('update profile success')
         })
         .catch((err) => console.log(err))
     })

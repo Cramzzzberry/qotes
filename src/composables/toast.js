@@ -1,10 +1,12 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 
-export const toasts = ref([])
+export const toasts = reactive({
+  list: []
+})
 
 export function useToast() {
   function addToast(msg) {
-    toasts.value.push(msg)
+    toasts.list.push(msg)
   }
 
   return { addToast }

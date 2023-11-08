@@ -1,38 +1,45 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { useToast } from '@/composables/toast'
 import { useRefreshSheetList } from '@/composables/refreshSheetList'
 import { socket } from '@/socket'
 
-export const hasSelection = ref(false)
-export const noOfSelected = ref(0)
-export const selectedData = ref([])
-export const organizedSelData = ref([])
+// export const hasSelection = ref(false)
+// export const noOfSelected = ref(0)
+// export const selection = ref([])
+// export const organizedSelData = ref([])
+
+export const selection = reactive({
+  isFilled: false,
+  length: 0,
+  list: [],
+  organizedList: []
+})
 
 export function useSelectedSheets() {
   const toast = useToast()
   const refreshSheetList = useRefreshSheetList()
 
-  function getSelectedData() {
-    const _dataId = selectedData.value.map((datum) => {
+  function setSelectedData() {
+    const _dataId = selection.list.map((datum) => {
       return datum.split('===')[0]
     })
 
-    const _dataPinStates = selectedData.value.map((datum) => {
+    const _dataPinStates = selection.list.map((datum) => {
       return datum.split('===')[1]
     })
 
-    const _dataImportantStates = selectedData.value.map((datum) => {
+    const _dataImportantStates = selection.list.map((datum) => {
       return datum.split('===')[2]
     })
 
-    organizedSelData.value = {
+    selection.organizedList = {
       ids: _dataId,
       pinStates: _dataPinStates,
       importantStates: _dataImportantStates
     }
 
-    hasSelection.value = selectedData.value.length > 0 ? true : false
-    noOfSelected.value = selectedData.value.length
+    selection.isFilled = selection.list.length > 0 ? true : false
+    selection.length = selection.list.length
   }
 
   function pinSheets(makeItPinned) {
@@ -40,7 +47,7 @@ export function useSelectedSheets() {
       data: {
         pinned: makeItPinned ? true : false
       },
-      ...organizedSelData.value
+      ...selection.organizedList
     })
 
     refreshSheetList.refresh()
@@ -55,7 +62,7 @@ export function useSelectedSheets() {
       data: {
         important: makeItImportant ? true : false
       },
-      ...organizedSelData.value
+      ...selection.organizedList
     })
 
     refreshSheetList.refresh()
@@ -66,14 +73,14 @@ export function useSelectedSheets() {
   }
 
   function deleteSheets() {
-    socket.emit('delete sheets', organizedSelData.value)
+    socket.emit('delete sheets', selection.organizedList)
 
     refreshSheetList.refresh()
     toast.addToast({
-      msg: noOfSelected.value > 1 ? `${noOfSelected.value} sheets deleted successfully.` : 'Sheet deleted successfully.',
+      msg: selection.length > 1 ? `${selection.length} sheets deleted successfully.` : 'Sheet deleted successfully.',
       duration: 4000
     })
   }
 
-  return { getSelectedData, pinSheets, importantSheets, deleteSheets }
+  return { setSelectedData, pinSheets, importantSheets, deleteSheets }
 }

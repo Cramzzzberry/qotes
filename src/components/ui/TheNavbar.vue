@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { hasSelection } from '@/composables/selectedSheets'
+import { selection } from '@/composables/selectedSheets'
 import TheProfileSection from '@/components/ui/TheProfileSection.vue'
 
 const route = useRoute()
@@ -58,15 +58,15 @@ await fetch(`http://localhost:3000/users/get-user/${route.params.userId}`)
       </button>
 
       <div class="mt-10 flex flex-col items-center gap-4">
-        <button @click="setPage(0)" :disabled="hasSelection" :class="[index === 0 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(0)" :disabled="selection.isFilled" :class="[index === 0 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> description </span>
           <span>All</span>
         </button>
-        <button @click="setPage(1)" :disabled="hasSelection" :class="[index === 1 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(1)" :disabled="selection.isFilled" :class="[index === 1 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> push_pin </span>
           <span>Pinned</span>
         </button>
-        <button @click="setPage(2)" :disabled="hasSelection" :class="[index === 2 ? 'active' : '']" class="nav-points">
+        <button @click="setPage(2)" :disabled="selection.isFilled" :class="[index === 2 ? 'active' : '']" class="nav-points">
           <span class="material-icons"> lightbulb </span>
           <span>Important</span>
         </button>

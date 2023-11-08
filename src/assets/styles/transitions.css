@@ -33,12 +33,12 @@
     transform 150ms ease-in-out;
 }
 
-.toast-enter-active,
-.toast-leave-active {
+.toast-fade-scale-enter-active,
+.toast-fade-scale-leave-active {
   transition: all 150ms ease-in-out;
 }
-.toast-enter-from,
-.toast-leave-to {
+.toast-fade-scale-enter-from,
+.toast-fade-scale-leave-to {
   opacity: 0;
   transform: scale(99%);
 }

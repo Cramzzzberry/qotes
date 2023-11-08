@@ -1,7 +1,7 @@
 <script setup>
-import { ref, watchEffect, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useSearch } from '@/composables/searchSheets'
-import { useSelectedSheets, selectedData } from '@/composables/selectedSheets'
+import { useSelectedSheets, selection } from '@/composables/selectedSheets'
 import { refreshToggle } from '@/composables/refreshSheetList'
 
 const props = defineProps({
@@ -13,18 +13,23 @@ const props = defineProps({
 //selected sheets
 const selectedSheets = useSelectedSheets()
 
-watch(selectedData, () => {
-  selectedSheets.getSelectedData()
-})
+watch(
+  () => selection.list,
+  () => {
+    selectedSheets.setSelectedData()
+  }
+)
 
 //sheet list
 const searchResults = ref({})
-watchEffect(() => {
-  selectedData.value = []
-  searchResults.value = useSearch(props.searchValue, props.category, props.musicKey)
-
-  refreshToggle.value //this is just to kickstart fetch from useSearch()
-})
+watch(
+  () => [props.searchValue, props.category, props.musicKey, refreshToggle.value],
+  ([newSearchValue, newCategory, newMusicKey]) => {
+    selection.list = []
+    searchResults.value = useSearch(newSearchValue, newCategory, newMusicKey)
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -61,7 +66,7 @@ watchEffect(() => {
         <input
           type="checkbox"
           class="invisible absolute -top-10"
-          v-model="selectedData"
+          v-model="selection.list"
           :value="`${sheet.id}===${sheet.pinned}===${sheet.important}`"
           :id="sheet.id"
         />
@@ -69,7 +74,7 @@ watchEffect(() => {
           :for="sheet.id"
           class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
         >
-          <span v-if="!selectedData.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
+          <span v-if="!selection.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank
           </span>
           <span v-else class="material-icons select-none"> check_box </span>
