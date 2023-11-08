@@ -1,7 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { setKeys } from '@/assets/scripts/change-key'
 import { useSelectedSheets, selection } from '@/composables/selectedSheets'
+
+const selectedSheets = useSelectedSheets()
 
 const props = defineProps({
   topBarTitle: {
@@ -19,12 +21,12 @@ const props = defineProps({
 
 defineEmits(['update:search'])
 
-const songKeys = ['All Keys', ...setKeys]
-const songKeyLabel = ref('All Keys')
+const dropdown = reactive({
+  keys: ['All Keys', ...setKeys],
+  label: 'All Keys'
+})
 
 const searchValue = ref('')
-
-const selectedSheets = useSelectedSheets()
 
 function cancelSelection() {
   selection.list = []
@@ -62,7 +64,7 @@ function cancelSelection() {
           </div>
 
           <!-- music keys dropdown -->
-          <VDropdown v-model:label="songKeyLabel" :list="songKeys" name="songKeys" class="dropdown-height-limit w-32" />
+          <VDropdown v-model:label="dropdown.label" :list="dropdown.keys" name="songKeys" class="dropdown-height-limit w-32" />
         </div>
       </div>
 
@@ -98,7 +100,7 @@ function cancelSelection() {
       </div>
     </Transition>
 
-    <slot name="body" :search-value="searchValue" :selected-key="songKeyLabel" />
+    <slot name="body" :search-value="searchValue" :selected-key="dropdown.label" />
   </div>
 </template>
 

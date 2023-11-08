@@ -3,11 +3,6 @@ import { useToast } from '@/composables/toast'
 import { useRefreshSheetList } from '@/composables/refreshSheetList'
 import { socket } from '@/socket'
 
-// export const hasSelection = ref(false)
-// export const noOfSelected = ref(0)
-// export const selection = ref([])
-// export const organizedSelData = ref([])
-
 export const selection = reactive({
   isFilled: false,
   length: 0,

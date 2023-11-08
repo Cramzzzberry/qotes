@@ -14,7 +14,7 @@ const props = defineProps({
 const selectedSheets = useSelectedSheets()
 
 watch(
-  () => selection.list,
+  () => selection.list, //this is very different from toast, I feel floaty lol. i think it is because the selection.list is a v-model
   () => {
     selectedSheets.setSelectedData()
   }

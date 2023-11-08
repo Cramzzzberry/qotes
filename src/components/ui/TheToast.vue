@@ -6,7 +6,7 @@ const displayAlert = ref([])
 let timeout = null
 
 //This will kickstart when there is a new alert
-watch(toasts, () => {
+watch(toasts.list, () => {
   if (toasts.list.length >= 1 && timeout === null) {
     setTimeout(() => {
       displayAlert.value.push(toasts.list[0].msg)
