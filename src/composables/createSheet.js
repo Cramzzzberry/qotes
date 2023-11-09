@@ -16,7 +16,9 @@ export async function useCreateSheet(form) {
     }
   })
 
-  formValues['content'] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC   G   Am   F\nSample Lyrics`
+  formValues[
+    'content'
+  ] = `# ${formValues.song_title} \n## ${formValues.song_writer} Key of ${formValues.song_key} \n---\nC D E F G A B\nType Anything Here`
 
   socket.emit('create sheet', formValues)
   toasts.add({

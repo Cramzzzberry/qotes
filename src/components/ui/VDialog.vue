@@ -19,7 +19,7 @@ const props = defineProps({
       :class="[props.state ? 'translate-y-0' : 'translate-y-4']"
     >
       <h2 class="px-2 pt-2">{{ props.header }}</h2>
-      <p class="px-2 pb-4 pt-2">{{ props.body }}</p>
+      <p class="px-4 pb-4 pt-2">{{ props.body }}</p>
       <div class="flex flex-row items-center justify-end gap-2">
         <VButton @click="$emit('cancel')" btn-style="ghost">{{ props.cancelLabel }}</VButton>
         <VButton @click="$emit('confirm')" btn-style="ghost">{{ props.confirmLabel }}</VButton>

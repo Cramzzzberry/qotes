@@ -56,7 +56,7 @@ async function saveSheet() {
   })
     .then(() => {
       toasts.add({
-        msg: 'Saved successfully.',
+        msg: 'Sheet saved successfully.',
         duration: 4000
       })
     })

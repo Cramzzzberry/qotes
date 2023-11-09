@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { toasts } from '@/composables/toast'
 
@@ -9,48 +9,64 @@ const isLoginSection = ref(true)
 const signupForm = ref(null)
 const loginForm = ref(null)
 
-// create account
+const loginError = reactive({
+  accExistence: false,
+  password: false
+})
+
+const registerError = reactive({
+  passLength: false,
+  passConfirmation: false
+})
+
 async function createAccount() {
   const formdata = new FormData(signupForm.value)
   const createAccObj = {}
 
-  formdata.forEach((value, key) => {
-    if (key !== 'confirm_password') {
-      createAccObj[key] = value
-    }
-  })
-
-  if (formdata.get('confirm_password') === formdata.get('password')) {
-    await fetch('http://localhost:3000/users/create-account', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(createAccObj)
-    })
-      .then(async (res) => {
-        const response = await res.json()
-
-        if (response.success) {
-          isLoginSection.value = true
-          console.log('Registration Success')
-
-          toasts.add({
-            msg: 'Account created successfully.',
-            duration: 4000
-          })
+  if (formdata.get('password').length >= 8) {
+    if (formdata.get('password') === formdata.get('confirm_password')) {
+      formdata.forEach((value, key) => {
+        if (key !== 'confirm_password') {
+          createAccObj[key] = value
         }
       })
-      .catch((err) => {
-        console.log(err)
+
+      await fetch('http://localhost:3000/users/create-account', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(createAccObj)
       })
+        .then(async (res) => {
+          const response = await res.json()
+
+          if (response.success) {
+            isLoginSection.value = true
+
+            registerError.passLength = false
+            registerError.passConfirmation = false
+
+            toasts.add({
+              msg: 'Account created successfully.',
+              duration: 4000
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      registerError.passLength = false
+      registerError.passConfirmation = true
+    }
   } else {
-    console.log('Passwords required are not the same!')
+    registerError.passLength = true
+    registerError.passConfirmation = false
   }
 }
 
-// login account
 async function loginAccount() {
   const formdata = new FormData(loginForm.value)
   const logAccObj = {}
@@ -70,7 +86,7 @@ async function loginAccount() {
     .then(async (res) => {
       const response = await res.json()
 
-      if (response.success) {
+      if (res.status === 200) {
         toasts.add({
           msg: 'Logged in successfully.',
           duration: 4000
@@ -79,16 +95,23 @@ async function loginAccount() {
         localStorage.setItem('token', response.token)
         localStorage.setItem('user_id', response.userId)
 
+        loginError.accExistence = false
+        loginError.password = false
+
         router.push({ name: 'home', params: { userId: response.userId } })
-      } else {
-        toasts.add({
-          msg: 'Account not existing!',
-          duration: 4000
-        })
+      } else if (res.status === 401) {
+        loginError.accExistence = false
+        loginError.password = true
+      } else if (res.status === 400) {
+        loginError.accExistence = true
       }
     })
     .catch((err) => {
       console.log(err)
+      toasts.add({
+        msg: err,
+        duration: 4000
+      })
     })
 }
 </script>
@@ -102,11 +125,13 @@ async function loginAccount() {
         <div class="flex flex-col items-center gap-4">
           <label>
             Email
-            <VTextBox inputType="email" name="email" required />
+            <VTextBox :class="[{ '!border-red-500': loginError.accExistence }]" inputType="email" name="email" required />
+            <span v-if="loginError.accExistence" class="text-sm text-red-500">Account doesn't exist!</span>
           </label>
           <label>
             Password
-            <VTextBox inputType="password" name="password" required />
+            <VTextBox :class="[{ '!border-red-500': loginError.password || loginError.accExistence }]" inputType="password" name="password" required />
+            <span v-if="loginError.password" class="text-sm text-red-500">Wrong Password!</span>
           </label>
         </div>
 
@@ -144,11 +169,16 @@ async function loginAccount() {
           </label>
           <label>
             Password
-            <VTextBox inputType="password" name="password" required />
+            <VTextBox :class="[{ '!border-red-500': registerError.passConfirmation }]" inputType="password" name="password" required />
+            <span v-if="!registerError.passConfirmation" :class="[registerError.passLength ? 'text-red-500' : 'text-stone-400']" class="text-sm">
+              Minimum of 8 characters
+            </span>
+            <span v-else class="text-sm text-red-500">Passwords are not the same!</span>
           </label>
           <label>
             Confirm Password
-            <VTextBox inputType="password" name="confirm_password" required />
+            <VTextBox :class="[{ '!border-red-500': registerError.passConfirmation }]" inputType="password" name="confirm_password" required />
+            <span v-if="registerError.passConfirmation" class="text-sm text-red-500">Passwords are not the same!</span>
           </label>
         </div>
 
