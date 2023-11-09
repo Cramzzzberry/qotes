@@ -1,8 +1,6 @@
 import { reactive } from 'vue'
-import { useToast } from '@/composables/toast'
+import { toasts } from '@/composables/toast'
 import { io } from 'socket.io-client'
-
-const toast = useToast()
 
 export const state = reactive({
   connected: false
@@ -21,7 +19,7 @@ socket.on('disconnect', () => {
 })
 
 socket.on('toast', (msg, duration) => {
-  toast.addToast({
+  toasts.add({
     msg: msg,
     duration: duration,
     showAction: true

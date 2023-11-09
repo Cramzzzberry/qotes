@@ -1,19 +1,44 @@
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { reactive, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { useToast } from '@/composables/toast'
-import sanitizeHtml from 'sanitize-html'
-
+import { toasts } from '@/composables/toast'
 import { changeKey, setKeys } from '@/assets/scripts/change-key'
 import parseSheet from '@/assets/scripts/parse-sheet'
+import sanitizeHtml from 'sanitize-html'
 
 const route = useRoute()
-const toast = useToast()
 
-const songKey = ref(null)
-const sheetInput = ref('')
-const songTitle = ref(null)
-const songWriter = ref(null)
+/* sheet section */
+const sheet = reactive({
+  key: null,
+  content: '',
+  loading: true
+})
+
+const song = reactive({
+  title: null,
+  writer: null
+})
+
+onMounted(async () => {
+  await fetch(`http://localhost:3000/sheets/get/sheet/${route.params.id}`).then(async (res) => {
+    const response = await res.json()
+
+    song.title = response.song_title
+    song.writer = response.song_writer
+    sheet.key = response.song_key
+    sheet.content = response.content
+    sheet.loading = false
+
+    //transposition watch
+    watch(
+      () => sheet.key,
+      (newKey, oldKey) => {
+        sheet.content = changeKey(sheet.content, newKey, oldKey)
+      }
+    )
+  })
+})
 
 async function saveSheet() {
   await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
@@ -23,15 +48,14 @@ async function saveSheet() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      song_title: songTitle.value,
-      song_writer: songWriter.value,
-      song_key: songKey.value,
-      content: sheetInput.value
+      song_title: song.title,
+      song_writer: song.writer,
+      song_key: sheet.key,
+      content: sheet.content
     })
   })
     .then(() => {
-      console.log('Sheet saved')
-      toast.addToast({
+      toasts.add({
         msg: 'Saved successfully.',
         duration: 4000
       })
@@ -39,25 +63,9 @@ async function saveSheet() {
     .catch((err) => console.log(err))
 }
 
-const sheetHtml = computed(() => {
-  return sanitizeHtml(parseSheet(sheetInput.value), {
+const sheetContentHtml = computed(() => {
+  return sanitizeHtml(parseSheet(sheet.content), {
     allowedAttributes: false
-  })
-})
-
-onMounted(async () => {
-  await fetch(`http://localhost:3000/sheets/get/sheet/${route.params.id}`).then(async (res) => {
-    const response = await res.json()
-
-    songTitle.value = response.song_title
-    songWriter.value = response.song_writer
-    songKey.value = response.song_key
-    sheetInput.value = response.content
-
-    //transposition watch
-    watch(songKey, (newKey, oldKey) => {
-      sheetInput.value = changeKey(sheetInput.value, newKey, oldKey)
-    })
   })
 })
 </script>
@@ -72,8 +80,12 @@ onMounted(async () => {
       </div>
 
       <div class="flex flex-col items-center">
-        <input type="text" v-model="songTitle" class="h-fit w-full bg-transparent text-center font-semibold text-stone-300" />
-        <input type="text" v-model="songWriter" class="h-fit w-full bg-transparent text-center text-sm" />
+        <input
+          type="text"
+          v-model="song.title"
+          class="h-fit w-full rounded-sm bg-transparent text-center font-semibold text-stone-300 outline-stone-400 focus:outline"
+        />
+        <input type="text" v-model="song.writer" class="h-fit w-full rounded-sm bg-transparent text-center text-sm outline-stone-400 focus:outline" />
       </div>
 
       <div class="flex flex-row items-center justify-end gap-8">
@@ -81,7 +93,7 @@ onMounted(async () => {
           <!-- transpose key dropdown -->
           <div>Key</div>
           <VDropdown
-            v-model:label="songKey"
+            v-model:label="sheet.key"
             :list="setKeys"
             btn-style="ghost"
             position="bottomEnd"
@@ -96,11 +108,13 @@ onMounted(async () => {
     </div>
 
     <!-- the body -->
-    <div class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
+    <div v-if="sheet.loading" class="flex h-[calc(100vh-61px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
+
+    <div v-else class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
       <!-- sheet workspace -->
       <div class="border-r border-r-stone-800">
         <textarea
-          v-model="sheetInput"
+          v-model="sheet.content"
           spellcheck="false"
           class="h-full w-full resize-none border-none bg-stone-900 py-4 pl-4 font-['RobotoMono'] text-base text-stone-300 outline-none"
         ></textarea>
@@ -108,7 +122,7 @@ onMounted(async () => {
 
       <!-- sheet display -->
       <div
-        v-html="sheetHtml"
+        v-html="sheetContentHtml"
         class="markdown-preview h-full w-full overflow-y-auto border-l border-l-stone-800 p-[0.5in] font-['RobotoMono'] leading-6 text-stone-300"
       ></div>
     </div>

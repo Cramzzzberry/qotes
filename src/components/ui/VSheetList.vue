@@ -10,17 +10,19 @@ const props = defineProps({
   musicKey: String
 })
 
-//selected sheets
+/* Selected sheets section */
 const selectedSheets = useSelectedSheets()
-
 watch(
-  () => selection.list, //this is very different from toast, I feel floaty lol. i think it is because the selection.list is a v-model
+  //This also works on a false deep watcher
+  //I think its because v-model removes then replaces arrays
+  () => selection.list,
   () => {
     selectedSheets.setSelectedData()
-  }
+  },
+  { deep: true }
 )
 
-//sheet list
+/* Search results section */
 const searchResults = ref({})
 watch(
   () => [props.searchValue, props.category, props.musicKey, refreshToggle.value],
@@ -43,9 +45,9 @@ watch(
     <div
       v-for="(sheet, index) in searchResults.sheets"
       :key="index"
-      class="flex h-fit cursor-pointer flex-row items-center gap-1 rounded-xl p-2 transition-colors hover:bg-stone-800"
+      class="flex h-fit cursor-pointer flex-row items-center gap-1 rounded-xl transition-colors hover:bg-stone-800"
     >
-      <router-link :to="`/edit/${sheet.id}`" class="flex grow flex-row items-center gap-1">
+      <router-link :to="`/edit/${sheet.id}`" class="flex grow flex-row items-center gap-1 p-2">
         <div class="flex h-16 w-16 select-none items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900">
           {{ sheet.song_key }}
         </div>
@@ -62,7 +64,7 @@ watch(
       </router-link>
 
       <!-- checkbox -->
-      <div class="h-16 w-10">
+      <div class="h-[80px] w-12">
         <input
           type="checkbox"
           class="invisible absolute -top-10"

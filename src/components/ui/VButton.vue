@@ -12,6 +12,7 @@ const props = defineProps({
   }
 })
 
+const btnClass = ref('')
 function makeClass() {
   let btnStyle = ''
   let colorState = ''
@@ -99,7 +100,6 @@ function makeClass() {
   return btnStyle + ' ' + colorState
 }
 
-const btnClass = ref('')
 btnClass.value = makeClass()
 </script>
 

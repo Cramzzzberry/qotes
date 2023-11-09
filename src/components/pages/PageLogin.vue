@@ -1,18 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useToast } from '@/composables/toast'
+import { toasts } from '@/composables/toast'
 
 const router = useRouter()
-const toast = useToast()
 
 const isLoginSection = ref(true)
-const createAccForm = ref(null)
-const logAccFormRef = ref(null)
+const signupForm = ref(null)
+const loginForm = ref(null)
 
 // create account
 async function createAccount() {
-  const formdata = new FormData(createAccForm.value)
+  const formdata = new FormData(signupForm.value)
   const createAccObj = {}
 
   formdata.forEach((value, key) => {
@@ -37,7 +36,7 @@ async function createAccount() {
           isLoginSection.value = true
           console.log('Registration Success')
 
-          toast.addToast({
+          toasts.add({
             msg: 'Account created successfully.',
             duration: 4000
           })
@@ -53,7 +52,7 @@ async function createAccount() {
 
 // login account
 async function loginAccount() {
-  const formdata = new FormData(logAccFormRef.value)
+  const formdata = new FormData(loginForm.value)
   const logAccObj = {}
 
   formdata.forEach((value, key) => {
@@ -72,7 +71,7 @@ async function loginAccount() {
       const response = await res.json()
 
       if (response.success) {
-        toast.addToast({
+        toasts.add({
           msg: 'Logged in successfully.',
           duration: 4000
         })
@@ -82,7 +81,10 @@ async function loginAccount() {
 
         router.push({ name: 'home', params: { userId: response.userId } })
       } else {
-        console.log('Account not existing')
+        toasts.add({
+          msg: 'Account not existing!',
+          duration: 4000
+        })
       }
     })
     .catch((err) => {
@@ -95,7 +97,7 @@ async function loginAccount() {
   <div class="flex h-screen w-screen items-center justify-center">
     <Transition name="fade-scale" mode="out-in">
       <!-- login section -->
-      <form v-if="isLoginSection" @submit.prevent="loginAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="logAccFormRef">
+      <form v-if="isLoginSection" @submit.prevent="loginAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="loginForm">
         <h1>Login to your account</h1>
         <div class="flex flex-col items-center gap-4">
           <label>
@@ -125,7 +127,7 @@ async function loginAccount() {
       </form>
 
       <!-- create account section -->
-      <form v-else @submit.prevent="createAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="createAccForm">
+      <form v-else @submit.prevent="createAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="signupForm">
         <h1>Create your account</h1>
         <div class="flex flex-col items-center gap-4">
           <label>

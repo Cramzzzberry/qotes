@@ -7,9 +7,8 @@ import TabPinned from '@/components/tabs/TabPinned.vue'
 import TabImportant from '@/components/tabs/TabImportant.vue'
 
 const route = useRoute()
-localStorage.setItem('user_id', route.params.userId)
-
 const tabs = [TabAll, TabPinned, TabImportant]
+localStorage.setItem('user_id', route.params.userId)
 </script>
 
 <template>

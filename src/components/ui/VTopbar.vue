@@ -5,6 +5,7 @@ import { useSelectedSheets, selection } from '@/composables/selectedSheets'
 
 const selectedSheets = useSelectedSheets()
 
+defineEmits(['update:search'])
 const props = defineProps({
   topBarTitle: {
     type: String,
@@ -19,18 +20,53 @@ const props = defineProps({
   topBarIcon: String
 })
 
-defineEmits(['update:search'])
-
+const searchValue = ref('')
 const dropdown = reactive({
   keys: ['All Keys', ...setKeys],
   label: 'All Keys'
 })
 
-const searchValue = ref('')
-
 function cancelSelection() {
   selection.list = []
 }
+
+/* Dialog section */
+const deleteDialog = reactive({
+  state: false,
+  toggle() {
+    this.state = !this.state
+  },
+  confirm() {
+    selectedSheets.erase()
+    this.toggle()
+  }
+})
+
+const pinDialog = reactive({
+  state: false,
+  makeItPinned: null,
+  toggle(pin = null) {
+    this.state = !this.state
+    this.makeItPinned = pin
+  },
+  confirm() {
+    selectedSheets.pin(this.makeItPinned)
+    this.toggle()
+  }
+})
+
+const importantDialog = reactive({
+  state: false,
+  markAsImportant: null,
+  toggle(mark = null) {
+    this.state = !this.state
+    this.markAsImportant = mark
+  },
+  confirm() {
+    selectedSheets.important(this.markAsImportant)
+    this.toggle()
+  }
+})
 </script>
 
 <template>
@@ -76,29 +112,60 @@ function cancelSelection() {
           <h1>Selected sheets ({{ selection.length }})</h1>
         </div>
         <div class="flex flex-row gap-2">
-          <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="selectedSheets.pinSheets(true)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
             <span class="material-icons"> push_pin </span>
             <span>Pin</span>
           </VButton>
-          <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="selectedSheets.pinSheets(false)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
             <span>Unpin</span>
           </VButton>
-          <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="selectedSheets.importantSheets(true)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
             <span class="material-icons"> lightbulb </span>
             <span>Mark as Important</span>
           </VButton>
-          <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="selectedSheets.importantSheets(false)" btn-style="ghost">
+          <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
             <span class="material-icons"> remove_circle </span>
             <span>Mark as Unimportant</span>
           </VButton>
-          <VButton @click="selectedSheets.deleteSheets()" btn-style="ghost" color-state="error">
+          <VButton @click="deleteDialog.toggle()" btn-style="ghost" color-state="error">
             <span class="material-icons"> delete </span>
             <span>Delete</span>
           </VButton>
         </div>
       </div>
     </Transition>
+
+    <VDialog
+      :state="deleteDialog.state"
+      header="Delete Sheets"
+      :body="`Do you want to delete ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'}?`"
+      cancel-label="No"
+      confirm-label="Yes"
+      @cancel="deleteDialog.toggle()"
+      @confirm="deleteDialog.confirm()"
+    />
+
+    <VDialog
+      :state="pinDialog.state"
+      header="Pin Sheets"
+      :body="`Do you want to pin ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'}?`"
+      cancel-label="No"
+      confirm-label="Yes"
+      @cancel="pinDialog.toggle()"
+      @confirm="pinDialog.confirm()"
+    />
+
+    <VDialog
+      :state="importantDialog.state"
+      header="Important Sheets"
+      :body="`Do you want to mark ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'} as
+      ${importantDialog.markAsImportant ? 'important' : 'unimportant'}?`"
+      cancel-label="No"
+      confirm-label="Yes"
+      @cancel="importantDialog.toggle()"
+      @confirm="importantDialog.confirm()"
+    />
 
     <slot name="body" :search-value="searchValue" :selected-key="dropdown.label" />
   </div>

@@ -1,4 +1,5 @@
 <script setup>
+defineEmits(['update:label'])
 const props = defineProps({
   label: {
     type: String,
@@ -36,8 +37,6 @@ const dropdownPosition = {
   left: 'right-[calc(100%+8px)] top-0',
   leftEnd: 'bottom-0 right-[calc(100%+8px)]'
 }
-
-defineEmits(['update:label'])
 </script>
 
 <template>

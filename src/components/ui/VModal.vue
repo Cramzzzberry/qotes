@@ -4,7 +4,7 @@ const props = defineProps({ state: Boolean })
 
 <template>
   <div
-    class="absolute left-0 top-0 z-20 flex h-screen w-screen items-center justify-center transition-all duration-150 ease-in-out"
+    class="absolute left-0 top-0 z-40 flex h-screen w-screen items-center justify-center transition-all duration-150 ease-in-out"
     :class="[props.state ? 'visible opacity-100' : 'invisible opacity-0']"
   >
     <div class="absolute top-0 h-full w-full bg-stone-950 opacity-50"></div>
