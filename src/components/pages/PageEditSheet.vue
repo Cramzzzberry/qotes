@@ -120,10 +120,11 @@ const sheetContentHtml = computed(() => {
         ></textarea>
       </div>
 
+      <!-- TODO: make this responsive -->
       <!-- sheet display -->
       <div
         v-html="sheetContentHtml"
-        class="markdown-preview h-full w-full overflow-y-auto border-l border-l-stone-800 p-[0.5in] font-['RobotoMono'] leading-6 text-stone-300"
+        class="markdown-preview h-full w-full overflow-y-auto border-l border-l-stone-800 p-[0.5in] font-['RobotoMono'] text-stone-300"
       ></div>
     </div>
   </div>
