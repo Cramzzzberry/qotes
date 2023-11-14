@@ -17,19 +17,14 @@ const props = defineProps({
   topBarIcon: String
 })
 
-const selectedSheets = useSelectedSheets()
-function cancelSelection() {
-  selection.list = []
-}
-
-/* Dialog section */
+const { pin, important, erase, cancelSelection } = useSelectedSheets()
 const deleteDialog = reactive({
   state: false,
   toggle() {
     this.state = !this.state
   },
   confirm() {
-    selectedSheets.erase()
+    erase()
     this.toggle()
   }
 })
@@ -42,7 +37,7 @@ const pinDialog = reactive({
     this.makeItPinned = pin
   },
   confirm() {
-    selectedSheets.pin(this.makeItPinned)
+    pin(this.makeItPinned)
     this.toggle()
   }
 })
@@ -55,7 +50,7 @@ const importantDialog = reactive({
     this.markAsImportant = mark
   },
   confirm() {
-    selectedSheets.important(this.markAsImportant)
+    important(this.markAsImportant)
     this.toggle()
   }
 })

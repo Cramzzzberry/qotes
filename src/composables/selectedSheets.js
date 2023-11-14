@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { toasts } from '@/composables/toast'
 import { useRefreshSheetList } from '@/composables/refreshSheetList'
 import { socket } from '@/socket'
@@ -13,7 +13,15 @@ export const selection = reactive({
 export function useSelectedSheets() {
   const refreshSheetList = useRefreshSheetList()
 
-  function setSelectedData() {
+  watch(
+    () => selection.list,
+    () => {
+      setData()
+    },
+    { deep: true }
+  )
+
+  const setData = () => {
     const _dataId = selection.list.map((datum) => {
       return datum.split('===')[0]
     })
@@ -36,7 +44,11 @@ export function useSelectedSheets() {
     selection.length = selection.list.length
   }
 
-  function pin(makeItPinned) {
+  const cancelSelection = () => {
+    selection.list = []
+  }
+
+  const pin = (makeItPinned) => {
     socket.emit('update sheets', {
       data: {
         pinned: makeItPinned ? true : false
@@ -51,7 +63,7 @@ export function useSelectedSheets() {
     })
   }
 
-  function important(makeItImportant) {
+  const important = (makeItImportant) => {
     socket.emit('update sheets', {
       data: {
         important: makeItImportant ? true : false
@@ -66,7 +78,7 @@ export function useSelectedSheets() {
     })
   }
 
-  function erase() {
+  const erase = () => {
     socket.emit('delete sheets', selection.organizedList)
 
     refreshSheetList.refresh()
@@ -76,5 +88,5 @@ export function useSelectedSheets() {
     })
   }
 
-  return { setSelectedData, pin, important, erase }
+  return { pin, important, erase, cancelSelection }
 }

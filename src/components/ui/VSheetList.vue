@@ -1,22 +1,8 @@
 <script setup>
-import { watch } from 'vue'
-import { useSelectedSheets, selection } from '@/composables/selectedSheets'
+import { selection } from '@/composables/selectedSheets'
 const props = defineProps({
   sheetList: Array
 })
-
-/* Selected sheets section */
-const selectedSheets = useSelectedSheets()
-watch(
-  //This also works on a false deep watcher
-  //I think its because v-model removes then replaces arrays
-  //-- Well it is --
-  () => selection.list,
-  () => {
-    selectedSheets.setSelectedData()
-  },
-  { deep: true }
-)
 </script>
 
 <template>
