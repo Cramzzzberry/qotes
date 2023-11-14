@@ -1,7 +1,7 @@
 import { ref, watch, onMounted, toValue } from 'vue'
-import { refreshToggle } from '@/composables/refreshSheetList'
-import { scrollableComp } from '@/composables/scroll'
-import { selection } from '@/composables/selectedSheets'
+import { refreshStore } from '@/store'
+import { scrollStore } from '@/store'
+import { selectionStore } from '@/store'
 import { debounce } from '@/assets/scripts/debounce'
 
 export function useFetchSheets(searchInput, tab, sheetKey) {
@@ -128,9 +128,9 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
 
   //input checking
   watch(
-    () => [toValue(searchInput), toValue(sheetKey), toValue(refreshToggle)],
+    () => [toValue(searchInput), toValue(sheetKey), toValue(refreshStore)],
     () => {
-      selection.list = []
+      selectionStore.list = []
       isLoading.value = true
       search()
     },
@@ -140,8 +140,8 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
   //scroll checking
   onMounted(() => {
     let ticking = false
-    scrollableComp.value.addEventListener('scroll', () => {
-      if (Math.abs(scrollableComp.value.scrollHeight - scrollableComp.value.clientHeight - scrollableComp.value.scrollTop) < 1 && !ticking) {
+    scrollStore.value.addEventListener('scroll', () => {
+      if (Math.abs(scrollStore.value.scrollHeight - scrollStore.value.clientHeight - scrollStore.value.scrollTop) < 1 && !ticking) {
         window.requestAnimationFrame(async () => {
           addMore()
           ticking = false

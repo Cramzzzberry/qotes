@@ -1,5 +1,5 @@
 <script setup>
-import { selection } from '@/composables/selectedSheets'
+import { selectionStore } from '@/store'
 const props = defineProps({
   sheetList: Array
 })
@@ -33,7 +33,7 @@ const props = defineProps({
         <input
           type="checkbox"
           class="invisible absolute -top-10"
-          v-model="selection.list"
+          v-model="selectionStore.list"
           :value="`${sheet.id}===${sheet.pinned}===${sheet.important}`"
           :id="sheet.id"
         />
@@ -41,7 +41,7 @@ const props = defineProps({
           :for="sheet.id"
           class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
         >
-          <span v-if="!selection.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
+          <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank
           </span>
           <span v-else class="material-icons select-none"> check_box </span>

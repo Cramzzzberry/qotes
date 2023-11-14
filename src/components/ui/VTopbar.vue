@@ -1,7 +1,8 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import { useSelectedSheets, selection } from '@/composables/selectedSheets'
-import { useScroll } from '@/composables/scroll'
+import { useSelect } from '@/composables/select'
+import { scrollStore } from '@/store'
+import { selectionStore } from '@/store'
 
 const props = defineProps({
   topBarTitle: {
@@ -17,7 +18,7 @@ const props = defineProps({
   topBarIcon: String
 })
 
-const { pin, important, erase, cancelSelection } = useSelectedSheets()
+const { pin, important, erase, cancelSelection } = useSelect()
 const deleteDialog = reactive({
   state: false,
   toggle() {
@@ -56,15 +57,14 @@ const importantDialog = reactive({
 })
 
 const scrollComponent = ref(null)
-const scroll = useScroll()
-onMounted(() => scroll.putComponent(scrollComponent))
+onMounted(() => (scrollStore.value = scrollComponent.value))
 </script>
 
 <template>
   <div class="grow overflow-y-auto pb-2" ref="scrollComponent">
     <div class="sticky top-0 z-10 mb-1 h-[132px] bg-stone-900 px-16 pb-2 pt-16">
       <Transition name="fade-down" mode="out-in">
-        <div v-if="!selection.isFilled" class="flex flex-row items-center justify-between">
+        <div v-if="!selectionStore.isFilled" class="flex flex-row items-center justify-between">
           <!-- topbar -->
           <div class="flex flex-col">
             <div class="flex flex-row items-center gap-4">
@@ -87,22 +87,22 @@ onMounted(() => scroll.putComponent(scrollComponent))
             <VButton @click="cancelSelection()" btn-style="icon-ghost" type="button">
               <span class="material-icons font-bold"> close </span>
             </VButton>
-            <h1>Selected sheets ({{ selection.length }})</h1>
+            <h1>Selected sheets ({{ selectionStore.length }})</h1>
           </div>
           <div class="flex flex-row gap-2">
-            <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
               <span class="material-icons"> push_pin </span>
               <span>Pin</span>
             </VButton>
-            <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
               <span class="material-icons"> remove_circle </span>
               <span>Unpin</span>
             </VButton>
-            <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
               <span class="material-icons"> lightbulb </span>
               <span>Mark as Important</span>
             </VButton>
-            <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
               <span class="material-icons"> remove_circle </span>
               <span>Mark as Unimportant</span>
             </VButton>
@@ -118,7 +118,7 @@ onMounted(() => scroll.putComponent(scrollComponent))
     <VDialog
       :state="deleteDialog.state"
       header="Delete Sheets"
-      :body="`Do you want to delete ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'}?`"
+      :body="`Do you want to delete ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'}?`"
       cancel-label="No"
       confirm-label="Yes"
       @cancel="deleteDialog.toggle()"
@@ -128,7 +128,7 @@ onMounted(() => scroll.putComponent(scrollComponent))
     <VDialog
       :state="pinDialog.state"
       header="Pin Sheets"
-      :body="`Do you want to pin ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'}?`"
+      :body="`Do you want to pin ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'}?`"
       cancel-label="No"
       confirm-label="Yes"
       @cancel="pinDialog.toggle()"
@@ -138,7 +138,7 @@ onMounted(() => scroll.putComponent(scrollComponent))
     <VDialog
       :state="importantDialog.state"
       header="Important Sheets"
-      :body="`Do you want to mark ${selection.length} ${selection.length > 1 ? 'sheets' : ' sheet'} as
+      :body="`Do you want to mark ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'} as
       ${importantDialog.markAsImportant ? 'important' : 'unimportant'}?`"
       cancel-label="No"
       confirm-label="Yes"

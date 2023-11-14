@@ -2,7 +2,7 @@
 import { ref, reactive } from 'vue'
 import { useAccount } from '@/composables/account'
 import { useCreateSheet } from '@/composables/createSheet'
-import { selection } from '@/composables/selectedSheets'
+import { selectionStore } from '@/store'
 import { setKeys } from '@/assets/scripts/change-key'
 
 /* Page controller section */
@@ -129,15 +129,15 @@ const { create } = useCreateSheet(createSheetForm)
         </button>
 
         <div class="mt-16 flex flex-col items-center gap-4">
-          <button @click="page.set(0)" :disabled="selection.isFilled" :class="[page.index === 0 ? 'active' : '']" class="nav-points">
+          <button @click="page.set(0)" :disabled="selectionStore.isFilled" :class="[page.index === 0 ? 'active' : '']" class="nav-points">
             <span class="material-icons"> description </span>
             <span>All</span>
           </button>
-          <button @click="page.set(1)" :disabled="selection.isFilled" :class="[page.index === 1 ? 'active' : '']" class="nav-points">
+          <button @click="page.set(1)" :disabled="selectionStore.isFilled" :class="[page.index === 1 ? 'active' : '']" class="nav-points">
             <span class="material-icons"> push_pin </span>
             <span>Pinned</span>
           </button>
-          <button @click="page.set(2)" :disabled="selection.isFilled" :class="[page.index === 2 ? 'active' : '']" class="nav-points">
+          <button @click="page.set(2)" :disabled="selectionStore.isFilled" :class="[page.index === 2 ? 'active' : '']" class="nav-points">
             <span class="material-icons"> lightbulb </span>
             <span>Important</span>
           </button>

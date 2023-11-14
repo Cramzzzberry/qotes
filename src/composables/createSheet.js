@@ -1,10 +1,10 @@
 import { toValue } from 'vue'
 import { toasts } from '@/composables/toast'
-import { useRefreshSheetList } from '@/composables/refreshSheetList'
+import { useRefresh } from '@/composables/refresh'
 import { socket } from '@/socket'
 
 export function useCreateSheet(form) {
-  const refreshSheetList = useRefreshSheetList()
+  const { refresh } = useRefresh()
 
   const create = () => {
     const formdata = new FormData(toValue(form))
@@ -27,7 +27,7 @@ export function useCreateSheet(form) {
       duration: 4000
     })
 
-    refreshSheetList.refresh()
+    refresh()
   }
 
   return { create }
