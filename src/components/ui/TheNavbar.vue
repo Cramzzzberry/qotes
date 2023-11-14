@@ -1,9 +1,9 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useCreateSheet } from '@/composables/createSheet'
 import { selection } from '@/composables/selectedSheets'
 import { useAccountSettings } from '@/composables/accountSettings'
-import { useCreateSheet } from '@/composables/createSheet'
 import { setKeys } from '@/assets/scripts/change-key'
 
 const route = useRoute()
@@ -58,7 +58,7 @@ async function updateAcc() {
 
 /* Sheet creation section */
 const createSheetForm = ref(null)
-const sheet = reactive({
+const createSheet = reactive({
   keys: setKeys,
   selectedKey: 'C',
   category: [],
@@ -68,7 +68,7 @@ const sheet = reactive({
   },
   create() {
     useCreateSheet(createSheetForm)
-    sheet.toggleModal()
+    this.toggleModal()
   }
 })
 </script>
@@ -79,7 +79,7 @@ const sheet = reactive({
     <div class="flex flex-col items-center justify-between overflow-x-hidden bg-stone-800 px-3 py-6">
       <div class="flex flex-col items-center">
         <button
-          @click="sheet.toggleModal()"
+          @click="createSheet.toggleModal()"
           class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-900 transition-colors hover:bg-emerald-500"
         >
           <span class="material-icons text-3xl leading-none"> add </span>
@@ -175,17 +175,17 @@ const sheet = reactive({
     </VModal>
 
     <!-- create sheet modal -->
-    <VModal :state="sheet.modalState">
+    <VModal :state="createSheet.modalState">
       <div class="flex flex-row items-center justify-between">
         <h2>Create new sheet</h2>
 
         <!-- close button -->
-        <VButton @click="sheet.toggleModal()" btn-style="icon-ghost" type="button">
+        <VButton @click="createSheet.toggleModal()" btn-style="icon-ghost" type="button">
           <span class="material-icons"> close </span>
         </VButton>
       </div>
 
-      <form @submit.prevent="sheet.create()" class="flex flex-col gap-2" ref="createSheetForm">
+      <form @submit.prevent="createSheet.create()" class="flex flex-col gap-2" ref="createSheetForm">
         <div class="flex flex-col items-center gap-2">
           <label class="input-texts">
             Song Title
@@ -200,14 +200,14 @@ const sheet = reactive({
         <div class="flex flex-col gap-1">
           <span class="text-stone-400">Key</span>
           <ul class="grid grid-cols-4 gap-1 rounded-lg border border-stone-600 p-2">
-            <li v-for="key in sheet.keys" :key="key" class="w-full">
+            <li v-for="key in createSheet.keys" :key="key" class="w-full">
               <input
                 type="radio"
                 name="song_key"
                 :id="key + ' id'"
-                :checked="sheet.selectedKey === key"
+                :checked="createSheet.selectedKey === key"
                 :value="key"
-                v-model="sheet.selectedKey"
+                v-model="createSheet.selectedKey"
                 class="peer absolute -top-10 hidden"
               />
               <label
@@ -223,23 +223,23 @@ const sheet = reactive({
 
         <div class="flex gap-2 text-stone-400">
           <!-- pinned checkbox -->
-          <input type="checkbox" class="invisible absolute -top-10" v-model="sheet.category" value="pinned" name="pinned" id="pinned" />
+          <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="pinned" name="pinned" id="pinned" />
           <label
             for="pinned"
             class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-300"
           >
-            <span v-if="!sheet.category.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
+            <span v-if="!createSheet.category.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
             <span v-else class="material-icons select-none"> check_box </span>
             <span class="pl-2">Pinned</span>
           </label>
 
           <!-- important checkbox -->
-          <input type="checkbox" class="invisible absolute -top-10" v-model="sheet.category" value="important" name="important" id="important" />
+          <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="important" name="important" id="important" />
           <label
             for="important"
             class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
           >
-            <span v-if="!sheet.category.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
+            <span v-if="!createSheet.category.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
             <span v-else class="material-icons select-none"> check_box </span>
             <span class="pl-2">Important</span>
           </label>

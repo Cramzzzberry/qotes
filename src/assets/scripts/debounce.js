@@ -1,4 +1,4 @@
-export function debounce(mainFunction, delay = 500) {
+export function debounce(mainFunction, wait = 500) {
   let timer
 
   return function () {
@@ -6,6 +6,6 @@ export function debounce(mainFunction, delay = 500) {
 
     timer = setTimeout(() => {
       mainFunction()
-    }, delay)
+    }, wait)
   }
 }

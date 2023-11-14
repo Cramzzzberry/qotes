@@ -1,11 +1,8 @@
 <script setup>
-import { ref, reactive } from 'vue'
-import { setKeys } from '@/assets/scripts/change-key'
+import { ref, reactive, onMounted } from 'vue'
 import { useSelectedSheets, selection } from '@/composables/selectedSheets'
+import { useScroll } from '@/composables/scroll'
 
-const selectedSheets = useSelectedSheets()
-
-defineEmits(['update:search'])
 const props = defineProps({
   topBarTitle: {
     type: String,
@@ -20,12 +17,7 @@ const props = defineProps({
   topBarIcon: String
 })
 
-const searchValue = ref('')
-const dropdown = reactive({
-  keys: ['All Keys', ...setKeys],
-  label: 'All Keys'
-})
-
+const selectedSheets = useSelectedSheets()
 function cancelSelection() {
   selection.list = []
 }
@@ -67,74 +59,66 @@ const importantDialog = reactive({
     this.toggle()
   }
 })
+
+const scrollComponent = ref(null)
+const scroll = useScroll()
+onMounted(() => scroll.putComponent(scrollComponent))
 </script>
 
 <template>
-  <div class="grow overflow-y-auto pb-2">
-    <Transition name="fade-down" mode="out-in">
-      <div v-if="!selection.isFilled" class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
-        <!-- topbar information -->
-        <div class="flex flex-col">
-          <div class="flex flex-row items-center gap-4">
-            <h1>{{ props.topBarTitle }}</h1>
-            <span v-if="props.topBarIcon !== null" class="material-icons text-3xl">
-              {{ props.topBarIcon }}
-            </span>
-          </div>
-          <div class="text-stone-400">{{ props.topBarDesc }}</div>
-        </div>
-
-        <!-- action bar -->
-        <div class="flex basis-1/2 flex-row items-center gap-2">
-          <!-- search box -->
-          <div class="group/search relative grow">
-            <label class="flex flex-row items-center gap-2">
-              <span class="material-icons text-2xl text-stone-400"> search </span>
-              <input
-                v-model="searchValue"
-                type="text"
-                placeholder="Search"
-                class="grow border-b-2 border-b-stone-600 bg-transparent p-2 outline-none transition-colors duration-100 ease-in-out placeholder:text-stone-400 focus:border-b-emerald-400"
-              />
-            </label>
+  <div class="grow overflow-y-auto pb-2" ref="scrollComponent">
+    <div class="sticky top-0 z-10 mb-1 h-[132px] bg-stone-900 px-16 pb-2 pt-16">
+      <Transition name="fade-down" mode="out-in">
+        <div v-if="!selection.isFilled" class="flex flex-row items-center justify-between">
+          <!-- topbar -->
+          <div class="flex flex-col">
+            <div class="flex flex-row items-center gap-4">
+              <h1>{{ props.topBarTitle }}</h1>
+              <span v-if="props.topBarIcon !== null" class="material-icons text-3xl">
+                {{ props.topBarIcon }}
+              </span>
+            </div>
+            <div class="text-stone-400">{{ props.topBarDesc }}</div>
           </div>
 
-          <!-- music keys dropdown -->
-          <VDropdown v-model:label="dropdown.label" :list="dropdown.keys" name="songKeys" class="dropdown-height-limit w-32" />
+          <!-- action bar -->
+          <div class="flex basis-1/2 flex-row items-center gap-2">
+            <slot name="action-bar" />
+          </div>
         </div>
-      </div>
 
-      <div v-else class="sticky top-0 z-10 mb-1 flex h-[132px] flex-row items-center justify-between bg-stone-900 px-16 pb-2 pt-16">
-        <div class="flex flex-row items-center gap-2">
-          <VButton @click="cancelSelection()" btn-style="icon-ghost" type="button">
-            <span class="material-icons font-bold"> close </span>
-          </VButton>
-          <h1>Selected sheets ({{ selection.length }})</h1>
+        <div v-else class="flex flex-row items-center justify-between">
+          <div class="flex flex-row items-center gap-2">
+            <VButton @click="cancelSelection()" btn-style="icon-ghost" type="button">
+              <span class="material-icons font-bold"> close </span>
+            </VButton>
+            <h1>Selected sheets ({{ selection.length }})</h1>
+          </div>
+          <div class="flex flex-row gap-2">
+            <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
+              <span class="material-icons"> push_pin </span>
+              <span>Pin</span>
+            </VButton>
+            <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
+              <span class="material-icons"> remove_circle </span>
+              <span>Unpin</span>
+            </VButton>
+            <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
+              <span class="material-icons"> lightbulb </span>
+              <span>Mark as Important</span>
+            </VButton>
+            <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
+              <span class="material-icons"> remove_circle </span>
+              <span>Mark as Unimportant</span>
+            </VButton>
+            <VButton @click="deleteDialog.toggle()" btn-style="ghost" color-state="error">
+              <span class="material-icons"> delete </span>
+              <span>Delete</span>
+            </VButton>
+          </div>
         </div>
-        <div class="flex flex-row gap-2">
-          <VButton v-if="!selection.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
-            <span class="material-icons"> push_pin </span>
-            <span>Pin</span>
-          </VButton>
-          <VButton v-if="!selection.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
-            <span class="material-icons"> remove_circle </span>
-            <span>Unpin</span>
-          </VButton>
-          <VButton v-if="!selection.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
-            <span class="material-icons"> lightbulb </span>
-            <span>Mark as Important</span>
-          </VButton>
-          <VButton v-if="!selection.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
-            <span class="material-icons"> remove_circle </span>
-            <span>Mark as Unimportant</span>
-          </VButton>
-          <VButton @click="deleteDialog.toggle()" btn-style="ghost" color-state="error">
-            <span class="material-icons"> delete </span>
-            <span>Delete</span>
-          </VButton>
-        </div>
-      </div>
-    </Transition>
+      </Transition>
+    </div>
 
     <VDialog
       :state="deleteDialog.state"
@@ -167,12 +151,6 @@ const importantDialog = reactive({
       @confirm="importantDialog.confirm()"
     />
 
-    <slot name="body" :search-value="searchValue" :selected-key="dropdown.label" />
+    <slot name="body" />
   </div>
 </template>
-
-<style scoped>
-.dropdown-height-limit:deep(div) {
-  max-height: calc(100vh - 140px);
-}
-</style>
