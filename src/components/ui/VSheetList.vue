@@ -19,7 +19,7 @@ const props = defineProps({
         <div class="px-2 py-0">
           <div class="flex w-full flex-col">
             <span class="text-lg font-medium leading-none">{{ sheet.song_title }}</span>
-            <span class="text-sm text-stone-400">{{ sheet.song_writer }}</span>
+            <span class="text-sm text-stone-400">{{ sheet.artist }}</span>
             <div class="flex select-none flex-row gap-1">
               <span v-if="sheet.pinned" class="rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400">Pinned</span>
               <span v-if="sheet.important" class="rounded-full border border-amber-400 px-2 text-[0.75rem] text-amber-400">Important</span>

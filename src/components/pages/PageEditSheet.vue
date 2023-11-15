@@ -2,7 +2,7 @@
 import { setKeys } from '@/assets/scripts/change-key'
 import { useEditSheet } from '@/composables/editSheet'
 
-const { songTitle, songWriter, sheetKey, sheetContent, isLoading, sheetContentHtml, save } = useEditSheet()
+const { songTitle, artist, sheetKey, sheetContent, isLoading, sheetContentHtml, save } = useEditSheet()
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const { songTitle, songWriter, sheetKey, sheetContent, isLoading, sheetContentHt
           v-model="songTitle"
           class="h-fit w-full rounded-sm bg-transparent text-center font-semibold text-stone-300 outline-stone-400 focus:outline"
         />
-        <input type="text" v-model="songWriter" class="h-fit w-full rounded-sm bg-transparent text-center text-sm outline-stone-400 focus:outline" />
+        <input type="text" v-model="artist" class="h-fit w-full rounded-sm bg-transparent text-center text-sm outline-stone-400 focus:outline" />
       </div>
 
       <div class="flex flex-row items-center justify-end gap-8">

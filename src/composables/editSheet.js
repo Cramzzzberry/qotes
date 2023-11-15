@@ -9,7 +9,7 @@ export function useEditSheet() {
   const route = useRoute()
 
   const songTitle = ref('')
-  const songWriter = ref('')
+  const artist = ref('')
   const sheetKey = ref('')
   const sheetContent = ref('')
   const isLoading = ref(true)
@@ -19,7 +19,7 @@ export function useEditSheet() {
       const response = await res.json()
 
       songTitle.value = response.song_title
-      songWriter.value = response.song_writer
+      artist.value = response.artist
       sheetKey.value = response.song_key
       sheetContent.value = response.content
       isLoading.value = false
@@ -41,7 +41,7 @@ export function useEditSheet() {
         },
         body: JSON.stringify({
           song_title: songTitle.value,
-          song_writer: songWriter.value,
+          artist: artist.value,
           song_key: sheetKey.value,
           content: sheetContent.value
         })
@@ -64,5 +64,5 @@ export function useEditSheet() {
     })
   })
 
-  return { songTitle, songWriter, sheetKey, sheetContent, isLoading, sheetContentHtml, save }
+  return { songTitle, artist, sheetKey, sheetContent, isLoading, sheetContentHtml, save }
 }

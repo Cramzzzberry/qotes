@@ -60,8 +60,8 @@ const { create } = useCreateSheet(createSheetForm)
             <VTextBox input-type="text" name="song_title" required />
           </label>
           <label class="input-texts">
-            Singer/Songwriter
-            <VTextBox input-type="text" name="song_writer" required />
+            Artist
+            <VTextBox input-type="text" name="artist" required />
           </label>
         </div>
 
