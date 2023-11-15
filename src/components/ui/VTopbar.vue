@@ -61,7 +61,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
 </script>
 
 <template>
-  <div class="grow pb-2">
+  <div class="grow overflow-y-scroll pb-2" ref="scrollComponent">
     <div class="sticky top-0 z-10 mb-1 h-[132px] bg-stone-900 px-16 pb-2 pt-16">
       <Transition name="fade-down" mode="out-in">
         <div v-if="!selectionStore.isFilled" class="flex flex-row items-center justify-between">
@@ -145,9 +145,6 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
       @cancel="importantDialog.toggle()"
       @confirm="importantDialog.confirm()"
     />
-
-    <div class="h-[calc(100vh-132px)] overflow-y-auto" ref="scrollComponent">
-      <slot name="body" />
-    </div>
+    <slot name="body" />
   </div>
 </template>
