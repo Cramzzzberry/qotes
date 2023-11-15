@@ -6,16 +6,6 @@ import { toasts } from '@/composables/toast'
 const displayAlert = ref([])
 let timeout = null
 
-/*
-This is very different from VSheetlist, I feel floaty after changing ref to reactive lol.
-toasts.list is a reactive property, i dont know why it ONLY works when i dont use a getter
-https://vuejs.org/guide/essentials/watchers.html#watch-source-types
-
-now I know, reactive arrays/objects only trigger a watch when created/replaced, so the weird one now is the VSheetList
-https://vuejs.org/guide/essentials/watchers.html#deep-watchers
-*/
-
-//This will kickstart when there is a new alert
 watch(
   () => toasts.list,
   () => {

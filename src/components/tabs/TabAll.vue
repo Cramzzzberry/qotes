@@ -12,7 +12,7 @@ const searchInput = ref('')
 const dropdownKeys = ['All Keys', ...setKeys]
 const dropdownLabel = ref('All Keys')
 
-const { searchResults, isLoading } = useFetchSheets(searchInput, 'all-sheets', dropdownLabel)
+const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'all-sheets', dropdownLabel)
 </script>
 
 <template>
@@ -37,13 +37,14 @@ const { searchResults, isLoading } = useFetchSheets(searchInput, 'all-sheets', d
 
     <template #body>
       <!-- list of sheets -->
-      <VLoadingSheets v-if="isLoading" />
+      <VLoadingSheets v-if="isLoading" :fake-sheet-number="15" />
 
       <div v-else-if="searchResults.length === 0 && !isLoading" class="flex h-[calc(100%-156px)] w-full items-center justify-center">
         No sheets available
       </div>
 
       <VSheetList v-else :sheet-list="searchResults" />
+      <VLoadingSheets v-if="showLoadMore" :fake-sheet-number="3" />
     </template>
   </VTopbar>
 </template>

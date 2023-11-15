@@ -38,7 +38,7 @@ export function useSelect() {
     selectionStore.length = selectionStore.list.length
   }
 
-  const cancelselectionStore = () => {
+  const cancelSelection = () => {
     selectionStore.list = []
   }
 
@@ -82,5 +82,5 @@ export function useSelect() {
     })
   }
 
-  return { pin, important, erase, cancelselectionStore }
+  return { pin, important, erase, cancelSelection }
 }

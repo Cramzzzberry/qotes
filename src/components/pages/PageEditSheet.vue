@@ -1,73 +1,8 @@
 <script setup>
-import { reactive, computed, watch, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { toasts } from '@/composables/toast'
-import { changeKey, setKeys } from '@/assets/scripts/change-key'
-import parseSheet from '@/assets/scripts/parse-sheet'
-import sanitizeHtml from 'sanitize-html'
+import { setKeys } from '@/assets/scripts/change-key'
+import { useEditSheet } from '@/composables/editSheet'
 
-const route = useRoute()
-
-/* sheet section */
-const sheet = reactive({
-  key: null,
-  content: '',
-  loading: true
-})
-
-const song = reactive({
-  title: null,
-  writer: null
-})
-
-onMounted(async () => {
-  await fetch(`http://localhost:3000/sheets/get/sheet/${route.params.id}`).then(async (res) => {
-    const response = await res.json()
-
-    song.title = response.song_title
-    song.writer = response.song_writer
-    sheet.key = response.song_key
-    sheet.content = response.content
-    sheet.loading = false
-
-    //transposition watch
-    watch(
-      () => sheet.key,
-      (newKey, oldKey) => {
-        sheet.content = changeKey(sheet.content, newKey, oldKey)
-      }
-    )
-  })
-})
-
-async function saveSheet() {
-  await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      song_title: song.title,
-      song_writer: song.writer,
-      song_key: sheet.key,
-      content: sheet.content
-    })
-  })
-    .then(() => {
-      toasts.add({
-        msg: 'Sheet saved successfully.',
-        duration: 4000
-      })
-    })
-    .catch((err) => console.log(err))
-}
-
-const sheetContentHtml = computed(() => {
-  return sanitizeHtml(parseSheet(sheet.content), {
-    allowedAttributes: false
-  })
-})
+const { songTitle, songWriter, sheetKey, sheetContent, isLoading, sheetContentHtml, save } = useEditSheet()
 </script>
 
 <template>
@@ -82,10 +17,10 @@ const sheetContentHtml = computed(() => {
       <div class="flex flex-col items-center">
         <input
           type="text"
-          v-model="song.title"
+          v-model="songTitle"
           class="h-fit w-full rounded-sm bg-transparent text-center font-semibold text-stone-300 outline-stone-400 focus:outline"
         />
-        <input type="text" v-model="song.writer" class="h-fit w-full rounded-sm bg-transparent text-center text-sm outline-stone-400 focus:outline" />
+        <input type="text" v-model="songWriter" class="h-fit w-full rounded-sm bg-transparent text-center text-sm outline-stone-400 focus:outline" />
       </div>
 
       <div class="flex flex-row items-center justify-end gap-8">
@@ -93,7 +28,7 @@ const sheetContentHtml = computed(() => {
           <!-- transpose key dropdown -->
           <div>Key</div>
           <VDropdown
-            v-model:label="sheet.key"
+            v-model:label="sheetKey"
             :list="setKeys"
             btn-style="ghost"
             position="bottomEnd"
@@ -101,26 +36,25 @@ const sheetContentHtml = computed(() => {
             class="dropdown-height-limit w-[80px]"
           />
         </label>
-        <VButton @click="saveSheet()" btnStyle="icon-ghost" type="button">
+        <VButton @click="save()" btnStyle="icon-ghost" type="button">
           <span class="material-icons"> save </span>
         </VButton>
       </div>
     </div>
 
     <!-- the body -->
-    <div v-if="sheet.loading" class="flex h-[calc(100vh-61px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
+    <div v-if="isLoading" class="flex h-[calc(100vh-61px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
 
     <div v-else class="grid h-[calc(100vh-61px)] grid-cols-2 overflow-y-hidden">
       <!-- sheet workspace -->
       <div class="border-r border-r-stone-800">
         <textarea
-          v-model="sheet.content"
+          v-model="sheetContent"
           spellcheck="false"
           class="h-full w-full resize-none border-none bg-stone-900 py-4 pl-4 font-['RobotoMono'] text-base text-stone-300 outline-none"
         ></textarea>
       </div>
 
-      <!-- TODO: make this responsive -->
       <!-- sheet display -->
       <div
         v-html="sheetContentHtml"

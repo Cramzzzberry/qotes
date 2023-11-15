@@ -4,7 +4,12 @@ import { scrollStore } from '@/store'
 import { selectionStore } from '@/store'
 import { debounce } from '@/assets/scripts/debounce'
 
-export function useFetchSheets(searchInput, tab, sheetKey) {
+export function useFetchSheets(searchInput, tag, sheetKey) {
+  const prevSheetList = ref([])
+  const searchResults = ref([])
+  const lastSheetId = ref('')
+  const isLoading = ref(false)
+  const showLoadMore = ref(true)
   let fetchPreferences = {
     method: 'POST',
     mode: 'cors',
@@ -13,14 +18,10 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
     }
   }
   let controller
-  const lastSheetId = ref('')
-  const prevSheetList = ref([])
-  const searchResults = ref([])
-  const isLoading = ref(false)
 
   const search = debounce(() => {
     if (toValue(searchInput) !== '') {
-      const delayFunc = async () => {
+      const onFetch = async () => {
         if (controller) {
           controller.abort()
         }
@@ -28,9 +29,12 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
         controller = new AbortController()
         const signal = controller.signal
 
-        await fetch(`http://localhost:3000/sheets/search/${tab}/${toValue(sheetKey).toLowerCase().replace(' ', '-')}/${toValue(searchInput)}`, {
+        await fetch('http://localhost:3000/sheets/search/', {
           body: JSON.stringify({
-            last_id: null
+            last_id: null,
+            key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+            tag: tag,
+            searchInput: toValue(searchInput)
           }),
           signal,
           ...fetchPreferences
@@ -47,9 +51,9 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
           .catch((err) => console.log(err))
       }
 
-      delayFunc()
+      onFetch()
     } else {
-      const delayFunc = async () => {
+      const onFetch = async () => {
         if (controller) {
           controller.abort()
         }
@@ -57,9 +61,12 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
         controller = new AbortController()
         const signal = controller.signal
 
-        await fetch(`http://localhost:3000/sheets/get/${tab}/${toValue(sheetKey).toLowerCase().replace(' ', '-')}`, {
+        await fetch('http://localhost:3000/sheets/get/sheets', {
           body: JSON.stringify({
-            last_id: null
+            last_id: null,
+            key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+            tag: tag,
+            searchInput: toValue(searchInput)
           }),
           signal,
           ...fetchPreferences
@@ -76,7 +83,7 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
           .catch((err) => console.log(err))
       }
 
-      delayFunc()
+      onFetch()
     }
   })
 
@@ -84,10 +91,13 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
     if (prevSheetList.value.length === 39 || prevSheetList.value.length === 0) {
       if (toValue(searchInput) !== '') {
         const onFetch = async () => {
-          await fetch(`http://localhost:3000/sheets/search/${tab}/${toValue(sheetKey).toLowerCase().replace(' ', '-')}/${toValue(searchInput)}`, {
+          await fetch('http://localhost:3000/sheets/search/', {
             ...fetchPreferences,
             body: JSON.stringify({
-              last_id: lastSheetId.value
+              last_id: lastSheetId.value,
+              key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+              tag: tag,
+              searchInput: toValue(searchInput)
             })
           })
             .then(async (res) => {
@@ -97,6 +107,12 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
               if (moreSheets.length !== 0) {
                 lastSheetId.value = moreSheets[moreSheets.length - 1].id
               }
+
+              if (moreSheets.length <= 39) {
+                showLoadMore.value = false
+              } else {
+                showLoadMore.value = true
+              }
             })
             .catch((err) => console.log(err))
         }
@@ -104,10 +120,13 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
         onFetch()
       } else {
         const onFetch = async () => {
-          await fetch(`http://localhost:3000/sheets/get/${tab}/${toValue(sheetKey).toLowerCase().replace(' ', '-')}`, {
+          await fetch('http://localhost:3000/sheets/get/sheets', {
             ...fetchPreferences,
             body: JSON.stringify({
-              last_id: lastSheetId.value
+              last_id: lastSheetId.value,
+              key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+              tag: tag,
+              searchInput: toValue(searchInput)
             })
           })
             .then(async (res) => {
@@ -116,6 +135,12 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
 
               if (moreSheets.length !== 0) {
                 lastSheetId.value = moreSheets[moreSheets.length - 1].id
+              }
+
+              if (moreSheets.length <= 39) {
+                showLoadMore.value = false
+              } else {
+                showLoadMore.value = true
               }
             })
             .catch((err) => console.log(err))
@@ -151,5 +176,5 @@ export function useFetchSheets(searchInput, tab, sheetKey) {
     })
   })
 
-  return { searchResults, isLoading }
+  return { searchResults, isLoading, showLoadMore }
 }
