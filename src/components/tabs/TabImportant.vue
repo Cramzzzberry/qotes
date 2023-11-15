@@ -12,7 +12,7 @@ const searchInput = ref('')
 const dropdownKeys = ['All Keys', ...setKeys]
 const dropdownLabel = ref('All Keys')
 
-const { searchResults, isLoading } = useFetchSheets(searchInput, 'important-sheets', dropdownLabel)
+const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'important-sheets', dropdownLabel)
 </script>
 
 <template>
@@ -43,7 +43,8 @@ const { searchResults, isLoading } = useFetchSheets(searchInput, 'important-shee
         No sheets available
       </div>
 
-      <VSheetList v-else :sheet-list="searchResults" />
+      <div v-else></div>
+      <VSheetList :sheet-list="searchResults" />
       <VLoadingSheets v-if="showLoadMore" :fake-sheet-number="3" />
     </template>
   </VTopbar>

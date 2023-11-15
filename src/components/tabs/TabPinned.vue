@@ -12,7 +12,7 @@ const searchInput = ref('')
 const dropdownKeys = ['All Keys', ...setKeys]
 const dropdownLabel = ref('All Keys')
 
-const { searchResults, isLoading } = useFetchSheets(searchInput, 'pinned-sheets', dropdownLabel)
+const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'pinned-sheets', dropdownLabel)
 </script>
 
 <template>
