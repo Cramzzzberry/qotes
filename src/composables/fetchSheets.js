@@ -46,7 +46,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
               lastSheetId.value = searchResults.value[searchResults.value.length - 1].id
             }
 
-            if (searchResults.value.length <= 39) {
+            if (searchResults.value.length < 39) {
               showLoadMore.value = false
             } else {
               showLoadMore.value = true
@@ -85,7 +85,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
               lastSheetId.value = searchResults.value[searchResults.value.length - 1].id
             }
 
-            if (searchResults.value.length <= 39) {
+            if (searchResults.value.length < 39) {
               showLoadMore.value = false
             } else {
               showLoadMore.value = true
@@ -122,7 +122,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
                 lastSheetId.value = moreSheets[moreSheets.length - 1].id
               }
 
-              if (moreSheets.length <= 39) {
+              if (moreSheets.length < 39) {
                 showLoadMore.value = false
               } else {
                 showLoadMore.value = true
@@ -151,7 +151,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
                 lastSheetId.value = moreSheets[moreSheets.length - 1].id
               }
 
-              if (moreSheets.length <= 39) {
+              if (moreSheets.length < 39) {
                 showLoadMore.value = false
               } else {
                 showLoadMore.value = true
