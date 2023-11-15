@@ -45,6 +45,13 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
             if (searchResults.value.length !== 0) {
               lastSheetId.value = searchResults.value[searchResults.value.length - 1].id
             }
+
+            if (searchResults.value.length <= 39) {
+              showLoadMore.value = false
+            } else {
+              showLoadMore.value = true
+            }
+
             prevSheetList.value = searchResults.value
             isLoading.value = false
           })
@@ -77,6 +84,13 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
             if (searchResults.value.length !== 0) {
               lastSheetId.value = searchResults.value[searchResults.value.length - 1].id
             }
+
+            if (searchResults.value.length <= 39) {
+              showLoadMore.value = false
+            } else {
+              showLoadMore.value = true
+            }
+
             prevSheetList.value = searchResults.value
             isLoading.value = false
           })
