@@ -64,7 +64,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
 <template>
   <div class="grow overflow-y-scroll pb-2" ref="scrollComponent">
     <div
-      class="sticky top-0 z-10 h-[132px] bg-stone-100 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:pt-4"
+      class="sticky top-0 z-10 h-[132px] bg-emerald-50 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:pt-4"
     >
       <Transition name="fade-down" mode="out-in">
         <!-- topbar -->

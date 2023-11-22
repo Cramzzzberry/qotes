@@ -24,7 +24,7 @@ export function useCreateSheet(form) {
     socket.emit('create sheet', formValues)
     toasts.add({
       msg: 'Sheet created successfully.',
-      duration: 4000
+      duration: 2000
     })
 
     refresh()

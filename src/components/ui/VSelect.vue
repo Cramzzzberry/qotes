@@ -34,13 +34,13 @@ const props = defineProps({
 
 const dropdownPosition = {
   bottom: 'left-0 top-[calc(100%+8px)]',
-  bottomEnd: 'right-0 top-[calc(100%+8px)]',
+  'bottom end': 'right-0 top-[calc(100%+8px)]',
   top: 'bottom-[calc(100%+8px)] left-0',
-  topEnd: 'bottom-[calc(100%+8px)] right-0',
+  'top end': 'bottom-[calc(100%+8px)] right-0',
   right: 'left-[calc(100%+8px)] top-0',
-  rightEnd: 'bottom-0 left-[calc(100%+8px)]',
+  'right end': 'bottom-0 left-[calc(100%+8px)]',
   left: 'right-[calc(100%+8px)] top-0',
-  leftEnd: 'bottom-0 right-[calc(100%+8px)]'
+  'left end': 'bottom-0 right-[calc(100%+8px)]'
 }
 
 function buttonStyle() {
@@ -104,7 +104,7 @@ function selectedStyle() {
     <div
       tabindex="0"
       :class="dropdownPosition[props.position]"
-      class="invisible absolute z-10 min-w-[120px] scale-[98%] overflow-y-auto rounded-xl bg-stone-100 p-2 opacity-0 drop-shadow-xl transition-all group-focus-within/dropdown:visible group-focus-within/dropdown:scale-100 group-focus-within/dropdown:opacity-100"
+      class="invisible absolute z-10 min-w-[120px] scale-[98%] overflow-y-auto rounded-xl bg-emerald-50 p-2 opacity-0 drop-shadow-xl transition-all group-focus-within/dropdown:visible group-focus-within/dropdown:scale-100 group-focus-within/dropdown:opacity-100"
     >
       <!-- dropdown content -->
       <ul class="flex flex-col gap-1 overflow-y-auto">
@@ -123,7 +123,7 @@ function selectedStyle() {
             :for="item + props.name"
             tabindex="0"
             :class="selectedStyle()"
-            class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-200"
+            class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-950/5"
           >
             {{ item }}
           </label>

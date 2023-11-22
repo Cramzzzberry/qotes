@@ -14,19 +14,19 @@ const isOnEdit = reactive({
 
 <template>
   <div>
-    <div class="sticky top-0 z-10 flex h-[61px] flex-row items-center justify-between border-b border-b-stone-300 pl-2 pr-4">
+    <div class="sticky top-0 z-10 flex h-[61px] flex-row items-center justify-between bg-emerald-100 pl-2 pr-4">
       <div class="flex basis-1/2 flex-row items-center gap-3">
         <VButton @click="$router.go(-1)" variant="ghost icon" type="button">
           <span class="material-icons"> arrow_back </span>
         </VButton>
 
         <div class="flex w-full flex-col items-center">
-          <input type="text" v-model="songTitle" class="h-fit w-full rounded-sm bg-transparent px-1 font-semibold outline-stone-400 focus:outline" />
           <input
             type="text"
-            v-model="artist"
-            class="h-fit w-full rounded-sm bg-transparent px-1 text-sm outline-stone-400 focus:outline on-md:text-[0.75rem]"
+            v-model="songTitle"
+            class="h-fit w-full rounded-sm bg-transparent px-1 text-lg font-semibold outline-stone-400 focus:outline"
           />
+          <input type="text" v-model="artist" class="h-fit w-full rounded-sm bg-transparent px-1 outline-stone-400 focus:outline on-md:text-sm" />
         </div>
       </div>
 
@@ -39,7 +39,7 @@ const isOnEdit = reactive({
             :list="setKeys"
             variant="ghost"
             list-color="primary"
-            position="bottomEnd"
+            position="bottom end"
             name="months"
             class="dropdown-height-limit w-[80px]"
           >
@@ -71,7 +71,7 @@ const isOnEdit = reactive({
         <textarea
           v-model="sheetContent"
           spellcheck="false"
-          class="h-full w-full resize-none border-none bg-stone-100 py-4 pl-4 font-['RobotoMono'] text-base text-stone-800 outline-none on-lg:px-8 on-md:text-sm"
+          class="h-full w-full resize-none border-none bg-emerald-50 py-4 pl-4 font-['RobotoMono'] text-base text-stone-800 outline-none on-lg:px-8 on-md:text-sm"
         ></textarea>
       </div>
 

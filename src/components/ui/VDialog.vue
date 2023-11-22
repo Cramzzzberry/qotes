@@ -15,7 +15,7 @@ const props = defineProps({
   >
     <div class="absolute top-0 h-full w-full bg-stone-950 opacity-25"></div>
     <div
-      class="z-10 min-w-[400px] max-w-[640px] rounded-2xl bg-stone-100 px-4 pb-4 pt-4 transition-transform duration-150 ease-in-out on-md:w-full on-md:min-w-0"
+      class="z-10 min-w-[400px] max-w-[640px] rounded-2xl bg-emerald-50 px-4 pb-4 pt-4 transition-transform duration-150 ease-in-out on-md:w-full on-md:min-w-0"
       :class="[props.state ? 'translate-y-0' : 'translate-y-4']"
     >
       <h2 class="px-2 pt-2">{{ props.header }}</h2>

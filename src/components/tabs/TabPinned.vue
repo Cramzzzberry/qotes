@@ -20,20 +20,22 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
     <template #action-bar>
       <!-- search box -->
       <div class="grow">
-        <label class="flex cursor-text flex-row items-center rounded-xl border border-stone-400 px-4 focus-within:border-emerald-500">
-          <span class="material-icons text-2xl text-stone-600"> search </span>
+        <label
+          class="group flex cursor-text flex-row items-center rounded-xl border border-stone-400 px-4 transition-colors focus-within:border-emerald-500"
+        >
+          <span class="material-icons text-2xl text-stone-600 transition-colors group-focus-within:text-emerald-500"> search </span>
           <input
             v-model="searchInput"
             size="1"
             type="text"
             placeholder="Search"
-            class="grow bg-transparent p-2 outline-none placeholder:text-stone-600"
+            class="grow bg-transparent p-2 outline-none placeholder:text-stone-950/50"
           />
         </label>
       </div>
 
       <!-- music keys dropdown -->
-      <VSelect v-model="keysLabel" :list="keysList" list-color="primary" position="bottomEnd" name="songkeys" class="dropdown-height-limit w-[82px]">
+      <VSelect v-model="keysLabel" :list="keysList" list-color="primary" position="bottom end" name="songkeys" class="dropdown-height-limit w-[82px]">
         <span v-if="keysLabel === 'All Keys'" class="material-icons text-[24px] on-md:text-[20px]"> audiotrack </span>
         <span v-else>{{ keysLabel }}</span>
       </VSelect>
@@ -41,7 +43,7 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
     <template #body>
       <!-- list of sheets -->
-      <VLoadingSheets v-if="isLoading" :fake-sheet-number="15" />
+      <VLoadingSheets v-if="isLoading" :fake-sheet-number="3" />
 
       <div v-else-if="searchResults.length === 0 && !isLoading" class="flex h-[calc(100%-156px)] w-full items-center justify-center">
         No sheets available

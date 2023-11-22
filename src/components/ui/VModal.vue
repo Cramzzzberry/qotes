@@ -9,7 +9,7 @@ const props = defineProps({ state: Boolean })
   >
     <div class="absolute top-0 h-full w-full bg-stone-950 opacity-25"></div>
     <div
-      class="z-10 min-w-[560px] rounded-2xl bg-stone-100 p-6 transition-transform duration-150 ease-in-out on-md:w-full on-md:min-w-0"
+      class="z-10 max-h-[calc(100vh-32px)] min-w-[560px] overflow-y-auto rounded-2xl bg-emerald-50 p-6 transition-transform duration-150 ease-in-out on-md:w-full on-md:min-w-0"
       :class="[props.state ? 'translate-y-0' : 'translate-y-4']"
     >
       <slot></slot>

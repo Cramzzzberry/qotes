@@ -9,7 +9,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
   const searchResults = ref([])
   const lastSheetId = ref('')
   const isLoading = ref(false)
-  const showLoadMore = ref(true)
+  const showLoadMore = ref(false)
   let fetchPreferences = {
     method: 'POST',
     mode: 'cors',

@@ -30,26 +30,28 @@ const { create } = useCreateSheet(createSheetForm)
 <template>
   <div class="flex h-screen flex-row font-medium on-md:flex-col-reverse">
     <!-- the sidebar wrapper -->
-    <div class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden bg-stone-200 px-3 py-6 on-md:flex-row on-md:p-4">
+    <div
+      class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden bg-emerald-100 px-3 py-6 on-md:flex-row on-md:p-3"
+    >
       <div class="flex flex-col items-center on-md:w-full on-md:flex-row on-md:justify-around">
         <button
           @click="createSheet.toggleModal()"
-          class="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400 text-emerald-900 transition-colors hover:bg-emerald-500 on-md:absolute on-md:bottom-24 on-md:right-6 on-md:z-10 on-md:h-16 on-md:w-16"
+          class="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400 text-amber-900 transition-colors hover:bg-amber-500 on-md:absolute on-md:bottom-24 on-md:right-6 on-md:z-10 on-md:h-16 on-md:w-16"
         >
           <span class="material-icons text-3xl leading-none"> add </span>
         </button>
 
         <div class="mt-16 flex flex-col items-center gap-4 on-md:mt-0 on-md:w-full on-md:flex-row on-md:justify-around">
           <button @click="page.set(0)" :disabled="selectionStore.isFilled" :class="[page.index === 0 ? 'active' : '']" class="nav-points">
-            <span class="material-icons on-md:text-xl"> description </span>
+            <span class="material-icons"> description </span>
             <span>All</span>
           </button>
           <button @click="page.set(1)" :disabled="selectionStore.isFilled" :class="[page.index === 1 ? 'active' : '']" class="nav-points">
-            <span class="material-icons on-md:text-xl"> push_pin </span>
+            <span class="material-icons"> push_pin </span>
             <span>Pinned</span>
           </button>
           <button @click="page.set(2)" :disabled="selectionStore.isFilled" :class="[page.index === 2 ? 'active' : '']" class="nav-points">
-            <span class="material-icons on-md:text-xl"> lightbulb </span>
+            <span class="material-icons"> lightbulb </span>
             <span>Important</span>
           </button>
         </div>
@@ -92,7 +94,7 @@ const { create } = useCreateSheet(createSheetForm)
               <label
                 :for="key + ' id'"
                 tabindex="0"
-                class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-stone-200 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
+                class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 transition-colors duration-100 ease-in-out hover:bg-stone-950/5 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
               >
                 {{ key }}
               </label>
@@ -127,19 +129,19 @@ const { create } = useCreateSheet(createSheetForm)
 
 <style scoped>
 .nav-points {
-  @apply flex w-full flex-col items-center gap-2 text-sm font-semibold text-stone-500 transition-all duration-100 on-md:gap-1 on-md:text-[0.75rem];
+  @apply flex w-full flex-col items-center gap-1 text-sm font-semibold text-emerald-900 on-md:gap-1 on-md:text-[0.75rem];
 }
 
 .nav-points > .material-icons {
-  @apply rounded-full;
+  @apply w-16 rounded-full p-1 transition-colors;
 }
 
-.nav-points.active {
-  @apply !text-stone-900;
+.nav-points.active > .material-icons {
+  @apply !bg-emerald-400;
 }
 
-.nav-points:hover {
-  @apply text-stone-700;
+.nav-points:hover > .material-icons {
+  @apply bg-emerald-400/25;
 }
 
 .nav-points:disabled {
