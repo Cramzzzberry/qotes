@@ -1,33 +1,30 @@
-import { ref, toValue, onMounted, computed } from 'vue'
+import { toValue } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { toasts } from '@/composables/toast'
+import { profileStore } from '@/store'
 
 export function useAccount(accountForm) {
   const route = useRoute()
   const router = useRouter()
-  const userEmail = ref('')
-  const userFirstName = ref('')
-  const userLastName = ref('')
   const userId = route.params.userId
 
   // getting user data
-  onMounted(async () => {
-    await fetch(`http://localhost:3000/users/get-user/${userId}`)
-      .then(async (res) => {
-        const profile = await res.json()
+  const getProfile = () => {
+    const onFetch = async () => {
+      await fetch(`http://localhost:3000/users/get-user/${userId}`)
+        .then(async (res) => {
+          const profile = await res.json()
 
-        userFirstName.value = profile.first_name
-        userLastName.value = profile.last_name
-        userEmail.value = profile.email
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  })
-
-  const initials = computed(() => {
-    return userFirstName.value.split('')[0] + userLastName.value.split('')[0]
-  })
+          profileStore.firstName = profile.first_name
+          profileStore.lastName = profile.last_name
+          profileStore.email = profile.email
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    onFetch()
+  }
 
   const update = () => {
     const formdata = new FormData(toValue(accountForm))
@@ -47,9 +44,9 @@ export function useAccount(accountForm) {
         body: JSON.stringify(userDetails)
       })
         .then(() => {
-          userFirstName.value = formdata.get('first_name')
-          userLastName.value = formdata.get('last_name')
-          userEmail.value = formdata.get('email')
+          profileStore.firstName = formdata.get('first_name')
+          profileStore.lastName = formdata.get('last_name')
+          profileStore.email = formdata.get('email')
 
           toasts.add({
             msg: 'Account updated successfully.',
@@ -66,15 +63,16 @@ export function useAccount(accountForm) {
     localStorage.setItem('token', '')
     localStorage.setItem('user_id', '')
 
+    profileStore.toggleModal()
+    router.push({ name: 'index' })
+
     toasts.add({
       msg: 'Logged out successfully.',
       duration: 4000
     })
-
-    router.push({ name: 'index' })
   }
 
-  const erase = () => {
+  const eraseAcc = () => {
     const onErase = async () => {
       await fetch(`http://localhost:3000/users/delete-account/${userId}`, {
         method: 'DELETE',
@@ -97,5 +95,5 @@ export function useAccount(accountForm) {
     onErase()
   }
 
-  return { userEmail, userFirstName, userLastName, initials, update, logout, erase }
+  return { update, logout, eraseAcc, getProfile }
 }

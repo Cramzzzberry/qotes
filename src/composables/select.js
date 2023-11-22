@@ -72,7 +72,7 @@ export function useSelect() {
     })
   }
 
-  const erase = () => {
+  const eraseSheets = () => {
     socket.emit('delete sheets', selectionStore.organizedList)
 
     refresh()
@@ -82,5 +82,5 @@ export function useSelect() {
     })
   }
 
-  return { pin, important, erase, cancelSelection }
+  return { pin, important, eraseSheets, cancelSelection }
 }

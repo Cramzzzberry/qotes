@@ -1,150 +1,54 @@
 <script setup>
-import { ref, reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { toasts } from '@/composables/toast'
+import { ref } from 'vue'
+import { useLogin } from '@/composables/login'
+import { useSignup } from '@/composables/signup'
 
-const router = useRouter()
-
-const isLoginSection = ref(true)
 const signupForm = ref(null)
 const loginForm = ref(null)
 
-const loginError = reactive({
-  accExistence: false,
-  password: false
-})
-
-const registerError = reactive({
-  passLength: false,
-  passConfirmation: false
-})
-
-async function createAccount() {
-  const formdata = new FormData(signupForm.value)
-  const createAccObj = {}
-
-  if (formdata.get('password').length >= 8) {
-    if (formdata.get('password') === formdata.get('confirm_password')) {
-      formdata.forEach((value, key) => {
-        if (key !== 'confirm_password') {
-          createAccObj[key] = value
-        }
-      })
-
-      await fetch('http://localhost:3000/users/create-account', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(createAccObj)
-      })
-        .then(async (res) => {
-          const response = await res.json()
-
-          if (response.success) {
-            isLoginSection.value = true
-
-            registerError.passLength = false
-            registerError.passConfirmation = false
-
-            toasts.add({
-              msg: 'Account created successfully.',
-              duration: 4000
-            })
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    } else {
-      registerError.passLength = false
-      registerError.passConfirmation = true
-    }
-  } else {
-    registerError.passLength = true
-    registerError.passConfirmation = false
-  }
-}
-
-async function loginAccount() {
-  const formdata = new FormData(loginForm.value)
-  const logAccObj = {}
-
-  formdata.forEach((value, key) => {
-    logAccObj[key] = value
-  })
-
-  await fetch('http://localhost:3000/users/login-account', {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(logAccObj)
-  })
-    .then(async (res) => {
-      const response = await res.json()
-
-      if (res.status === 200) {
-        toasts.add({
-          msg: 'Logged in successfully.',
-          duration: 4000
-        })
-
-        localStorage.setItem('token', response.token)
-        localStorage.setItem('user_id', response.userId)
-
-        loginError.accExistence = false
-        loginError.password = false
-
-        router.push({ name: 'home', params: { userId: response.userId } })
-      } else if (res.status === 401) {
-        loginError.accExistence = false
-        loginError.password = true
-      } else if (res.status === 400) {
-        loginError.accExistence = true
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-      toasts.add({
-        msg: err,
-        duration: 4000
-      })
-    })
-}
+const { login, loginError } = useLogin(loginForm)
+const { signUp, isSignUpPage, signUpError } = useSignup(signupForm)
 </script>
 
 <template>
-  <div class="flex h-screen w-screen items-center justify-center">
+  <div class="flex h-screen w-screen items-center justify-center px-8">
     <Transition name="fade-scale" mode="out-in">
       <!-- login section -->
-      <form v-if="isLoginSection" @submit.prevent="loginAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="loginForm">
+      <form v-if="!isSignUpPage.state" @submit.prevent="login()" class="flex w-full max-w-[480px] flex-col gap-4" ref="loginForm">
         <h1>Login to your account</h1>
         <div class="flex flex-col items-center gap-4">
-          <label>
-            Email
-            <VTextBox :class="[{ '!border-red-500': loginError.accExistence }]" inputType="email" name="email" required />
-            <span v-if="loginError.accExistence" class="text-sm text-red-500">Account doesn't exist!</span>
-          </label>
-          <label>
-            Password
-            <VTextBox :class="[{ '!border-red-500': loginError.password || loginError.accExistence }]" inputType="password" name="password" required />
-            <span v-if="loginError.password" class="text-sm text-red-500">Wrong Password!</span>
-          </label>
+          <VInput
+            :variant="loginError.accExistence ? 'persistent outline' : null"
+            :color="loginError.accExistence ? 'error' : 'primary'"
+            label="Email"
+            :sub-text="loginError.accExistence ? 'Account doesn\'t exist!' : null"
+            type="email"
+            name="email"
+            wide
+            required
+          />
+          <VInput
+            :variant="loginError.password || loginError.accExistence ? 'persistent outline' : null"
+            :color="loginError.password || loginError.accExistence ? 'error' : 'primary'"
+            label="Password"
+            :sub-text="loginError.password || loginError.accExistence ? 'Wrong password!' : null"
+            type="password"
+            name="password"
+            wide
+            required
+          />
         </div>
 
         <!-- login button -->
-        <VButton type="submit" class="justify-center duration-150"> Login </VButton>
+        <VButton color="primary" type="submit" class="justify-center"> Login </VButton>
 
         <!-- registration section -->
-        <div class="place-self-end">
+        <div class="text-right">
           Don't have an account?
           <button
-            @click.prevent="isLoginSection = !isLoginSection"
+            @click.prevent="isSignUpPage.toggle()"
             type="button"
-            class="text-emerald-400 transition-colors duration-100 ease-in-out hover:text-emerald-500"
+            class="text-emerald-500 transition-colors duration-100 ease-in-out hover:text-emerald-600"
           >
             Create one
           </button>
@@ -152,46 +56,44 @@ async function loginAccount() {
       </form>
 
       <!-- create account section -->
-      <form v-else @submit.prevent="createAccount()" class="flex w-full max-w-[480px] flex-col gap-4" ref="signupForm">
+      <form v-else @submit.prevent="signUp()" class="flex w-full max-w-[480px] flex-col gap-4" ref="signupForm">
         <h1>Create your account</h1>
         <div class="flex flex-col items-center gap-4">
-          <label>
-            First Name
-            <VTextBox inputType="text" name="first_name" required />
-          </label>
-          <label>
-            Last Name
-            <VTextBox inputType="text" name="last_name" required />
-          </label>
-          <label>
-            Email
-            <VTextBox inputType="email" name="email" required />
-          </label>
-          <label>
-            Password
-            <VTextBox :class="[{ '!border-red-500': registerError.passConfirmation }]" inputType="password" name="password" required />
-            <span v-if="!registerError.passConfirmation" :class="[registerError.passLength ? 'text-red-500' : 'text-stone-400']" class="text-sm">
-              Minimum of 8 characters
-            </span>
-            <span v-else class="text-sm text-red-500">Passwords are not the same!</span>
-          </label>
-          <label>
-            Confirm Password
-            <VTextBox :class="[{ '!border-red-500': registerError.passConfirmation }]" inputType="password" name="confirm_password" required />
-            <span v-if="registerError.passConfirmation" class="text-sm text-red-500">Passwords are not the same!</span>
-          </label>
+          <VInput color="primary" label="First Name" type="text" name="first_name" wide required />
+          <VInput color="primary" label="Last Name" type="text" name="last_name" wide required />
+          <VInput color="primary" label="Email" type="email" name="email" wide required />
+          <VInput
+            :variant="signUpError.passLength || signUpError.passConfirm ? 'persistent outline' : null"
+            :color="signUpError.passLength || signUpError.passConfirm ? 'error' : 'primary'"
+            label="Password"
+            :sub-text="signUpError.passConfirm ? 'Passwords are not the same!' : 'Minimum of 8 characters'"
+            type="password"
+            name="password"
+            wide
+            required
+          />
+          <VInput
+            :variant="signUpError.passConfirm ? 'persistent outline' : null"
+            :color="signUpError.passConfirm ? 'error' : 'primary'"
+            label="Confirm Password"
+            :sub-text="signUpError.passConfirm ? 'Passwords are not the same!' : null"
+            type="password"
+            name="confirm_password"
+            wide
+            required
+          />
         </div>
 
         <!-- login button -->
-        <VButton type="submit" class="justify-center duration-150"> Create Account </VButton>
+        <VButton color="primary" type="submit" class="justify-center"> Create Account </VButton>
 
         <!-- registration section -->
-        <div class="place-self-end">
+        <div class="text-right">
           Already have an account?
           <button
-            @click.prevent="isLoginSection = !isLoginSection"
+            @click.prevent="isSignUpPage.toggle()"
             type="button"
-            class="text-emerald-400 transition-colors duration-100 ease-in-out hover:text-emerald-500"
+            class="m-0 p-0 text-emerald-500 transition-colors duration-100 ease-in-out hover:text-emerald-600"
           >
             Login here
           </button>
@@ -200,9 +102,3 @@ async function loginAccount() {
     </Transition>
   </div>
 </template>
-
-<style scoped>
-label {
-  @apply flex w-full flex-col gap-1 text-stone-400 transition-colors duration-100 ease-in-out focus-within:text-stone-200;
-}
-</style>

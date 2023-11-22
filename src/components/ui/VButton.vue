@@ -1,113 +1,95 @@
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps({
-  btnStyle: {
+  variant: {
     type: String,
-    default: 'default'
+    default: null
   },
-  colorState: {
+  color: {
     type: String,
-    default: 'default'
+    default: null
   }
 })
 
-const btnClass = ref('')
-function makeClass() {
-  let btnStyle = ''
-  let colorState = ''
+function buttonStyle() {
+  let btnFoundation = ''
+  let btnColor = ''
 
-  //btn style
-  switch (props.btnStyle) {
-    case 'default':
-      btnStyle = 'px-4 py-2'
-
-      //color state
-      if (props.colorState === 'default' || props.colorState === 'success') {
-        colorState = 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
-      } else if (props.colorState === 'error') {
-        colorState = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
-      } else if (props.colorState === 'info') {
-        colorState = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
-      } else if (props.colorState === 'warning') {
-        colorState = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
-      }
-      break
-    case 'ghost':
-      btnStyle = 'bg-transparent px-4 py-2 hover:bg-stone-700 border-transparent'
-
-      //color state
-      if (props.colorState === 'default') {
-        colorState = 'text-stone-400 hover:text-stone-300'
-      } else if (props.colorState === 'success') {
-        colorState = 'text-emerald-400'
-      } else if (props.colorState === 'error') {
-        colorState = 'text-red-500'
-      } else if (props.colorState === 'info') {
-        colorState = 'text-blue-400'
-      } else if (props.colorState === 'warning') {
-        colorState = 'text-amber-400'
-      }
-      break
-    case 'icon':
-      btnStyle = 'justify-center p-2'
-
-      //color state
-      if (props.colorState === 'default' || props.colorState === 'success') {
-        colorState = 'bg-emerald-400 text-emerald-950 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
-      } else if (props.colorState === 'error') {
-        colorState = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
-      } else if (props.colorState === 'info') {
-        colorState = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
-      } else if (props.colorState === 'warning') {
-        colorState = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
-      }
-      break
-    case 'icon-ghost':
-      btnStyle = 'justify-center bg-transparent p-2 border-transparent'
-
-      //color state
-      if (props.colorState === 'default') {
-        colorState = 'text-stone-400 hover:text-stone-300 hover:bg-stone-700'
-      } else if (props.colorState === 'success') {
-        colorState = 'text-emerald-400 hover:bg-stone-600'
-      } else if (props.colorState === 'error') {
-        colorState = 'text-red-500 hover:bg-stone-700'
-      } else if (props.colorState === 'info') {
-        colorState = 'text-blue-400 hover:bg-stone-600'
-      } else if (props.colorState === 'warning') {
-        colorState = 'text-amber-400 hover:bg-stone-600'
-      }
-      break
-    case 'outlined':
-      btnStyle = 'px-4 py-2 border-stone-600'
-
-      //color state
-      if (props.colorState === 'default') {
-        colorState = 'text-stone-300 hover:bg-stone-600'
-      } else if (props.colorState === 'success') {
-        colorState = 'text-emerald-400 hover:bg-stone-600'
-      } else if (props.colorState === 'error') {
-        colorState = 'text-red-500 hover:bg-stone-600'
-      } else if (props.colorState === 'info') {
-        colorState = 'text-blue-400 hover:bg-stone-600'
-      } else if (props.colorState === 'warning') {
-        colorState = 'text-amber-400 hover:bg-stone-600'
-      }
-      break
+  if (props.variant === null) {
+    btnFoundation = 'px-4 py-2'
+    if (props.color === null) {
+      btnColor = 'bg-stone-950 text-stone-200 hover:bg-stone-800 border-stone-950 hover:border-stone-800'
+    } else if (props.color === 'primary') {
+      btnColor = 'bg-emerald-400 text-emerald-900 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
+    } else if (props.color === 'error') {
+      btnColor = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
+    } else if (props.color === 'info') {
+      btnColor = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
+    } else if (props.color === 'warning') {
+      btnColor = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
+    }
+  } else if (props.variant === 'ghost') {
+    btnFoundation = 'bg-transparent px-4 py-2 hover:bg-stone-200 border-transparent hover:border-stone-200'
+    if (props.color === null) {
+      btnColor = 'text-stone-800'
+    } else if (props.color === 'primary') {
+      btnColor = 'text-emerald-500'
+    } else if (props.color === 'error') {
+      btnColor = 'text-red-500'
+    } else if (props.color === 'info') {
+      btnColor = 'text-blue-400'
+    } else if (props.color === 'warning') {
+      btnColor = 'text-amber-500'
+    }
+  } else if (props.variant === 'outline') {
+    btnFoundation = 'px-4 py-2 border-stone-400'
+    if (props.color === null) {
+      btnColor = 'hover:bg-stone-950 hover:text-stone-200 text-stone-800 hover:border-stone-950'
+    } else if (props.color === 'primary') {
+      btnColor = 'text-emerald-500 hover:bg-emerald-400 hover:text-emerald-900 hover:border-emerald-400'
+    } else if (props.color === 'error') {
+      btnColor = 'text-red-500 hover:bg-red-500 hover:text-red-950 hover:border-red-500'
+    } else if (props.color === 'info') {
+      btnColor = 'text-blue-400 hover:bg-blue-400 hover:text-blue-950 hover:border-blue-400'
+    } else if (props.color === 'warning') {
+      btnColor = 'text-amber-500 hover:bg-amber-400 hover:text-amber-950 hover:border-amber-400'
+    }
+  } else if (props.variant === 'icon') {
+    btnFoundation = 'justify-center p-2'
+    if (props.color === null) {
+      btnColor = 'bg-stone-950 text-stone-200 hover:bg-stone-800 border-stone-950 hover:border-stone-800'
+    } else if (props.color === 'primary') {
+      btnColor = 'bg-emerald-400 text-emerald-900 hover:bg-emerald-500 border-emerald-400 hover:border-emerald-500'
+    } else if (props.color === 'error') {
+      btnColor = 'bg-red-500 text-red-950 hover:bg-red-600 border-red-500 hover:border-red-600'
+    } else if (props.color === 'info') {
+      btnColor = 'bg-blue-400 text-blue-950 hover:bg-blue-500 border-blue-400 hover:border-blue-500'
+    } else if (props.color === 'warning') {
+      btnColor = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
+    }
+  } else if (props.variant === 'ghost icon') {
+    btnFoundation = 'justify-center bg-transparent p-2 border-transparent hover:bg-stone-200 hover:border-stone-200'
+    if (props.color === null) {
+      btnColor = 'text-stone-800'
+    } else if (props.color === 'primary') {
+      btnColor = 'text-emerald-500'
+    } else if (props.color === 'error') {
+      btnColor = 'text-red-500'
+    } else if (props.color === 'info') {
+      btnColor = 'text-blue-400'
+    } else if (props.color === 'warning') {
+      btnColor = 'text-amber-500'
+    }
   }
 
-  return btnStyle + ' ' + colorState
+  return btnFoundation + ' ' + btnColor
 }
-
-btnClass.value = makeClass()
 </script>
 
 <template>
   <button
-    :class="btnClass"
+    :class="buttonStyle()"
     type="button"
-    class="inline-grid select-none auto-cols-[max-content_auto_max-content] grid-flow-col items-center gap-2 rounded-lg border text-start text-base font-medium transition-all"
+    class="inline-grid select-none auto-cols-[max-content_auto_max-content] grid-flow-col items-center gap-2 rounded-lg border text-start text-base font-medium transition-all on-md:text-sm"
   >
     <slot />
   </button>

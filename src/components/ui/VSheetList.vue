@@ -6,23 +6,27 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-2 px-16">
+  <div class="grid grid-cols-3 gap-2 px-16 on-xl:grid-cols-2 on-lg:grid-cols-1 on-md:px-6 on-md:pb-20 on-sm:grid-cols-1">
     <div
       v-for="(sheet, index) in props.sheetList"
       :key="index"
-      class="flex h-fit cursor-pointer flex-row items-center gap-1 rounded-xl transition-colors hover:bg-stone-800"
+      class="flex h-fit cursor-pointer select-none flex-row items-center gap-1 rounded-xl transition-colors hover:bg-stone-200"
     >
-      <router-link :to="`/edit/${sheet.id}`" class="flex grow flex-row items-center gap-1 p-2">
-        <div class="flex h-16 w-16 select-none items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900">
+      <router-link :to="`/edit/${sheet.id}`" class="flex min-w-0 grow flex-row items-center gap-1 p-2">
+        <div class="flex h-16 w-16 shrink-0 select-none items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900">
           {{ sheet.song_key }}
         </div>
-        <div class="px-2 py-0">
+        <div class="min-w-0 px-2 py-0">
           <div class="flex w-full flex-col">
-            <span class="text-lg font-medium leading-none">{{ sheet.song_title }}</span>
-            <span class="text-sm text-stone-400">{{ sheet.artist }}</span>
+            <span class="truncate text-lg font-medium leading-none on-md:text-base">{{ sheet.song_title }}</span>
+            <span class="truncate text-sm text-stone-600 on-md:text-[0.75rem]">{{ sheet.artist }}</span>
             <div class="flex select-none flex-row gap-1">
-              <span v-if="sheet.pinned" class="rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400">Pinned</span>
-              <span v-if="sheet.important" class="rounded-full border border-amber-400 px-2 text-[0.75rem] text-amber-400">Important</span>
+              <div v-if="sheet.pinned" class="gap-2 rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400 on-md:text-[0.625rem]">
+                Pinned
+              </div>
+              <div v-if="sheet.important" class="gap-2 rounded-full border border-amber-500 px-2 text-[0.75rem] text-amber-500 on-md:text-[0.625rem]">
+                Important
+              </div>
             </div>
           </div>
         </div>
@@ -39,7 +43,7 @@ const props = defineProps({
         />
         <label
           :for="sheet.id"
-          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-400 transition-colors hover:bg-stone-700 hover:text-stone-200"
+          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-600 transition-colors hover:bg-stone-300"
         >
           <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank

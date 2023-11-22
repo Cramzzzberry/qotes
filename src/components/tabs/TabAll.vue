@@ -9,30 +9,34 @@ const desc = 'A collection of sheets including pinned and important ones'
 const icon = 'description'
 
 const searchInput = ref('')
-const dropdownKeys = ['All Keys', ...setKeys]
-const dropdownLabel = ref('All Keys')
+const keysLabel = ref('All Keys')
+const keysList = ['All Keys', ...setKeys]
 
-const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'all-sheets', dropdownLabel)
+const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'all-sheets', keysLabel)
 </script>
 
 <template>
   <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc">
     <template #action-bar>
       <!-- search box -->
-      <div class="group/search relative grow">
-        <label class="flex flex-row items-center gap-2">
-          <span class="material-icons text-2xl text-stone-400"> search </span>
+      <div class="grow">
+        <label class="flex cursor-text flex-row items-center rounded-xl border border-stone-400 px-4 focus-within:border-emerald-500">
+          <span class="material-icons text-2xl text-stone-600"> search </span>
           <input
             v-model="searchInput"
+            size="1"
             type="text"
             placeholder="Search"
-            class="grow border-b-2 border-b-stone-600 bg-transparent p-2 outline-none transition-colors duration-100 ease-in-out placeholder:text-stone-400 focus:border-b-emerald-400"
+            class="grow bg-transparent p-2 outline-none placeholder:text-stone-600"
           />
         </label>
       </div>
 
       <!-- music keys dropdown -->
-      <VDropdown v-model:label="dropdownLabel" :list="dropdownKeys" name="songkeys" class="dropdown-height-limit w-32" />
+      <VSelect v-model="keysLabel" :list="keysList" list-color="primary" position="bottomEnd" name="songkeys" class="dropdown-height-limit w-[82px]">
+        <span v-if="keysLabel === 'All Keys'" class="material-icons text-[24px] on-md:text-[20px]"> audiotrack </span>
+        <span v-else>{{ keysLabel }}</span>
+      </VSelect>
     </template>
 
     <template #body>
@@ -51,6 +55,6 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
 <style scoped>
 .dropdown-height-limit:deep(div) {
-  max-height: calc(100vh - 140px);
+  @apply max-h-[calc(100vh-140px)] on-lg:max-h-[calc(100vh-140px-44px)] on-md:max-h-[calc(100vh-140px-92px)] on-sm:max-h-[calc(100vh-140px-60px)];
 }
 </style>

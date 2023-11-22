@@ -7,9 +7,9 @@ import router from './router'
 
 //components
 import VButton from '@/components/ui/VButton.vue'
-import VDropdown from '@/components/ui/VDropdown.vue'
+import VSelect from '@/components/ui/VSelect.vue'
 import VModal from '@/components/ui/VModal.vue'
-import VTextBox from '@/components/ui/VTextBox.vue'
+import VInput from '@/components/ui/VInput.vue'
 import VSheetList from '@/components/ui/VSheetList.vue'
 import VLoadingSheets from '@/components/ui/VLoadingSheets.vue'
 import VDialog from '@/components/ui/VDialog.vue'
@@ -21,9 +21,9 @@ app.mount('#app')
 
 app
   .component('VButton', VButton)
-  .component('VDropdown', VDropdown)
+  .component('VSelect', VSelect)
   .component('VModal', VModal)
-  .component('VTextBox', VTextBox)
+  .component('VInput', VInput)
   .component('VSheetList', VSheetList)
   .component('VLoadingSheets', VLoadingSheets)
   .component('VDialog', VDialog)

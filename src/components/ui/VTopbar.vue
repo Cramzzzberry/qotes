@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { profileStore } from '@/store'
 import { useSelect } from '@/composables/select'
 import { scrollStore } from '@/store'
 import { selectionStore } from '@/store'
@@ -18,14 +19,14 @@ const props = defineProps({
   topBarIcon: String
 })
 
-const { pin, important, erase, cancelSelection } = useSelect()
+const { pin, important, eraseSheets, cancelSelection } = useSelect()
 const deleteDialog = reactive({
   state: false,
   toggle() {
     this.state = !this.state
   },
   confirm() {
-    erase()
+    eraseSheets()
     this.toggle()
   }
 })
@@ -62,53 +63,81 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
 
 <template>
   <div class="grow overflow-y-scroll pb-2" ref="scrollComponent">
-    <div class="sticky top-0 z-10 mb-1 h-[132px] bg-stone-900 px-16 pb-2 pt-16">
+    <div
+      class="sticky top-0 z-10 h-[132px] bg-stone-100 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:pt-4"
+    >
       <Transition name="fade-down" mode="out-in">
-        <div v-if="!selectionStore.isFilled" class="flex flex-row items-center justify-between">
-          <!-- topbar -->
-          <div class="flex flex-col">
+        <!-- topbar -->
+        <div
+          v-if="!selectionStore.isFilled"
+          class="flex flex-row items-center justify-between on-lg:flex-col on-lg:items-start on-lg:justify-normal on-lg:gap-2"
+        >
+          <div class="flex flex-row items-center justify-between on-lg:w-full">
             <div class="flex flex-row items-center gap-4">
               <h1>{{ props.topBarTitle }}</h1>
               <span v-if="props.topBarIcon !== null" class="material-icons text-3xl">
                 {{ props.topBarIcon }}
               </span>
             </div>
-            <div class="text-stone-400">{{ props.topBarDesc }}</div>
+
+            <!-- profile section -->
+            <div class="hidden flex-col items-center on-lg:flex">
+              <button
+                @click="profileStore.toggleModal()"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-500 on-md:h-10 on-md:w-10"
+              >
+                <!-- <span v-if="account.loading" class="material-icons animate-pulse"> pending </span>
+          <span v-else>{{ account.user.firstName.split('')[0] + account.user.lastName.split('')[0] }}</span> -->
+                <span>{{ profileStore.initials }}</span>
+              </button>
+            </div>
           </div>
 
           <!-- action bar -->
-          <div class="flex basis-1/2 flex-row items-center gap-2">
+          <div class="flex basis-1/2 flex-row items-center justify-end gap-2 on-xl:basis-[527px] on-lg:w-full on-lg:basis-auto">
             <slot name="action-bar" />
+
+            <!-- profile section -->
+            <div class="flex flex-col items-center on-lg:hidden">
+              <button
+                @click="profileStore.toggleModal()"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-500"
+              >
+                <!-- <span v-if="account.loading" class="material-icons animate-pulse"> pending </span>
+          <span v-else>{{ account.user.firstName.split('')[0] + account.user.lastName.split('')[0] }}</span> -->
+                <span>{{ profileStore.initials }}</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div v-else class="flex flex-row items-center justify-between">
+        <div v-else class="flex h-full flex-row items-center justify-between on-lg:items-end on-lg:pb-4 on-md:pb-0">
           <div class="flex flex-row items-center gap-2">
-            <VButton @click="cancelSelection()" btn-style="icon-ghost" type="button">
+            <VButton @click="cancelSelection()" variant="ghost icon" type="button">
               <span class="material-icons font-bold"> close </span>
             </VButton>
-            <h1>Selected sheets ({{ selectionStore.length }})</h1>
+            <h1><span class="on-lg:hidden">Selected sheets</span> ({{ selectionStore.length }})</h1>
           </div>
           <div class="flex flex-row gap-2">
-            <VButton v-if="!selectionStore.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" variant="ghost">
+              <span class="material-icons-outlined"> push_pin </span>
+              <span class="on-sm:hidden">Pin</span>
+            </VButton>
+            <VButton v-if="!selectionStore.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" variant="ghost">
               <span class="material-icons"> push_pin </span>
-              <span>Pin</span>
+              <span class="on-sm:hidden">Unpin</span>
             </VButton>
-            <VButton v-if="!selectionStore.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" btn-style="ghost">
-              <span class="material-icons"> remove_circle </span>
-              <span>Unpin</span>
+            <VButton v-if="!selectionStore.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" variant="ghost">
+              <span class="material-icons-outlined"> lightbulb </span>
+              <span class="on-sm:hidden">Important</span>
             </VButton>
-            <VButton v-if="!selectionStore.organizedList.importantStates.includes('true')" @click="importantDialog.toggle(true)" btn-style="ghost">
+            <VButton v-if="!selectionStore.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" variant="ghost">
               <span class="material-icons"> lightbulb </span>
-              <span>Mark as Important</span>
+              <span class="on-sm:hidden">Unimportant</span>
             </VButton>
-            <VButton v-if="!selectionStore.organizedList.importantStates.includes('false')" @click="importantDialog.toggle(false)" btn-style="ghost">
-              <span class="material-icons"> remove_circle </span>
-              <span>Mark as Unimportant</span>
-            </VButton>
-            <VButton @click="deleteDialog.toggle()" btn-style="ghost" color-state="error">
+            <VButton @click="deleteDialog.toggle()" variant="ghost" color="error">
               <span class="material-icons"> delete </span>
-              <span>Delete</span>
+              <span class="on-sm:hidden">Delete</span>
             </VButton>
           </div>
         </div>
@@ -145,6 +174,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
       @cancel="importantDialog.toggle()"
       @confirm="importantDialog.confirm()"
     />
+
     <slot name="body" />
   </div>
 </template>

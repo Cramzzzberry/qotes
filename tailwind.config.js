@@ -12,6 +12,22 @@ export default {
       '3xl': '12px',
       full: '9999px'
     },
+    screens: {
+      'on-2xl': { max: '1535px' },
+      // => @media (max-width: 1535px) { ... }
+
+      'on-xl': { max: '1279px' },
+      // => @media (max-width: 1279px) { ... }
+
+      'on-lg': { max: '1023px' },
+      // => @media (max-width: 1023px) { ... }
+
+      'on-md': { max: '767px' },
+      // => @media (max-width: 767px) { ... }
+
+      'on-sm': { max: '639px' }
+      // => @media (max-width: 639px) { ... }
+    }
   },
   plugins: []
 }
