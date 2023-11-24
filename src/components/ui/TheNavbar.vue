@@ -36,7 +36,7 @@ const { create } = useCreateSheet(createSheetForm)
       <div class="flex flex-col items-center on-md:w-full on-md:flex-row on-md:justify-around">
         <button
           @click="createSheet.toggleModal()"
-          class="flex h-16 w-16 items-center justify-center rounded-[16px] bg-amber-200 text-amber-900 transition-colors hover:bg-amber-300 on-md:absolute on-md:bottom-[88px] on-md:right-6 on-md:z-10"
+          class="flex h-16 w-16 items-center justify-center rounded-[16px] bg-amber-200 text-amber-900 transition-colors hover:bg-amber-300 on-md:absolute on-md:bottom-[88px] on-md:right-[24px] on-md:z-10"
         >
           <span class="material-icons text-3xl leading-none"> add </span>
         </button>
