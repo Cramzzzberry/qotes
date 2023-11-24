@@ -11,7 +11,7 @@ const { signUp, isSignUpPage, signUpError } = useSignup(signupForm)
 </script>
 
 <template>
-  <div class="flex h-screen w-screen items-center justify-center px-8">
+  <div class="flex h-[100svh] w-screen items-center justify-center px-8">
     <Transition name="fade-scale" mode="out-in">
       <!-- login section -->
       <form v-if="!isSignUpPage.state" @submit.prevent="login()" class="flex w-full max-w-[480px] flex-col gap-4" ref="loginForm">
