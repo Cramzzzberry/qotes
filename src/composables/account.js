@@ -81,6 +81,8 @@ export function useAccount(accountForm) {
         .then(() => {
           localStorage.setItem('token', '')
           localStorage.setItem('user_id', '')
+          profileStore.toggleModal()
+          profileStore.toggleDeleteDialog()
 
           toastStore.add({
             msg: 'Account deleted successfully.',
