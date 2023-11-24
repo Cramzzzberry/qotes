@@ -15,7 +15,7 @@ const isOnEdit = reactive({
 <template>
   <div class="h-[100svh]">
     <div class="flex h-[69px] flex-row items-center justify-between border-b border-b-neutral-200 pl-2 pr-4">
-      <div class="flex basis-1/2 flex-row items-center gap-3">
+      <div class="flex basis-1/2 flex-row items-center gap-3 on-sm:gap-1">
         <VButton @click="$router.go(-1)" variant="ghost icon" type="button">
           <span class="material-icons"> arrow_back </span>
         </VButton>
@@ -30,7 +30,7 @@ const isOnEdit = reactive({
         </div>
       </div>
 
-      <div class="flex flex-row items-center justify-end gap-2">
+      <div class="flex flex-row items-center justify-end gap-2 on-sm:gap-1">
         <label class="flex flex-row items-center">
           <!-- transpose key dropdown -->
           <span class="material-icons"> audiotrack </span>
@@ -60,7 +60,7 @@ const isOnEdit = reactive({
     </div>
 
     <!-- the body -->
-    <div v-if="isLoading" class="flex h-[calc(100vh-69px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
+    <div v-if="isLoading" class="flex h-[calc(100svh-69px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
 
     <div v-else class="flex h-[calc(100vh-69px)] flex-row overflow-y-hidden">
       <!-- sheet workspace -->
@@ -87,6 +87,6 @@ const isOnEdit = reactive({
 
 <style scoped>
 .dropdown-height-limit:deep(div) {
-  max-height: calc(100vh - 76px);
+  @apply max-h-[calc(100svh-76px)];
 }
 </style>
