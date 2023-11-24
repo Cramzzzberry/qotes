@@ -84,7 +84,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
             <div class="hidden flex-col items-center on-lg:flex">
               <button
                 @click="profileStore.toggleModal()"
-                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-500 on-md:h-10 on-md:w-10"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-200 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-300 on-md:h-10 on-md:w-10"
               >
                 <!-- <span v-if="account.loading" class="material-icons animate-pulse"> pending </span>
           <span v-else>{{ account.user.firstName.split('')[0] + account.user.lastName.split('')[0] }}</span> -->
@@ -101,7 +101,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
             <div class="flex flex-col items-center on-lg:hidden">
               <button
                 @click="profileStore.toggleModal()"
-                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-400 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-500"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-200 text-lg font-semibold text-amber-900 transition-colors hover:bg-amber-300"
               >
                 <!-- <span v-if="account.loading" class="material-icons animate-pulse"> pending </span>
           <span v-else>{{ account.user.firstName.split('')[0] + account.user.lastName.split('')[0] }}</span> -->

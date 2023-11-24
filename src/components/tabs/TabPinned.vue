@@ -21,7 +21,7 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
       <!-- search box -->
       <div class="grow">
         <label
-          class="group flex cursor-text flex-row items-center rounded-xl border border-stone-400 px-4 transition-colors focus-within:border-emerald-500"
+          class="group flex cursor-text flex-row items-center rounded-xl border border-stone-400 px-3 transition-colors focus-within:border-emerald-500"
         >
           <span class="material-icons text-2xl text-stone-600 transition-colors group-focus-within:text-emerald-500"> search </span>
           <input

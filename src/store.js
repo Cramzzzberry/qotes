@@ -11,6 +11,13 @@ export const refreshStore = ref(false)
 
 export const scrollStore = ref(null)
 
+export const toastStore = reactive({
+  list: [],
+  add(msg) {
+    this.list.push(msg)
+  }
+})
+
 export const profileStore = reactive({
   email: '',
   firstName: '',

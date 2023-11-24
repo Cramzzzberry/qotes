@@ -10,7 +10,7 @@ const props = defineProps({
     <div
       v-for="(sheet, index) in props.sheetList"
       :key="index"
-      class="flex h-fit cursor-pointer select-none flex-row items-center gap-1 rounded-xl transition-colors hover:bg-stone-950/5"
+      class="flex h-fit cursor-pointer select-none flex-row items-center rounded-xl transition-colors hover:bg-stone-950/5"
     >
       <router-link :to="`/edit/${sheet.id}`" class="flex min-w-0 grow flex-row items-center gap-1 p-2">
         <div class="flex h-16 w-16 shrink-0 select-none items-center justify-center rounded-md bg-emerald-400 text-3xl font-semibold text-emerald-900">
@@ -43,7 +43,7 @@ const props = defineProps({
         />
         <label
           :for="sheet.id"
-          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-stone-600 transition-colors hover:bg-stone-950/5"
+          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-emerald-950 transition-colors hover:bg-stone-950/5"
         >
           <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank

@@ -31,12 +31,12 @@ const { create } = useCreateSheet(createSheetForm)
   <div class="flex h-screen flex-row font-medium on-md:flex-col-reverse">
     <!-- the sidebar wrapper -->
     <div
-      class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden bg-emerald-100 px-3 py-6 on-md:flex-row on-md:p-3"
+      class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden px-3 py-6 on-md:flex-row on-md:border-t on-md:border-t-neutral-200 on-md:p-3"
     >
       <div class="flex flex-col items-center on-md:w-full on-md:flex-row on-md:justify-around">
         <button
           @click="createSheet.toggleModal()"
-          class="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400 text-amber-900 transition-colors hover:bg-amber-500 on-md:absolute on-md:bottom-24 on-md:right-6 on-md:z-10 on-md:h-16 on-md:w-16"
+          class="flex h-16 w-16 items-center justify-center rounded-[16px] bg-amber-200 text-amber-900 transition-colors hover:bg-amber-300 on-md:absolute on-md:bottom-[88px] on-md:right-6 on-md:z-10"
         >
           <span class="material-icons text-3xl leading-none"> add </span>
         </button>
@@ -102,10 +102,13 @@ const { create } = useCreateSheet(createSheetForm)
           </ul>
         </div>
 
-        <div class="flex gap-2 text-stone-600">
+        <div class="flex select-none gap-2 text-stone-600">
           <!-- pinned checkbox -->
           <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="pinned" name="pinned" id="pinned" />
-          <label for="pinned" class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-200">
+          <label
+            for="pinned"
+            class="flex w-fit cursor-pointer items-center justify-center rounded-lg py-2 pl-2 pr-3 transition-colors hover:bg-stone-950/5"
+          >
             <span v-if="!createSheet.category.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
             <span v-else class="material-icons select-none"> check_box </span>
             <span class="pl-2">Pinned</span>
@@ -113,7 +116,10 @@ const { create } = useCreateSheet(createSheetForm)
 
           <!-- important checkbox -->
           <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="important" name="important" id="important" />
-          <label for="important" class="flex w-fit cursor-pointer items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-200">
+          <label
+            for="important"
+            class="flex w-fit cursor-pointer items-center justify-center rounded-lg py-2 pl-2 pr-3 transition-colors hover:bg-stone-950/5"
+          >
             <span v-if="!createSheet.category.includes('important')" class="material-icons select-none"> check_box_outline_blank </span>
             <span v-else class="material-icons select-none"> check_box </span>
             <span class="pl-2">Important</span>
@@ -133,15 +139,15 @@ const { create } = useCreateSheet(createSheetForm)
 }
 
 .nav-points > .material-icons {
-  @apply w-16 rounded-full p-1 transition-colors;
+  @apply w-8 rounded-full p-1 transition-all;
 }
 
 .nav-points.active > .material-icons {
-  @apply !bg-emerald-400;
+  @apply w-16 !bg-emerald-400;
 }
 
 .nav-points:hover > .material-icons {
-  @apply bg-emerald-400/25;
+  @apply w-16 bg-emerald-400/25;
 }
 
 .nav-points:disabled {

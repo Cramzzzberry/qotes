@@ -31,9 +31,10 @@ const { signUp, isSignUpPage, signUpError } = useSignup(signupForm)
             :variant="loginError.password || loginError.accExistence ? 'persistent outline' : null"
             :color="loginError.password || loginError.accExistence ? 'error' : 'primary'"
             label="Password"
-            :sub-text="loginError.password || loginError.accExistence ? 'Wrong password!' : null"
+            :sub-text="loginError.password ? 'Wrong password!' : null"
             type="password"
             name="password"
+            autocomplete="off"
             wide
             required
           />
@@ -69,6 +70,7 @@ const { signUp, isSignUpPage, signUpError } = useSignup(signupForm)
             :sub-text="signUpError.passConfirm ? 'Passwords are not the same!' : 'Minimum of 8 characters'"
             type="password"
             name="password"
+            autocomplete="off"
             wide
             required
           />
@@ -79,6 +81,7 @@ const { signUp, isSignUpPage, signUpError } = useSignup(signupForm)
             :sub-text="signUpError.passConfirm ? 'Passwords are not the same!' : null"
             type="password"
             name="confirm_password"
+            autocomplete="off"
             wide
             required
           />

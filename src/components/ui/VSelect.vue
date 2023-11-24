@@ -104,31 +104,33 @@ function selectedStyle() {
     <div
       tabindex="0"
       :class="dropdownPosition[props.position]"
-      class="invisible absolute z-10 min-w-[120px] scale-[98%] overflow-y-auto rounded-xl bg-emerald-50 p-2 opacity-0 drop-shadow-xl transition-all group-focus-within/dropdown:visible group-focus-within/dropdown:scale-100 group-focus-within/dropdown:opacity-100"
+      class="invisible absolute z-10 min-w-[120px] scale-[98%] overflow-hidden rounded-xl bg-emerald-50 opacity-0 drop-shadow-xl transition-all group-focus-within/dropdown:visible group-focus-within/dropdown:scale-100 group-focus-within/dropdown:opacity-100"
     >
-      <!-- dropdown content -->
-      <ul class="flex flex-col gap-1 overflow-y-auto">
+      <div class="overflow-y-auto p-2">
         <!-- dropdown content -->
-        <li v-for="item in props.list" :key="item" class="w-full">
-          <input
-            type="radio"
-            :name="props.name"
-            :id="item + props.name"
-            :checked="props.modelValue === item"
-            :value="item"
-            @input="$emit('update:modelValue', $event.target.value)"
-            class="peer absolute -top-10 hidden"
-          />
-          <label
-            :for="item + props.name"
-            tabindex="0"
-            :class="selectedStyle()"
-            class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-950/5"
-          >
-            {{ item }}
-          </label>
-        </li>
-      </ul>
+        <ul class="flex flex-col gap-1">
+          <!-- dropdown content -->
+          <li v-for="item in props.list" :key="item" class="w-full">
+            <input
+              type="radio"
+              :name="props.name"
+              :id="item + props.name"
+              :checked="props.modelValue === item"
+              :value="item"
+              @input="$emit('update:modelValue', $event.target.value)"
+              class="peer absolute -top-10 hidden"
+            />
+            <label
+              :for="item + props.name"
+              tabindex="0"
+              :class="selectedStyle()"
+              class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-950/5"
+            >
+              {{ item }}
+            </label>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

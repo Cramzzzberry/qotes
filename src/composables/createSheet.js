@@ -1,5 +1,5 @@
 import { toValue } from 'vue'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 import { useRefresh } from '@/composables/refresh'
 import { socket } from '@/socket'
 
@@ -22,7 +22,7 @@ export function useCreateSheet(form) {
     ] = `# ${formValues.song_title} \n## ${formValues.artist} Key of ${formValues.song_key} \n---\nC D E F G A B\nType Anything Here`
 
     socket.emit('create sheet', formValues)
-    toasts.add({
+    toastStore.add({
       msg: 'Sheet created successfully.',
       duration: 2000
     })

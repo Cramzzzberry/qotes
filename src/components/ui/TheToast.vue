@@ -1,24 +1,24 @@
 <script setup>
 import { ref, watch } from 'vue'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 
 /*Toast section*/
 const displayAlert = ref([])
 let timeout = null
 
 watch(
-  () => toasts.list,
+  () => toastStore.list,
   () => {
-    if (toasts.list.length >= 1 && timeout === null) {
+    if (toastStore.list.length >= 1 && timeout === null) {
       setTimeout(() => {
-        displayAlert.value.push(toasts.list[0].msg)
+        displayAlert.value.push(toastStore.list[0].msg)
       }, 150)
 
       timeout = setTimeout(() => {
-        toasts.list.shift()
+        toastStore.list.shift()
         displayAlert.value.shift()
         timeout = null
-      }, toasts.list[0].duration)
+      }, toastStore.list[0].duration)
     }
   },
   { deep: true }
@@ -37,7 +37,7 @@ function reload() {
       class="absolute bottom-4 right-4 z-50 flex min-w-[440px] flex-row items-center justify-between gap-4 rounded-xl bg-stone-800 p-4 font-medium text-stone-200 on-md:left-4 on-md:min-w-0"
     >
       {{ currentAlert }}
-      <button v-if="toasts.list[0].showAction" @click="reload()" class="h-full text-blue-600 transition-colors hover:text-blue-500">Refresh</button>
+      <button v-if="toastStore.list[0].showAction" @click="reload()" class="h-full text-blue-600 transition-colors hover:text-blue-500">Refresh</button>
     </li>
   </TransitionGroup>
 </template>

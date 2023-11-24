@@ -14,7 +14,7 @@ const isOnEdit = reactive({
 
 <template>
   <div>
-    <div class="sticky top-0 z-10 flex h-[61px] flex-row items-center justify-between bg-emerald-100 pl-2 pr-4">
+    <div class="flex h-[69px] flex-row items-center justify-between border-b border-b-neutral-200 pl-2 pr-4">
       <div class="flex basis-1/2 flex-row items-center gap-3">
         <VButton @click="$router.go(-1)" variant="ghost icon" type="button">
           <span class="material-icons"> arrow_back </span>
@@ -47,7 +47,7 @@ const isOnEdit = reactive({
           </VSelect>
         </label>
 
-        <label class="hidden cursor-pointer select-none items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-200 on-lg:flex">
+        <label class="hidden cursor-pointer select-none items-center justify-center rounded-lg p-2 transition-colors hover:bg-stone-950/5 on-lg:flex">
           <input v-model="isOnEdit.state" type="checkbox" class="hidden" />
           <span v-if="isOnEdit.state" class="material-icons"> menu_book </span>
           <span v-else class="material-icons"> mode_edit </span>
@@ -60,13 +60,13 @@ const isOnEdit = reactive({
     </div>
 
     <!-- the body -->
-    <div v-if="isLoading" class="flex h-[calc(100vh-61px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
+    <div v-if="isLoading" class="flex h-[calc(100vh-69px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
 
-    <div v-else class="flex h-[calc(100vh-61px)] flex-row overflow-y-hidden">
+    <div v-else class="flex h-[calc(100vh-69px)] flex-row overflow-y-hidden">
       <!-- sheet workspace -->
       <div
         :class="[isOnEdit.state ? 'on-lg:block' : 'on-lg:hidden', 'on-lg:basis-full']"
-        class="basis-1/2 border-r border-r-stone-300 on-lg:border-r-0"
+        class="basis-1/2 border-r border-r-neutral-200 on-lg:border-r-0"
       >
         <textarea
           v-model="sheetContent"
@@ -79,7 +79,7 @@ const isOnEdit = reactive({
       <div
         v-html="sheetContentHtml"
         :class="[isOnEdit.state ? 'on-lg:hidden' : 'on-lg:block', 'on-lg:basis-full']"
-        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-stone-300 p-[0.5in] font-['RobotoMono'] text-stone-800 on-lg:border-l-0"
+        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 p-[0.5in] font-['RobotoMono'] text-stone-800 on-lg:border-l-0"
       ></div>
     </div>
   </div>

@@ -29,7 +29,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
         controller = new AbortController()
         const signal = controller.signal
 
-        await fetch('http://localhost:3000/sheets/search/', {
+        await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/search/`, {
           body: JSON.stringify({
             last_id: null,
             key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
@@ -68,7 +68,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
         controller = new AbortController()
         const signal = controller.signal
 
-        await fetch('http://localhost:3000/sheets/get/sheets', {
+        await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheets`, {
           body: JSON.stringify({
             last_id: null,
             key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
@@ -105,7 +105,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
     if (prevSheetList.value.length === 39 || prevSheetList.value.length === 0) {
       if (toValue(searchInput) !== '') {
         const onFetch = async () => {
-          await fetch('http://localhost:3000/sheets/search/', {
+          await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/search/`, {
             ...fetchPreferences,
             body: JSON.stringify({
               last_id: lastSheetId.value,
@@ -134,7 +134,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
         onFetch()
       } else {
         const onFetch = async () => {
-          await fetch('http://localhost:3000/sheets/get/sheets', {
+          await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheets`, {
             ...fetchPreferences,
             body: JSON.stringify({
               last_id: lastSheetId.value,

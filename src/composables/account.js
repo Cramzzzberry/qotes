@@ -1,6 +1,6 @@
 import { toValue } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 import { profileStore } from '@/store'
 
 export function useAccount(accountForm) {
@@ -11,7 +11,7 @@ export function useAccount(accountForm) {
   // getting user data
   const getProfile = () => {
     const onFetch = async () => {
-      await fetch(`http://localhost:3000/users/get-user/${userId}`)
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/get-user/${userId}`)
         .then(async (res) => {
           const profile = await res.json()
 
@@ -35,7 +35,7 @@ export function useAccount(accountForm) {
     })
 
     const onUpdate = async () => {
-      await fetch(`http://localhost:3000/users/update-account/${userId}`, {
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/update-account/${userId}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -48,7 +48,7 @@ export function useAccount(accountForm) {
           profileStore.lastName = formdata.get('last_name')
           profileStore.email = formdata.get('email')
 
-          toasts.add({
+          toastStore.add({
             msg: 'Account updated successfully.',
             duration: 4000
           })
@@ -66,7 +66,7 @@ export function useAccount(accountForm) {
     profileStore.toggleModal()
     router.push({ name: 'index' })
 
-    toasts.add({
+    toastStore.add({
       msg: 'Logged out successfully.',
       duration: 4000
     })
@@ -74,7 +74,7 @@ export function useAccount(accountForm) {
 
   const eraseAcc = () => {
     const onErase = async () => {
-      await fetch(`http://localhost:3000/users/delete-account/${userId}`, {
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/delete-account/${userId}`, {
         method: 'DELETE',
         mode: 'cors'
       })
@@ -82,7 +82,7 @@ export function useAccount(accountForm) {
           localStorage.setItem('token', '')
           localStorage.setItem('user_id', '')
 
-          toasts.add({
+          toastStore.add({
             msg: 'Account deleted successfully.',
             duration: 4000
           })

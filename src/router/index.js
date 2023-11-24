@@ -50,7 +50,7 @@ router.beforeEach(async (to) => {
 })
 
 async function checkAuthentication() {
-  const isAuthenticated = await fetch('http://localhost:3000/auth', {
+  const isAuthenticated = await fetch(`${import.meta.env.VITE_API_DOMAIN}/auth`, {
     method: 'POST',
     mode: 'cors',
     headers: {

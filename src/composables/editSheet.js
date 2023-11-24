@@ -1,6 +1,6 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 import { changeKey } from '@/assets/scripts/change-key'
 import parseSheet from '@/assets/scripts/parse-sheet'
 import sanitizeHtml from 'sanitize-html'
@@ -15,7 +15,7 @@ export function useEditSheet() {
   const isLoading = ref(true)
 
   onMounted(async () => {
-    await fetch(`http://localhost:3000/sheets/get/sheet/${route.params.id}`).then(async (res) => {
+    await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheet/${route.params.id}`).then(async (res) => {
       const response = await res.json()
 
       songTitle.value = response.song_title
@@ -33,7 +33,7 @@ export function useEditSheet() {
 
   const save = () => {
     const onSave = async () => {
-      await fetch(`http://localhost:3000/sheets/update-sheet/${route.params.id}`, {
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/update-sheet/${route.params.id}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -47,7 +47,7 @@ export function useEditSheet() {
         })
       })
         .then(() => {
-          toasts.add({
+          toastStore.add({
             msg: 'Sheet saved successfully.',
             duration: 4000
           })

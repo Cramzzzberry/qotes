@@ -109,7 +109,6 @@ function mergeLyricsAndChords(str) {
 
       while (lengthDiff !== 0) {
         currentLyricChars.push(' ')
-
         lengthDiff--
       }
     }
@@ -132,11 +131,7 @@ function mergeLyricsAndChords(str) {
 }
 
 function containsChord(str) {
-  if (/(^| )([A-G])([#b]?)(m|maj|aug|dim|sus|add)?(M)?([0-9])?(?!\w)/.test(str)) {
-    return true
-  } else {
-    return false
-  }
+  return /(^| )([A-G])([#b]?)(m|maj|aug|dim|sus|add)?(M)?([0-9])?(?!\w)/.test(str)
 }
 
 function isChord(str) {

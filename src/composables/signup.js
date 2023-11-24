@@ -1,5 +1,5 @@
 import { reactive, toValue } from 'vue'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 
 export function useSignup(signupForm) {
   const signUpError = reactive({
@@ -27,7 +27,7 @@ export function useSignup(signupForm) {
             }
           })
 
-          await fetch('http://localhost:3000/users/create-account', {
+          await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/create-account`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -44,7 +44,7 @@ export function useSignup(signupForm) {
                 signUpError.passLength = false
                 signUpError.passConfirm = false
 
-                toasts.add({
+                toastStore.add({
                   msg: 'Account created successfully.',
                   duration: 4000
                 })

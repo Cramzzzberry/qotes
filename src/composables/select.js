@@ -1,5 +1,5 @@
 import { watch } from 'vue'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 import { useRefresh } from '@/composables/refresh'
 import { selectionStore } from '@/store'
 import { socket } from '@/socket'
@@ -51,7 +51,7 @@ export function useSelect() {
     })
 
     refresh()
-    toasts.add({
+    toastStore.add({
       msg: 'List updated.',
       duration: 2000
     })
@@ -66,7 +66,7 @@ export function useSelect() {
     })
 
     refresh()
-    toasts.add({
+    toastStore.add({
       msg: 'List updated.',
       duration: 2000
     })
@@ -76,7 +76,7 @@ export function useSelect() {
     socket.emit('delete sheets', selectionStore.organizedList)
 
     refresh()
-    toasts.add({
+    toastStore.add({
       msg: selectionStore.length > 1 ? `${selectionStore.length} sheets deleted successfully.` : 'Sheet deleted successfully.',
       duration: 2000
     })

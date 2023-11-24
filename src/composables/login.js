@@ -1,6 +1,6 @@
 import { reactive, toValue } from 'vue'
 import { useRouter } from 'vue-router'
-import { toasts } from '@/composables/toast'
+import { toastStore } from '@/store'
 
 export function useLogin(loginForm) {
   const router = useRouter()
@@ -19,7 +19,7 @@ export function useLogin(loginForm) {
         logAccObj[key] = value
       })
 
-      await fetch('http://localhost:3000/users/login-account', {
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/login-account`, {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -31,7 +31,7 @@ export function useLogin(loginForm) {
           const response = await res.json()
 
           if (res.status === 200) {
-            toasts.add({
+            toastStore.add({
               msg: 'Logged in successfully.',
               duration: 4000
             })
@@ -53,7 +53,7 @@ export function useLogin(loginForm) {
         .catch((err) => {
           console.log(err)
 
-          toasts.add({
+          toastStore.add({
             msg: err,
             duration: 4000
           })
