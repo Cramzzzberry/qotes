@@ -58,6 +58,6 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
 <style scoped>
 .dropdown-height-limit:deep(div) {
-  @apply max-h-[calc(100vh-140px)] on-lg:max-h-[calc(100vh-140px-44px)] on-md:max-h-[calc(100vh-140px-92px)] on-sm:max-h-[calc(100vh-140px-60px)];
+  @apply max-h-[calc(100svh-140px)] on-lg:max-h-[calc(100svh-140px-44px)] on-md:max-h-[calc(100svh-140px-92px)] on-sm:max-h-[calc(100svh-140px-60px)];
 }
 </style>

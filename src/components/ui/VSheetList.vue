@@ -6,7 +6,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-2 px-16 on-xl:grid-cols-2 on-lg:grid-cols-1 on-md:px-6 on-md:pb-20 on-sm:grid-cols-1">
+  <div class="grid grid-cols-3 gap-2 px-16 on-xl:grid-cols-2 on-lg:grid-cols-1 on-md:px-6 on-md:pb-20 on-sm:grid-cols-1 on-sm:px-3">
     <div
       v-for="(sheet, index) in props.sheetList"
       :key="index"

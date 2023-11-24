@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="absolute left-0 top-0 z-40 flex h-[100svh] w-screen items-center justify-center transition-all duration-150 ease-in-out on-md:p-8"
+    class="absolute left-0 top-0 z-40 flex h-[100svh] w-screen items-center justify-center transition-all duration-150 ease-in-out on-md:p-4"
     :class="[props.state ? 'visible opacity-100' : 'invisible opacity-0']"
   >
     <div class="absolute top-0 h-full w-full bg-stone-950 opacity-25"></div>

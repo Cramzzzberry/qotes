@@ -62,9 +62,9 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
 </script>
 
 <template>
-  <div class="grow overflow-y-scroll pb-2" ref="scrollComponent">
+  <div class="grow overflow-y-scroll" ref="scrollComponent">
     <div
-      class="sticky top-0 z-10 h-[132px] bg-emerald-50 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:pt-4"
+      class="sticky top-0 z-10 h-[132px] bg-emerald-50 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:px-4 on-sm:pt-4"
     >
       <Transition name="fade-down" mode="out-in">
         <!-- topbar -->
@@ -94,7 +94,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
           </div>
 
           <!-- action bar -->
-          <div class="flex basis-1/2 flex-row items-center justify-end gap-2 on-xl:basis-[527px] on-lg:w-full on-lg:basis-auto">
+          <div class="flex basis-1/2 flex-row items-center justify-end gap-2 on-xl:basis-[527px] on-lg:w-full on-lg:basis-auto on-sm:gap-1">
             <slot name="action-bar" />
 
             <!-- profile section -->
