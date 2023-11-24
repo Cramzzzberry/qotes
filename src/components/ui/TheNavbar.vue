@@ -155,6 +155,6 @@ const { create } = useCreateSheet(createSheetForm)
 }
 
 .nav-points:hover:disabled {
-  @apply text-stone-600;
+  @apply w-8 bg-transparent;
 }
 </style>
