@@ -154,7 +154,7 @@ const { create } = useCreateSheet(createSheetForm)
   @apply opacity-60;
 }
 
-.nav-points:hover:disabled {
+.nav-points:hover:disabled > .material-icons {
   @apply w-8 bg-transparent;
 }
 </style>
