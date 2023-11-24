@@ -28,7 +28,7 @@ const { create } = useCreateSheet(createSheetForm)
 </script>
 
 <template>
-  <div class="flex h-[100dvh] flex-row font-medium on-md:flex-col-reverse">
+  <div class="flex h-[100svh] flex-row font-medium on-md:flex-col-reverse">
     <!-- the sidebar wrapper -->
     <div
       class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden px-3 py-6 on-md:flex-row on-md:border-t on-md:border-t-neutral-200 on-md:p-3"

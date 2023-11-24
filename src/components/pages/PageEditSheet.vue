@@ -13,7 +13,7 @@ const isOnEdit = reactive({
 </script>
 
 <template>
-  <div>
+  <div class="h-[100svh]">
     <div class="flex h-[69px] flex-row items-center justify-between border-b border-b-neutral-200 pl-2 pr-4">
       <div class="flex basis-1/2 flex-row items-center gap-3">
         <VButton @click="$router.go(-1)" variant="ghost icon" type="button">
