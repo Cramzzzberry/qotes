@@ -32,7 +32,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
         await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/search/`, {
           body: JSON.stringify({
             last_id: null,
-            key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+            key: toValue(sheetKey),
             tag: tag,
             searchInput: toValue(searchInput)
           }),
@@ -71,7 +71,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
         await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheets`, {
           body: JSON.stringify({
             last_id: null,
-            key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+            key: toValue(sheetKey),
             tag: tag,
             searchInput: toValue(searchInput)
           }),
@@ -109,7 +109,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
             ...fetchPreferences,
             body: JSON.stringify({
               last_id: lastSheetId.value,
-              key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+              key: toValue(sheetKey),
               tag: tag,
               searchInput: toValue(searchInput)
             })
@@ -138,7 +138,7 @@ export function useFetchSheets(searchInput, tag, sheetKey) {
             ...fetchPreferences,
             body: JSON.stringify({
               last_id: lastSheetId.value,
-              key: toValue(sheetKey).toLowerCase().replace(' ', '-'),
+              key: toValue(sheetKey),
               tag: tag,
               searchInput: toValue(searchInput)
             })
