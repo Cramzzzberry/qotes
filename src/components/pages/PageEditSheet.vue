@@ -79,7 +79,7 @@ const isOnEdit = reactive({
       <div
         v-html="sheetContentHtml"
         :class="[isOnEdit.state ? 'on-lg:hidden' : 'on-lg:block', 'on-lg:basis-full']"
-        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 p-[0.5in] font-['RobotoMono'] text-stone-800 on-lg:border-l-0"
+        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 p-[0.5in] font-['RobotoMono'] text-stone-800 on-lg:border-l-0 on-sm:px-8 on-sm:py-4"
       ></div>
     </div>
   </div>

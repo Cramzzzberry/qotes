@@ -39,7 +39,7 @@ export function useSignup(signupForm) {
               const response = await res.json()
 
               if (response.success) {
-                isSignUpPage.state = true
+                isSignUpPage.state = false
 
                 signUpError.passLength = false
                 signUpError.passConfirm = false
