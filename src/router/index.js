@@ -29,6 +29,10 @@ const router = createRouter({
       }
     },
     {
+      path: '/',
+      redirect: { name: 'login' }
+    },
+    {
       path: '/edit/:id',
       name: 'edit',
       meta: {

@@ -33,7 +33,7 @@ const { create } = useCreateSheet(createSheetForm)
     <div
       class="flex shrink-0 flex-col items-center justify-between overflow-hidden overflow-x-hidden px-3 py-6 on-md:flex-row on-md:border-t on-md:border-t-neutral-200 on-md:p-3"
     >
-      <div class="items-centeron-md:w-full flex flex-col on-md:flex-row on-md:justify-around">
+      <div class="flex flex-col items-center on-md:w-full on-md:flex-row on-md:justify-around">
         <button
           @click="createSheet.toggleModal()"
           class="flex h-16 w-16 items-center justify-center rounded-[16px] bg-amber-200 text-amber-900 transition-colors hover:bg-amber-300 on-md:absolute on-md:bottom-[88px] on-md:right-[24px] on-md:z-10"

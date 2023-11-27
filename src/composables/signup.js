@@ -42,7 +42,7 @@ export function useSignup(signupForm) {
 
                 toastStore.add({
                   msg: 'Account created successfully.',
-                  duration: 1000
+                  duration: 2000
                 })
 
                 toastStore.add({
