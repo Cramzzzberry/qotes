@@ -104,7 +104,7 @@ function subTextStyles() {
     <input
       v-bind="$attrs"
       :class="textBoxStyles()"
-      class="rounded-lg border bg-transparent px-4 py-2 text-base text-stone-800 outline-none transition-colors ease-in-out on-md:text-sm"
+      class="rounded-lg border bg-transparent px-3 py-2 text-base text-stone-800 outline-none transition-colors ease-in-out on-md:text-sm"
       size="1"
     />
     <span v-if="props.subText" :class="subTextStyles()" class="text-sm">{{ props.subText }}</span>

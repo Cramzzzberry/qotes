@@ -30,7 +30,7 @@ onMounted(() => getProfile())
   <!-- modal for profile options -->
   <VModal :state="profileStore.modalState">
     <!-- header section -->
-    <div class="flex w-full flex-row items-center justify-between">
+    <div class="mb-2 flex w-full flex-row items-center justify-between">
       <h2>Account Settings</h2>
       <VButton @click="profileStore.toggleModal()" variant="ghost icon" type="button">
         <span class="material-icons"> close </span>

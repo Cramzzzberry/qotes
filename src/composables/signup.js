@@ -1,17 +1,13 @@
 import { reactive, toValue } from 'vue'
+import { useRouter } from 'vue-router'
 import { toastStore } from '@/store'
 
 export function useSignup(signupForm) {
+  const router = useRouter()
+
   const signUpError = reactive({
     passLength: false,
     passConfirm: false
-  })
-
-  const isSignUpPage = reactive({
-    state: false,
-    toggle() {
-      this.state = !this.state
-    }
   })
 
   const signUp = () => {
@@ -39,13 +35,18 @@ export function useSignup(signupForm) {
               const response = await res.json()
 
               if (response.success) {
-                isSignUpPage.state = false
+                router.push({ name: 'login' })
 
                 signUpError.passLength = false
                 signUpError.passConfirm = false
 
                 toastStore.add({
                   msg: 'Account created successfully.',
+                  duration: 1000
+                })
+
+                toastStore.add({
+                  msg: 'Please wait for the account approval.',
                   duration: 4000
                 })
               }
@@ -66,5 +67,5 @@ export function useSignup(signupForm) {
     onSignUp()
   }
 
-  return { signUp, isSignUpPage, signUpError }
+  return { signUp, signUpError }
 }

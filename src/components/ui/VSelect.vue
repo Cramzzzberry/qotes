@@ -10,14 +10,6 @@ const props = defineProps({
     type: String,
     default: null
   },
-  btnColor: {
-    type: String,
-    default: null
-  },
-  listColor: {
-    type: String,
-    default: null
-  },
   name: {
     type: String,
     required: true
@@ -45,44 +37,14 @@ const dropdownPosition = {
 
 function buttonStyle() {
   let btnFoundation = ''
-  let btnColor = ''
 
   if (props.variant === null) {
-    btnFoundation = 'px-4 py-2 border-stone-400'
-    if (props.btnColor === null) {
-      btnColor = 'hover:border-stone-500 text-stone-800'
-    } else if (props.btnColor === 'primary') {
-      btnColor = 'text-emerald-500 hover:border-emerald-500'
-    } else if (props.btnColor === 'error') {
-      btnColor = 'text-red-500 hover:border-red-500'
-    } else if (props.btnColor === 'info') {
-      btnColor = 'text-blue-400 hover:border-blue-400'
-    } else if (props.btnColor === 'warning') {
-      btnColor = 'text-amber-500 hover:border-amber-400'
-    }
+    btnFoundation = 'px-4 py-2 border-stone-400 focus:border-emerald-500 hover:border-emerald-500 text-stone-800'
   } else if (props.variant === 'ghost') {
     btnFoundation = 'border-transparent hover:text-stone-600'
   }
 
-  return btnFoundation + ' ' + btnColor
-}
-
-function selectedStyle() {
-  let selectedColor = ''
-
-  if (props.listColor === null) {
-    selectedColor = 'peer-checked:bg-stone-800 peer-checked:text-stone-200'
-  } else if (props.listColor === 'primary') {
-    selectedColor = 'peer-checked:bg-emerald-400 peer-checked:text-emerald-900'
-  } else if (props.listColor === 'error') {
-    selectedColor = 'peer-checked:bg-red-500 peer-checked:text-red-900'
-  } else if (props.listColor === 'info') {
-    selectedColor = 'peer-checked:bg-blue-400 peer-checked:text-blue-900'
-  } else if (props.listColor === 'warning') {
-    selectedColor = 'peer-checked:bg-amber-500 peer-checked:text-amber-900'
-  }
-
-  return selectedColor
+  return btnFoundation
 }
 </script>
 
@@ -123,8 +85,7 @@ function selectedStyle() {
             <label
               :for="item + props.name"
               tabindex="0"
-              :class="selectedStyle()"
-              class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-950/5"
+              class="block w-full cursor-pointer whitespace-nowrap rounded-md bg-transparent px-4 py-2 text-stone-800 transition-colors duration-100 ease-in-out hover:bg-stone-950/5 peer-checked:bg-emerald-400 peer-checked:text-emerald-900"
             >
               {{ item }}
             </label>

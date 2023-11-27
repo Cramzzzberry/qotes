@@ -30,7 +30,6 @@ export function useLogin(loginForm) {
         .then(async (res) => {
           if (res.status === 200) {
             const response = await res.json()
-
             localStorage.setItem('token', response.token)
             localStorage.setItem('user_id', response.userId)
 
@@ -44,8 +43,17 @@ export function useLogin(loginForm) {
 
             router.push({ name: 'home', params: { userId: response.userId } })
           } else if (res.status === 401) {
-            loginError.accExistence = false
-            loginError.password = true
+            if (res.message === 'Wrong password!') {
+              loginError.accExistence = false
+              loginError.password = true
+            } else {
+              const response = await res.json()
+
+              toastStore.add({
+                msg: response.message,
+                duration: 4000
+              })
+            }
           } else if (res.status === 400) {
             loginError.accExistence = true
           }
