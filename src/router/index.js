@@ -50,16 +50,25 @@ router.beforeEach(async (to) => {
 })
 
 async function checkAuthentication() {
+  const userId = localStorage.getItem('user_id')
+  const token = localStorage.getItem('token')
+
   const isAuthenticated = await fetch(`${import.meta.env.VITE_API_DOMAIN}/auth`, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      authorization: localStorage.getItem('token')
-    }
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      userId: userId
+    })
   })
     .then(async (res) => {
-      const response = await res.json()
-      return response.authenticated
+      if (res.status === 200) {
+        return true
+      } else if (res.status === 401) {
+        return false
+      }
     })
     .catch((err) => console.log(err))
 

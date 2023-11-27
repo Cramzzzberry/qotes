@@ -60,16 +60,30 @@ export function useAccount(accountForm) {
   }
 
   const logout = () => {
-    localStorage.setItem('token', '')
-    localStorage.setItem('user_id', '')
+    const onLogout = async () => {
+      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/logout-account`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(() => {
+          localStorage.setItem('token', '')
+          localStorage.setItem('user_id', '')
 
-    profileStore.toggleModal()
-    router.push({ name: 'index' })
+          profileStore.toggleModal()
+          router.push({ name: 'index' })
 
-    toastStore.add({
-      msg: 'Logged out successfully.',
-      duration: 4000
-    })
+          toastStore.add({
+            msg: 'Logged out successfully.',
+            duration: 4000
+          })
+        })
+        .catch((err) => console.log(err))
+    }
+
+    onLogout()
   }
 
   const eraseAcc = () => {
@@ -81,6 +95,7 @@ export function useAccount(accountForm) {
         .then(() => {
           localStorage.setItem('token', '')
           localStorage.setItem('user_id', '')
+
           profileStore.toggleModal()
           profileStore.toggleDeleteDialog()
 
@@ -89,7 +104,7 @@ export function useAccount(accountForm) {
             duration: 4000
           })
 
-          router.push('/')
+          router.push({ name: 'index' })
         })
         .catch((err) => console.log(err))
     }

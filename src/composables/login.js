@@ -28,19 +28,19 @@ export function useLogin(loginForm) {
         body: JSON.stringify(logAccObj)
       })
         .then(async (res) => {
-          const response = await res.json()
-
           if (res.status === 200) {
-            toastStore.add({
-              msg: 'Logged in successfully.',
-              duration: 4000
-            })
+            const response = await res.json()
 
             localStorage.setItem('token', response.token)
             localStorage.setItem('user_id', response.userId)
 
             loginError.accExistence = false
             loginError.password = false
+
+            toastStore.add({
+              msg: 'Logged in successfully.',
+              duration: 4000
+            })
 
             router.push({ name: 'home', params: { userId: response.userId } })
           } else if (res.status === 401) {

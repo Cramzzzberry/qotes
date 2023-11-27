@@ -143,7 +143,7 @@ const { create } = useCreateSheet(createSheetForm)
 }
 
 .nav-points.active > .material-icons {
-  @apply w-16 !bg-emerald-400;
+  @apply !w-16 !bg-emerald-400;
 }
 
 .nav-points:hover > .material-icons {
