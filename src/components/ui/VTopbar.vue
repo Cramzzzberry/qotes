@@ -157,7 +157,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
     <VDialog
       :state="pinDialog.state"
       header="Pin Sheets"
-      :body="`Do you want to pin ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'}?`"
+      :body="`Do you want to ${pinDialog.makeItPinned ? 'pin' : 'unpin'} ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'}?`"
       cancel-label="No"
       confirm-label="Yes"
       @cancel="pinDialog.toggle()"
