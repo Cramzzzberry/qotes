@@ -67,7 +67,8 @@ function buttonStyle() {
       btnColor = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
     }
   } else if (props.variant === 'ghost icon') {
-    btnFoundation = 'justify-center bg-transparent p-2 border-transparent hover:bg-emerald-950/5'
+    btnFoundation =
+      'justify-center bg-transparent before:transition-all border-transparent before:-top-2 before:-bottom-2 before:-left-2 before:rounded-lg before:-right-2 content-[""] before:absolute relative before:hover:bg-emerald-950/5'
     if (props.color === null) {
       btnColor = 'text-emerald-950'
     } else if (props.color === 'primary') {

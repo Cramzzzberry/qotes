@@ -63,7 +63,7 @@ const { create } = useCreateSheet(createSheetForm)
 
     <!-- create sheet modal -->
     <VModal :state="createSheet.modalState">
-      <div class="flex flex-row items-center justify-between">
+      <div class="mb-2 flex flex-row items-center justify-between">
         <h2>Create new sheet</h2>
 
         <!-- close button -->

@@ -112,7 +112,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
         </div>
 
         <div v-else class="flex h-full flex-row items-center justify-between on-lg:items-end on-lg:pb-4 on-md:pb-0">
-          <div class="flex flex-row items-center gap-2">
+          <div class="flex flex-row items-center gap-4">
             <VButton @click="cancelSelection()" variant="ghost icon" type="button">
               <span class="material-icons font-bold"> close </span>
             </VButton>

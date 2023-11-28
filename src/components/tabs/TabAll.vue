@@ -35,7 +35,7 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
       </div>
 
       <!-- music keys dropdown -->
-      <VSelect v-model="keysLabel" :list="keysList" list-color="primary" position="bottom end" name="songkeys" class="dropdown-height-limit w-[82px]">
+      <VSelect v-model="keysLabel" :list="keysList" position="bottom end" name="songkeys" class="dropdown-height-limit w-[82px]">
         <span v-if="keysLabel === 'All Keys'" class="material-icons text-[24px] on-md:text-[20px]"> audiotrack </span>
         <span v-else>{{ keysLabel }}</span>
       </VSelect>

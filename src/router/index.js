@@ -4,9 +4,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'index',
+      path: '/login',
+      name: 'login',
       component: () => import('@/components/pages/PageLogin.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('@/components/pages/PageSignup.vue')
     },
     {
       path: '/home/:userId',
@@ -24,6 +29,10 @@ const router = createRouter({
       }
     },
     {
+      path: '/',
+      redirect: { name: 'login' }
+    },
+    {
       path: '/edit/:id',
       name: 'edit',
       meta: {
@@ -39,8 +48,8 @@ router.beforeEach(async (to) => {
   const isAuthenticated = await checkAuthentication()
 
   if (to.meta.requiresAuth) {
-    if (!isAuthenticated && to.path !== '/') {
-      return { name: 'index', replace: true }
+    if (!isAuthenticated && to.path !== '/login') {
+      return { name: 'login', replace: true }
     }
   } else {
     if (isAuthenticated) {

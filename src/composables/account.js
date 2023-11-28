@@ -73,7 +73,7 @@ export function useAccount(accountForm) {
           localStorage.setItem('user_id', '')
 
           profileStore.toggleModal()
-          router.push({ name: 'index' })
+          router.push({ name: 'login' })
 
           toastStore.add({
             msg: 'Logged out successfully.',
@@ -104,7 +104,7 @@ export function useAccount(accountForm) {
             duration: 4000
           })
 
-          router.push({ name: 'index' })
+          router.push({ name: 'login' })
         })
         .catch((err) => console.log(err))
     }
