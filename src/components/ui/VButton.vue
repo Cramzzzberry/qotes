@@ -28,7 +28,7 @@ function buttonStyle() {
       btnColor = 'bg-amber-400 text-amber-950 hover:bg-amber-500 border-amber-400 hover:border-amber-500'
     }
   } else if (props.variant === 'ghost') {
-    btnFoundation = 'bg-transparent px-4 py-2 hover:bg-emerald-950/5 border-transparent'
+    btnFoundation = 'bg-transparent px-4 py-2 hover:bg-emerald-950/5 active:bg-emerald-950/10 border-transparent'
     if (props.color === null) {
       btnColor = 'text-emerald-950'
     } else if (props.color === 'primary') {
@@ -68,7 +68,7 @@ function buttonStyle() {
     }
   } else if (props.variant === 'ghost icon') {
     btnFoundation =
-      'justify-center bg-transparent before:transition-all border-transparent before:-top-2 before:-bottom-2 before:-left-2 before:rounded-lg before:-right-2 content-[""] before:absolute relative before:hover:bg-emerald-950/5'
+      'justify-center bg-transparent before:transition-all border-transparent before:-top-2 before:-bottom-2 before:-left-2 before:rounded-lg before:-right-2 content-[""] before:absolute relative before:hover:bg-emerald-950/5 before:active:bg-emerald-950/10'
     if (props.color === null) {
       btnColor = 'text-emerald-950'
     } else if (props.color === 'primary') {

@@ -43,7 +43,7 @@ const props = defineProps({
         />
         <label
           :for="sheet.id"
-          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-emerald-950 transition-colors hover:bg-stone-950/5"
+          class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-emerald-950 transition-colors hover:bg-stone-950/5 active:bg-stone-950/10"
         >
           <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank
