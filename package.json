@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "watch": "vite build -w",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
@@ -12,6 +13,7 @@
   "dependencies": {
     "marked": "^9.0.3",
     "material-icons": "^1.13.11",
+    "pwa-asset-generator": "^6.3.1",
     "sanitize-html": "^2.11.0",
     "socket.io-client": "^4.7.2",
     "vue": "^3.3.4",
@@ -28,6 +30,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.5",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-plugin-pwa": "^0.17.2"
   }
 }
