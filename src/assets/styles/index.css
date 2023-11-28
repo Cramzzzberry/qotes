@@ -50,19 +50,14 @@
     @apply my-2 border border-stone-700;
   }
 
-  /* scrollbar */
-  /* ::-webkit-scrollbar {
-    @apply h-2 w-2 bg-neutral-200;
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 
-  ::-webkit-scrollbar-thumb {
-    @apply bg-stone-400;
-  } */
-
   /* selection  */
-  /* ::selection {
-    @apply bg-ocean-green-800 text-ocean-green-200
-  } */
+  ::selection {
+    @apply bg-emerald-400/25;
+  }
 }
 
 @layer utilities {
