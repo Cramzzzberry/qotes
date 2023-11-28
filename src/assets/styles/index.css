@@ -38,7 +38,8 @@
     @apply bg-emerald-50 font-['Inter'] text-emerald-950;
   }
 
-  .material-icons {
+  .material-icons,
+  .material-icons-outlined {
     @apply on-md:text-[20px];
   }
 
