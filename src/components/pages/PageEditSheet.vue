@@ -24,9 +24,13 @@ const isOnEdit = reactive({
           <input
             type="text"
             v-model="songTitle"
-            class="h-fit w-full rounded-sm bg-transparent px-1 text-lg font-semibold outline-neutral-400 focus:outline"
+            class="h-fit w-full truncate rounded-sm bg-transparent px-1 text-lg font-semibold outline-neutral-400 focus:outline"
           />
-          <input type="text" v-model="artist" class="h-fit w-full rounded-sm bg-transparent px-1 outline-neutral-400 focus:outline on-md:text-sm" />
+          <input
+            type="text"
+            v-model="artist"
+            class="h-fit w-full truncate rounded-sm bg-transparent px-1 outline-neutral-400 focus:outline on-md:text-sm"
+          />
         </div>
       </div>
 

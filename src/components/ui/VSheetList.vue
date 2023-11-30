@@ -33,7 +33,7 @@ const props = defineProps({
       </router-link>
 
       <!-- checkbox -->
-      <div class="h-[80px] w-12">
+      <div class="h-[80px] w-12 shrink-0">
         <input
           type="checkbox"
           class="invisible absolute -top-10"
