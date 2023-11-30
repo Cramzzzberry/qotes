@@ -13,8 +13,37 @@ export default defineConfig({
       manifest: {
         name: 'Qotes',
         short_name: 'Qotes',
+        start_url: '/qotes/',
         display: 'standalone',
-        background_color: '#ecfdf5'
+        background_color: '#ecfdf5',
+        lang: 'en',
+        scope: '/qotes/',
+        icons: [
+          {
+            src: 'icons/manifest-icon-192.maskable.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icons/manifest-icon-192.maskable.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: 'icons/manifest-icon-512.maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icons/manifest-icon-512.maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
       }
     })
   ],
