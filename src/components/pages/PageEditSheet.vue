@@ -24,20 +24,20 @@ const isOnEdit = reactive({
           <input
             type="text"
             v-model="songTitle"
-            class="h-fit w-full rounded-sm bg-transparent px-1 text-lg font-semibold outline-stone-400 focus:outline"
+            class="h-fit w-full rounded-sm bg-transparent px-1 text-lg font-semibold outline-neutral-400 focus:outline"
           />
-          <input type="text" v-model="artist" class="h-fit w-full rounded-sm bg-transparent px-1 outline-stone-400 focus:outline on-md:text-sm" />
+          <input type="text" v-model="artist" class="h-fit w-full rounded-sm bg-transparent px-1 outline-neutral-400 focus:outline on-md:text-sm" />
         </div>
       </div>
 
       <div class="flex flex-row items-center justify-end gap-2">
         <div class="hidden select-none flex-row items-center gap-1 on-lg:flex">
           <span class="material-icons text-lg"> mode_edit </span>
-          <label class="relative flex h-[22px] w-[40px] cursor-pointer items-center rounded-full border border-stone-400 bg-stone-200 p-[2px]">
+          <label class="relative flex h-[22px] w-[40px] cursor-pointer items-center rounded-full border border-neutral-400 bg-neutral-200 p-[2px]">
             <input v-model="isOnEdit.state" type="checkbox" class="hidden" />
             <div
               :class="{ 'translate-x-[calc(100%-2px)]': !isOnEdit.state }"
-              class="absolute flex h-[18px] w-[18px] items-center justify-center rounded-full border border-stone-300 bg-stone-50 transition-transform"
+              class="absolute flex h-[18px] w-[18px] items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 transition-transform"
             ></div>
           </label>
           <span class="material-icons text-lg"> menu_book </span>
@@ -69,7 +69,7 @@ const isOnEdit = reactive({
         <textarea
           v-model="sheetContent"
           spellcheck="false"
-          class="h-full w-full resize-none border-none bg-emerald-50 pb-[6rem] pl-4 pt-4 font-['RobotoMono'] text-base text-stone-800 outline-none on-lg:px-8 on-md:text-sm"
+          class="h-full w-full resize-none border-none bg-emerald-50 pb-[6rem] pl-4 pt-4 font-['RobotoMono'] text-base text-neutral-800 outline-none on-lg:px-8 on-md:text-sm"
         ></textarea>
       </div>
 
@@ -77,7 +77,7 @@ const isOnEdit = reactive({
       <div
         v-html="sheetContentHtml"
         :class="[isOnEdit.state ? 'on-lg:hidden' : 'on-lg:block', 'on-lg:basis-full']"
-        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 px-[0.5in] pb-[5rem] pt-[0.5in] font-['RobotoMono'] text-stone-800 on-lg:border-l-0 on-sm:px-8 on-sm:pt-4"
+        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 px-[0.5in] pb-[5rem] pt-[0.5in] font-['RobotoMono'] text-neutral-800 on-lg:border-l-0 on-sm:px-8 on-sm:pt-4"
       ></div>
     </div>
   </div>

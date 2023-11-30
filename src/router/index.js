@@ -72,7 +72,7 @@ async function checkAuthentication() {
       userId: userId
     })
   })
-    .then(async (res) => {
+    .then((res) => {
       if (res.status === 200) {
         return true
       } else if (res.status === 401) {
