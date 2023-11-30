@@ -97,7 +97,7 @@
   }
 
   .markdown-preview > .song-section {
-    @apply leading-[3rem] text-emerald-500;
+    @apply text-emerald-500;
   }
 
   #app {
