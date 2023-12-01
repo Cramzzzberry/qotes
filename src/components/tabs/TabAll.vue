@@ -36,7 +36,7 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
       <!-- music keys dropdown -->
       <VSelect v-model="keysLabel" :list="keysList" position="bottom end" name="songkeys" class="dropdown-height-limit w-[82px]">
-        <span v-if="keysLabel === 'All Keys'" class="material-icons text-[24px] on-md:text-[20px]"> audiotrack </span>
+        <span v-if="keysLabel === 'All Keys'" class="material-icons text-[24px] on-md:text-[20px]"> piano </span>
         <span v-else>{{ keysLabel }}</span>
       </VSelect>
     </template>
@@ -47,9 +47,10 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
       <div
         v-else-if="searchResults.length === 0 && !isLoading"
-        class="flex h-[calc(100%-132px)] w-full items-center justify-center on-lg:h-[calc(100%-186px)] on-md:h-[calc(100%-142px)] on-sm:h-[calc(100%-110px)]"
+        class="flex h-[calc(100%-132px)] w-full flex-col items-center justify-center text-neutral-950/25 on-lg:h-[calc(100%-186px)] on-md:h-[calc(100%-142px)]"
       >
-        No sheets available
+        <span class="material-icons text-[80px]"> description </span>
+        <span class="text-lg font-semibold">No sheets available</span>
       </div>
 
       <VSheetList v-else :sheet-list="searchResults" />
@@ -60,6 +61,6 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 
 <style scoped>
 .dropdown-height-limit:deep(div) {
-  @apply max-h-[calc(100svh-140px)] on-lg:max-h-[calc(100svh-140px-44px)] on-md:max-h-[calc(100svh-140px-92px)] on-sm:max-h-[calc(100svh-140px-60px)];
+  @apply max-h-[calc(100svh-140px)] on-lg:max-h-[calc(100svh-140px-44px)] on-md:max-h-[calc(100svh-140px-92px)];
 }
 </style>

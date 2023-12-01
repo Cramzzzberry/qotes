@@ -34,10 +34,16 @@ function reload() {
     <li
       v-for="(currentAlert, index) in displayAlert"
       :key="index"
-      class="absolute bottom-[16px] right-4 z-50 flex min-w-[440px] flex-row items-center justify-between gap-4 rounded-xl bg-stone-800 p-4 font-medium text-stone-200 on-md:left-4 on-md:min-w-0"
+      class="pointer-events-none absolute bottom-[16px] right-4 z-50 flex min-w-[440px] flex-row items-center justify-between gap-4 rounded-xl bg-stone-800 p-4 font-medium text-stone-200 on-md:left-4 on-md:min-w-0"
     >
       {{ currentAlert }}
-      <button v-if="toastStore.list[0].showAction" @click="reload()" class="h-full text-blue-600 transition-colors hover:text-blue-500">Refresh</button>
+      <button
+        v-if="toastStore.list[0].showAction"
+        @click="reload()"
+        class="pointer-events-auto h-full text-blue-600 transition-colors hover:text-blue-500"
+      >
+        Refresh
+      </button>
     </li>
   </TransitionGroup>
 </template>

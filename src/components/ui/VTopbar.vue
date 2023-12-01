@@ -64,7 +64,7 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
 <template>
   <div class="grow overflow-y-scroll" ref="scrollComponent">
     <div
-      class="sticky top-0 z-10 h-[132px] bg-emerald-50 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:h-[110px] on-sm:px-4 on-sm:pt-4"
+      class="sticky top-0 z-10 h-[132px] bg-emerald-50 px-16 pb-3 pt-16 on-lg:h-[186px] on-md:h-[142px] on-md:px-8 on-md:pb-2 on-md:pt-12 on-sm:px-4"
     >
       <Transition name="fade-down" mode="out-in">
         <!-- topbar -->
@@ -73,11 +73,11 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
           class="flex flex-row items-center justify-between on-lg:flex-col on-lg:items-start on-lg:justify-normal on-lg:gap-2"
         >
           <div class="flex flex-row items-center justify-between on-lg:w-full">
-            <div class="flex flex-row items-center gap-4">
-              <h1>{{ props.topBarTitle }}</h1>
-              <span v-if="props.topBarIcon !== null" class="material-icons text-3xl">
+            <div class="flex flex-row items-center gap-2">
+              <span v-if="props.topBarIcon !== null" class="material-icons text-3xl on-md:text-2xl">
                 {{ props.topBarIcon }}
               </span>
+              <h1>{{ props.topBarTitle }}</h1>
             </div>
 
             <!-- profile section -->
