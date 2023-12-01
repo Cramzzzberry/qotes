@@ -12,16 +12,17 @@ export function useEditSheet() {
   const artist = ref('')
   const sheetKey = ref('')
   const sheetContent = ref('')
-  let isLoading
+  const isLoading = ref(true)
 
   onMounted(async () => {
-    isLoading = await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheet/${route.params.id}`).then(async (res) => {
+    await fetch(`${import.meta.env.VITE_API_DOMAIN}/sheets/get/sheet/${route.params.id}`).then(async (res) => {
       const response = await res.json()
 
       songTitle.value = response.song_title
       artist.value = response.artist
       sheetKey.value = response.song_key
       sheetContent.value = response.content
+      isLoading.value = false
 
       //transposition watch
       watch(sheetKey, (newKey, oldKey) => {

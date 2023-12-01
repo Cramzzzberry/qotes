@@ -62,14 +62,11 @@ const isOnEdit = reactive({
     </div>
 
     <!-- the body -->
-    <div v-if="isLoading" class="flex h-[calc(100svh-69px)] w-screen animate-pulse items-center justify-center">- loading sheets -</div>
+    <div v-if="isLoading" class="flex h-[calc(100svh-69px)] w-screen animate-pulse items-center justify-center text-neutral-950/50">Loading sheet</div>
 
     <div v-else class="flex h-[calc(100vh-69px)] flex-row overflow-y-hidden">
       <!-- sheet workspace -->
-      <div
-        :class="[isOnEdit.state ? 'on-lg:block' : 'on-lg:hidden', 'on-lg:basis-full']"
-        class="basis-1/2 border-r border-r-neutral-200 on-lg:border-r-0"
-      >
+      <div :class="[isOnEdit.state ? 'on-lg:block' : 'on-lg:hidden']" class="basis-1/2 border-r border-r-neutral-200 on-lg:basis-full on-lg:border-r-0">
         <textarea
           v-model="sheetContent"
           spellcheck="false"
@@ -80,8 +77,8 @@ const isOnEdit = reactive({
       <!-- sheet display -->
       <div
         v-html="sheetContentHtml"
-        :class="[isOnEdit.state ? 'on-lg:hidden' : 'on-lg:block', 'on-lg:basis-full']"
-        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 px-[0.5in] pb-[5rem] pt-[0.5in] font-['RobotoMono'] text-neutral-800 on-lg:border-l-0 on-sm:px-8 on-sm:pt-4"
+        :class="[isOnEdit.state ? 'on-lg:hidden' : 'on-lg:block']"
+        class="markdown-preview h-full basis-1/2 overflow-y-auto border-l border-l-neutral-200 px-[0.5in] pb-[5rem] pt-[0.5in] font-['RobotoMono'] text-neutral-800 on-lg:basis-full on-lg:border-l-0 on-sm:px-8 on-sm:pt-4"
       ></div>
     </div>
   </div>
