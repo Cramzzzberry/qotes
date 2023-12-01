@@ -23,7 +23,22 @@ export const profileStore = reactive({
   firstName: '',
   lastName: '',
   initials: computed(() => {
-    return profileStore.firstName.split('')[0] + profileStore.lastName.split('')[0]
+    let firstLetter
+    let lastLetter
+
+    if (profileStore.firstName.split('')[0] === undefined) {
+      firstLetter = ''
+    } else {
+      firstLetter = profileStore.firstName.split('')[0]
+    }
+
+    if (profileStore.lastName.split('')[0] === undefined) {
+      lastLetter = ''
+    } else {
+      lastLetter = profileStore.lastName.split('')[0]
+    }
+
+    return firstLetter + lastLetter
   }),
   modalState: false,
   deleteDialogState: false,

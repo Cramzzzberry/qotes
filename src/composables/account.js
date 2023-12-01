@@ -1,4 +1,4 @@
-import { toValue } from 'vue'
+import { toValue, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { toastStore } from '@/store'
 import { profileStore } from '@/store'
@@ -9,22 +9,19 @@ export function useAccount(accountForm) {
   const userId = route.params.userId
 
   // getting user data
-  const getProfile = () => {
-    const onFetch = async () => {
-      await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/get-user/${userId}`)
-        .then(async (res) => {
-          const profile = await res.json()
+  onMounted(async () => {
+    await fetch(`${import.meta.env.VITE_API_DOMAIN}/users/get-user/${userId}`)
+      .then(async (res) => {
+        const profile = await res.json()
 
-          profileStore.firstName = profile.first_name
-          profileStore.lastName = profile.last_name
-          profileStore.email = profile.email
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-    onFetch()
-  }
+        profileStore.firstName = profile.first_name
+        profileStore.lastName = profile.last_name
+        profileStore.email = profile.email
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
 
   const update = () => {
     const formdata = new FormData(toValue(accountForm))
@@ -112,5 +109,5 @@ export function useAccount(accountForm) {
     onErase()
   }
 
-  return { update, logout, eraseAcc, getProfile }
+  return { update, logout, eraseAcc }
 }

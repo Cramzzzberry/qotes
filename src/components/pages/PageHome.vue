@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAccount } from '@/composables/account'
 
@@ -14,8 +14,7 @@ const tabs = [TabAll, TabPinned, TabImportant]
 localStorage.setItem('user_id', route.params.userId)
 
 const updateAccountForm = ref(null)
-const { update, logout, eraseAcc, getProfile } = useAccount(updateAccountForm)
-onMounted(() => getProfile())
+const { update, logout, eraseAcc } = useAccount(updateAccountForm)
 </script>
 
 <template>
@@ -54,6 +53,7 @@ onMounted(() => getProfile())
           <span class="material-icons"> update </span>
           Update Account
         </VButton>
+
         <div class="flex w-full flex-row items-center justify-between px-2">
           <button
             @click="profileStore.toggleDeleteDialog()"
