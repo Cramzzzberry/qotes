@@ -5,7 +5,6 @@ import { setKeys } from '@/assets/scripts/change-key'
 import VTopbar from '@/components/ui/VTopbar.vue'
 
 const title = 'All Sheets'
-const desc = 'A collection of sheets including pinned and important ones'
 const icon = 'description'
 
 const searchInput = ref('')
@@ -16,7 +15,7 @@ const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, '
 </script>
 
 <template>
-  <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc">
+  <VTopbar :top-bar-title="title" :top-bar-icon="icon">
     <template #action-bar>
       <!-- search box -->
       <div class="grow">

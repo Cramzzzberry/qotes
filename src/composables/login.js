@@ -43,12 +43,12 @@ export function useLogin(loginForm) {
 
             router.push({ name: 'home', params: { userId: response.userId } })
           } else if (res.status === 401) {
-            if (res.message === 'Wrong password!') {
+            const response = await res.json()
+
+            if (response.message === 'Wrong password!') {
               loginError.accExistence = false
               loginError.password = true
             } else {
-              const response = await res.json()
-
               toastStore.add({
                 msg: response.message,
                 duration: 4000

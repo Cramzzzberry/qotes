@@ -10,7 +10,7 @@ export function useCreateSheet(form) {
     const formdata = new FormData(toValue(form))
     const formValues = {}
     formdata.forEach((value, key) => {
-      if (value === 'pinned' || value === 'important') {
+      if (value === 'lineup' || value === 'important') {
         formValues[key] = true
       } else {
         formValues[key] = value
