@@ -11,15 +11,10 @@ const props = defineProps({
     required: true,
     default: 'Put title here'
   },
-  topBarDesc: {
-    type: String,
-    required: true,
-    default: 'Put description here'
-  },
   topBarIcon: String
 })
 
-const { pin, important, eraseSheets, cancelSelection } = useSelect()
+const { lineup, important, eraseSheets, cancelSelection } = useSelect()
 const deleteDialog = reactive({
   state: false,
   toggle() {
@@ -31,15 +26,15 @@ const deleteDialog = reactive({
   }
 })
 
-const pinDialog = reactive({
+const lineupDialog = reactive({
   state: false,
-  makeItPinned: null,
-  toggle(pin = null) {
+  addToLineup: null,
+  toggle(lineup = null) {
     this.state = !this.state
-    this.makeItPinned = pin
+    this.addToLineup = lineup
   },
   confirm() {
-    pin(this.makeItPinned)
+    lineup(this.addToLineup)
     this.toggle()
   }
 })
@@ -119,11 +114,11 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
             <h1><span class="on-lg:hidden">Selected sheets</span> ({{ selectionStore.length }})</h1>
           </div>
           <div class="flex flex-row gap-2">
-            <VButton v-if="!selectionStore.organizedList.pinStates.includes('true')" @click="pinDialog.toggle(true)" variant="ghost">
+            <VButton v-if="!selectionStore.organizedList.lineupStates.includes('true')" @click="lineupDialog.toggle(true)" variant="ghost">
               <span class="material-icons-outlined"> push_pin </span>
               <span class="on-sm:hidden">Pin</span>
             </VButton>
-            <VButton v-if="!selectionStore.organizedList.pinStates.includes('false')" @click="pinDialog.toggle(false)" variant="ghost">
+            <VButton v-if="!selectionStore.organizedList.lineupStates.includes('false')" @click="lineupDialog.toggle(false)" variant="ghost">
               <span class="material-icons"> push_pin </span>
               <span class="on-sm:hidden">Unpin</span>
             </VButton>
@@ -155,13 +150,15 @@ onMounted(() => (scrollStore.value = scrollComponent.value))
     />
 
     <VDialog
-      :state="pinDialog.state"
+      :state="lineupDialog.state"
       header="Pin Sheets"
-      :body="`Do you want to ${pinDialog.makeItPinned ? 'pin' : 'unpin'} ${selectionStore.length} ${selectionStore.length > 1 ? 'sheets' : ' sheet'}?`"
+      :body="`Do you want to ${lineupDialog.addToLineup ? 'add' : 'remove'} ${selectionStore.length} ${
+        selectionStore.length > 1 ? 'sheets' : ' sheet'
+      } ${lineupDialog.addToLineup ? 'to the lineup?' : 'from the lineup?'}`"
       cancel-label="No"
       confirm-label="Yes"
-      @cancel="pinDialog.toggle()"
-      @confirm="pinDialog.confirm()"
+      @cancel="lineupDialog.toggle()"
+      @confirm="lineupDialog.confirm()"
     />
 
     <VDialog

@@ -4,19 +4,18 @@ import { useFetchSheets } from '@/composables/fetchSheets'
 import { setKeys } from '@/assets/scripts/change-key'
 import VTopbar from '@/components/ui/VTopbar.vue'
 
-const title = 'Pinned'
-const desc = 'Put sheets here that are used in general'
+const title = 'Lineup'
 const icon = 'push_pin'
 
 const searchInput = ref('')
 const keysLabel = ref('All Keys')
 const keysList = ['All Keys', ...setKeys]
 
-const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'pinned-sheets', keysLabel)
+const { searchResults, isLoading, showLoadMore } = useFetchSheets(searchInput, 'lineup', keysLabel)
 </script>
 
 <template>
-  <VTopbar :top-bar-title="title" :top-bar-icon="icon" :top-bar-desc="desc">
+  <VTopbar :top-bar-title="title" :top-bar-icon="icon">
     <template #action-bar>
       <!-- search box -->
       <div class="grow">

@@ -20,7 +20,7 @@ export function useSelect() {
       return datum.split('===')[0]
     })
 
-    const _dataPinStates = selectionStore.list.map((datum) => {
+    const _dataLineupStates = selectionStore.list.map((datum) => {
       return datum.split('===')[1]
     })
 
@@ -30,7 +30,7 @@ export function useSelect() {
 
     selectionStore.organizedList = {
       ids: _dataId,
-      pinStates: _dataPinStates,
+      lineupStates: _dataLineupStates,
       importantStates: _dataImportantStates
     }
 
@@ -42,10 +42,10 @@ export function useSelect() {
     selectionStore.list = []
   }
 
-  const pin = (makeItPinned) => {
+  const lineup = (addToLineup) => {
     socket.emit('update sheets', {
       data: {
-        pinned: makeItPinned ? true : false
+        lineup: addToLineup ? true : false
       },
       ...selectionStore.organizedList
     })
@@ -82,5 +82,5 @@ export function useSelect() {
     })
   }
 
-  return { pin, important, eraseSheets, cancelSelection }
+  return { lineup, important, eraseSheets, cancelSelection }
 }

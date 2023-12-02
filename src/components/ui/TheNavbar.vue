@@ -48,7 +48,7 @@ const { create } = useCreateSheet(createSheetForm)
           </button>
           <button @click="page.set(1)" :disabled="selectionStore.isFilled" :class="[page.index === 1 ? 'active' : '']" class="nav-points">
             <span class="material-icons"> push_pin </span>
-            <span>Pinned</span>
+            <span>Lineup</span>
           </button>
           <button @click="page.set(2)" :disabled="selectionStore.isFilled" :class="[page.index === 2 ? 'active' : '']" class="nav-points">
             <span class="material-icons"> lightbulb </span>
@@ -103,15 +103,15 @@ const { create } = useCreateSheet(createSheetForm)
         </div>
 
         <div class="flex select-none gap-2 text-stone-600">
-          <!-- pinned checkbox -->
-          <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="pinned" name="pinned" id="pinned" />
+          <!-- Lineup checkbox -->
+          <input type="checkbox" class="invisible absolute -top-10" v-model="createSheet.category" value="lineup" name="lineup" id="lineup" />
           <label
-            for="pinned"
+            for="lineup"
             class="flex w-fit cursor-pointer items-center justify-center rounded-lg py-2 pl-2 pr-3 transition-colors hover:bg-stone-950/5"
           >
-            <span v-if="!createSheet.category.includes('pinned')" class="material-icons select-none"> check_box_outline_blank </span>
+            <span v-if="!createSheet.category.includes('lineup')" class="material-icons select-none"> check_box_outline_blank </span>
             <span v-else class="material-icons select-none"> check_box </span>
-            <span class="pl-2">Pinned</span>
+            <span class="pl-2">Lineup</span>
           </label>
 
           <!-- important checkbox -->

@@ -21,8 +21,8 @@ const props = defineProps({
             <span class="truncate text-lg font-medium leading-none on-md:text-base">{{ sheet.song_title }}</span>
             <span class="truncate text-sm text-stone-600 on-md:text-[0.75rem]">{{ sheet.artist }}</span>
             <div class="flex select-none flex-row gap-1">
-              <div v-if="sheet.pinned" class="gap-2 rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400 on-md:text-[0.625rem]">
-                Pinned
+              <div v-if="sheet.lineup" class="gap-2 rounded-full border border-blue-400 px-2 text-[0.75rem] text-blue-400 on-md:text-[0.625rem]">
+                Lineup
               </div>
               <div v-if="sheet.important" class="gap-2 rounded-full border border-amber-500 px-2 text-[0.75rem] text-amber-500 on-md:text-[0.625rem]">
                 Important
@@ -38,14 +38,14 @@ const props = defineProps({
           type="checkbox"
           class="invisible absolute -top-10"
           v-model="selectionStore.list"
-          :value="`${sheet.id}===${sheet.pinned}===${sheet.important}`"
+          :value="`${sheet.id}===${sheet.lineup}===${sheet.important}`"
           :id="sheet.id"
         />
         <label
           :for="sheet.id"
           class="flex h-full w-full cursor-pointer items-center justify-center rounded-lg text-emerald-950 transition-colors hover:bg-stone-950/5 active:bg-stone-950/10"
         >
-          <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.pinned}===${sheet.important}`)" class="material-icons select-none">
+          <span v-if="!selectionStore.list.includes(`${sheet.id}===${sheet.lineup}===${sheet.important}`)" class="material-icons select-none">
             check_box_outline_blank
           </span>
           <span v-else class="material-icons select-none"> check_box </span>

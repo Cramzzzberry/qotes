@@ -5,12 +5,12 @@ import { useAccount } from '@/composables/account'
 
 import TheNavbar from '@/components/ui/TheNavbar.vue'
 import TabAll from '@/components/tabs/TabAll.vue'
-import TabPinned from '@/components/tabs/TabPinned.vue'
+import TabLineup from '@/components/tabs/TabLineup.vue'
 import TabImportant from '@/components/tabs/TabImportant.vue'
 import { profileStore } from '@/store'
 
 const route = useRoute()
-const tabs = [TabAll, TabPinned, TabImportant]
+const tabs = [TabAll, TabLineup, TabImportant]
 localStorage.setItem('user_id', route.params.userId)
 
 const updateAccountForm = ref(null)
